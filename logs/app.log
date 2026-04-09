@@ -1,0 +1,996 @@
+2026-04-10 00:01:12 - INFO - org.springframework.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-10 00:01:12 - INFO - org.springframework.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-04-10 00:01:12 - INFO - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 00:01:12 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-10 00:01:12 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-10 00:01:23 - INFO - com.school.App - Starting App using Java 25.0.2 with PID 1460 (C:\Users\HP\Downloads\backend\target\classes started by HP in C:\Users\HP\Downloads\backend)
+2026-04-10 00:01:23 - DEBUG - com.school.App - Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-04-10 00:01:23 - INFO - com.school.App - No active profile set, falling back to 1 default profile: "default"
+2026-04-10 00:01:25 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-10 00:01:25 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 77 ms. Found 5 JPA repository interfaces.
+2026-04-10 00:01:25 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2026-04-10 00:01:26 - INFO - org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-10 00:01:26 - INFO - org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-04-10 00:01:26 - INFO - org.springframework.boot.web.context.servlet.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 2400 ms
+2026-04-10 00:01:26 - INFO - org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-10 00:01:26 - INFO - org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-04-10 00:01:26 - INFO - org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-10 00:01:27 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-10 00:01:27 - INFO - com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@77476fcf
+2026-04-10 00:01:27 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-10 00:01:27 - INFO - org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/app]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.44
+	Default catalog/schema: app/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-10 00:01:28 - INFO - org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-10 00:01:29 - INFO - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 00:01:29 - INFO - org.springframework.data.jpa.repository.query.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-10 00:01:29 - WARN - org.springframework.boot.jpa.autoconfigure.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-10 00:01:29 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/'
+2026-04-10 00:01:29 - INFO - com.school.App - Started App in 6.993 seconds (process running for 8.292)
+2026-04-10 00:06:16 - INFO - org.springframework.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-10 00:06:16 - INFO - org.springframework.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-04-10 00:06:16 - INFO - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 00:06:16 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-10 00:06:16 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-10 00:06:20 - INFO - com.school.App - Starting App using Java 25.0.2 with PID 2480 (C:\Users\HP\Downloads\backend\target\classes started by HP in C:\Users\HP\Downloads\backend)
+2026-04-10 00:06:20 - DEBUG - com.school.App - Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-04-10 00:06:20 - INFO - com.school.App - No active profile set, falling back to 1 default profile: "default"
+2026-04-10 00:06:21 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-10 00:06:21 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 92 ms. Found 5 JPA repository interfaces.
+2026-04-10 00:06:22 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2026-04-10 00:06:22 - INFO - org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-10 00:06:22 - INFO - org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-04-10 00:06:22 - INFO - org.springframework.boot.web.context.servlet.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1862 ms
+2026-04-10 00:06:22 - INFO - org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-10 00:06:22 - INFO - org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-04-10 00:06:23 - INFO - org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-10 00:06:23 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-10 00:06:23 - INFO - com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@77476fcf
+2026-04-10 00:06:23 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-10 00:06:23 - INFO - org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/app]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.44
+	Default catalog/schema: app/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-10 00:06:25 - INFO - org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-10 00:06:25 - INFO - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 00:06:25 - INFO - org.springframework.data.jpa.repository.query.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-10 00:06:25 - WARN - org.springframework.boot.jpa.autoconfigure.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-10 00:06:25 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/'
+2026-04-10 00:06:25 - INFO - com.school.App - Started App in 6.03 seconds (process running for 6.836)
+2026-04-10 00:10:28 - INFO - org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-10 00:10:28 - INFO - org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-04-10 00:10:28 - INFO - org.springframework.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2026-04-10 00:11:00 - INFO - org.springframework.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-10 00:11:00 - INFO - org.springframework.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-04-10 00:11:00 - INFO - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 00:11:00 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-10 00:11:00 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-10 00:11:03 - INFO - com.school.App - Starting App using Java 25.0.2 with PID 9968 (C:\Users\HP\Downloads\backend\target\classes started by HP in C:\Users\HP\Downloads\backend)
+2026-04-10 00:11:03 - DEBUG - com.school.App - Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-04-10 00:11:03 - INFO - com.school.App - No active profile set, falling back to 1 default profile: "default"
+2026-04-10 00:11:04 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-10 00:11:04 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 82 ms. Found 5 JPA repository interfaces.
+2026-04-10 00:11:05 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2026-04-10 00:11:05 - INFO - org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-10 00:11:05 - INFO - org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-04-10 00:11:05 - INFO - org.springframework.boot.web.context.servlet.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1647 ms
+2026-04-10 00:11:05 - INFO - org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-10 00:11:05 - INFO - org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-04-10 00:11:06 - INFO - org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-10 00:11:06 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-10 00:11:06 - INFO - com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@77476fcf
+2026-04-10 00:11:06 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-10 00:11:06 - INFO - org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/app]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.44
+	Default catalog/schema: app/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-10 00:11:07 - INFO - org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-10 00:11:07 - INFO - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 00:11:07 - INFO - org.springframework.data.jpa.repository.query.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-10 00:11:07 - WARN - org.springframework.boot.jpa.autoconfigure.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-10 00:11:08 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/'
+2026-04-10 00:11:08 - INFO - com.school.App - Started App in 5.392 seconds (process running for 6.009)
+2026-04-10 00:14:21 - INFO - org.springframework.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-10 00:14:21 - INFO - org.springframework.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-04-10 00:14:21 - INFO - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 00:14:21 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-10 00:14:21 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-10 00:14:26 - INFO - com.school.App - Starting App using Java 25.0.2 with PID 4384 (C:\Users\HP\Downloads\backend\target\classes started by HP in C:\Users\HP\Downloads\backend)
+2026-04-10 00:14:26 - DEBUG - com.school.App - Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-04-10 00:14:26 - INFO - com.school.App - No active profile set, falling back to 1 default profile: "default"
+2026-04-10 00:14:28 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-10 00:14:28 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 98 ms. Found 5 JPA repository interfaces.
+2026-04-10 00:14:29 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2026-04-10 00:14:29 - INFO - org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-10 00:14:29 - INFO - org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-04-10 00:14:29 - INFO - org.springframework.boot.web.context.servlet.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 2161 ms
+2026-04-10 00:14:29 - INFO - org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-10 00:14:29 - INFO - org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-04-10 00:14:30 - INFO - org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-10 00:14:30 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-10 00:14:31 - INFO - com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@57eed461
+2026-04-10 00:14:31 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-10 00:14:31 - INFO - org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/app]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.44
+	Default catalog/schema: app/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-10 00:14:33 - INFO - org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-10 00:14:33 - INFO - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 00:14:33 - INFO - org.springframework.data.jpa.repository.query.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-10 00:14:33 - WARN - org.springframework.boot.jpa.autoconfigure.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-10 00:14:34 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/'
+2026-04-10 00:14:34 - INFO - com.school.App - Started App in 8.471 seconds (process running for 10.586)
+2026-04-10 00:16:07 - INFO - org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-10 00:16:07 - INFO - org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-04-10 00:16:07 - INFO - org.springframework.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2026-04-10 00:21:38 - INFO - com.school.controller.CourseController - Get request for courses
+2026-04-10 00:21:38 - INFO - com.school.controller.StudentController - Get mapping of all students
+2026-04-10 00:21:39 - INFO - com.school.controller.CourseController - Found 7 courses
+2026-04-10 00:21:39 - INFO - com.school.controller.CourseController - Get request for courses
+2026-04-10 00:21:39 - INFO - com.school.controller.CourseController - Found 7 courses
+2026-04-10 00:21:39 - INFO - com.school.controller.StudentController - Get mapping of all students
+2026-04-10 00:25:49 - INFO - org.springframework.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-10 00:25:49 - INFO - org.springframework.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-04-10 00:25:49 - INFO - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 00:25:49 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-10 00:25:49 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-10 00:26:04 - INFO - com.school.App - Starting App using Java 25.0.2 with PID 19020 (C:\Users\HP\Downloads\backend\target\classes started by HP in C:\Users\HP\Downloads\backend)
+2026-04-10 00:26:04 - DEBUG - com.school.App - Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-04-10 00:26:04 - INFO - com.school.App - No active profile set, falling back to 1 default profile: "default"
+2026-04-10 00:26:07 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-10 00:26:07 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 172 ms. Found 5 JPA repository interfaces.
+2026-04-10 00:26:09 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2026-04-10 00:26:09 - INFO - org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-10 00:26:09 - INFO - org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-04-10 00:26:09 - INFO - org.springframework.boot.web.context.servlet.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 5089 ms
+2026-04-10 00:26:10 - INFO - org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-10 00:26:10 - INFO - org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-04-10 00:26:12 - INFO - org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-10 00:26:12 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-10 00:26:14 - INFO - com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5bc14211
+2026-04-10 00:26:14 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-10 00:26:14 - INFO - org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/app]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.44
+	Default catalog/schema: app/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-10 00:26:17 - INFO - org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-10 00:26:17 - INFO - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 00:26:17 - INFO - org.springframework.data.jpa.repository.query.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-10 00:26:18 - WARN - org.springframework.boot.jpa.autoconfigure.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-10 00:26:19 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/'
+2026-04-10 00:26:19 - INFO - com.school.App - Started App in 18.032 seconds (process running for 22.159)
+2026-04-10 00:28:40 - INFO - org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-10 00:28:40 - INFO - org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-04-10 00:28:40 - INFO - org.springframework.web.servlet.DispatcherServlet - Completed initialization in 8 ms
+2026-04-10 00:28:41 - WARN - org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Method parameter 'courseId': Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: "undefined"]
+2026-04-10 00:31:58 - WARN - org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Method parameter 'courseId': Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: "undefined"]
+2026-04-10 00:32:14 - WARN - org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Method parameter 'courseId': Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: "undefined"]
+2026-04-10 00:43:00 - INFO - com.school.controller.CourseController - Updating courseName Mathematics  
+2026-04-10 00:43:00 - INFO - com.school.controller.CourseController - Course updated with id 1 
+2026-04-10 00:43:00 - INFO - com.school.controller.StudentController - Get mapping of all students
+2026-04-10 00:43:00 - INFO - com.school.controller.CourseController - Get request for courses
+2026-04-10 00:43:01 - INFO - com.school.controller.CourseController - Found 7 courses
+2026-04-10 00:44:14 - INFO - com.school.controller.CourseController - Updating courseName Computing 
+2026-04-10 00:44:14 - INFO - com.school.controller.CourseController - Course updated with id 2 
+2026-04-10 00:44:14 - INFO - com.school.controller.StudentController - Get mapping of all students
+2026-04-10 00:44:14 - INFO - com.school.controller.CourseController - Get request for courses
+2026-04-10 00:44:14 - INFO - com.school.controller.CourseController - Found 7 courses
+2026-04-10 01:08:42 - WARN - org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.bind.MissingPathVariableException: Required URI template variable 'CourseId' for method parameter type Long is not present]
+2026-04-10 01:09:05 - INFO - org.springframework.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-10 01:09:05 - INFO - org.springframework.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-04-10 01:09:05 - INFO - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 01:09:05 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-10 01:09:05 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-10 01:09:10 - INFO - com.school.App - Starting App using Java 25.0.2 with PID 9344 (C:\Users\HP\Downloads\backend\target\classes started by HP in C:\Users\HP\Downloads\backend)
+2026-04-10 01:09:10 - DEBUG - com.school.App - Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-04-10 01:09:10 - INFO - com.school.App - No active profile set, falling back to 1 default profile: "default"
+2026-04-10 01:09:11 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-10 01:09:11 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 115 ms. Found 5 JPA repository interfaces.
+2026-04-10 01:09:13 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2026-04-10 01:09:13 - INFO - org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-10 01:09:13 - INFO - org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-04-10 01:09:13 - INFO - org.springframework.boot.web.context.servlet.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 2945 ms
+2026-04-10 01:09:13 - INFO - org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-10 01:09:14 - INFO - org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-04-10 01:09:15 - INFO - org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-10 01:09:15 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-10 01:09:16 - INFO - com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@560d6d2
+2026-04-10 01:09:16 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-10 01:09:16 - INFO - org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/app]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.44
+	Default catalog/schema: app/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-10 01:09:19 - INFO - org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-10 01:09:19 - INFO - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 01:09:19 - INFO - org.springframework.data.jpa.repository.query.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-10 01:09:20 - WARN - org.springframework.boot.jpa.autoconfigure.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-10 01:09:21 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/'
+2026-04-10 01:09:21 - INFO - com.school.App - Started App in 12.522 seconds (process running for 14.386)
+2026-04-10 01:11:14 - INFO - org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-10 01:11:14 - INFO - org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-04-10 01:11:14 - INFO - org.springframework.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2026-04-10 01:11:14 - WARN - org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.bind.MissingPathVariableException: Required URI template variable 'CourseId' for method parameter type Long is not present]
+2026-04-10 01:17:05 - INFO - org.springframework.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-10 01:17:05 - INFO - org.springframework.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-04-10 01:17:05 - INFO - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 01:17:05 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-10 01:17:05 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-10 01:17:10 - INFO - com.school.App - Starting App using Java 25.0.2 with PID 16748 (C:\Users\HP\Downloads\backend\target\classes started by HP in C:\Users\HP\Downloads\backend)
+2026-04-10 01:17:10 - DEBUG - com.school.App - Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-04-10 01:17:10 - INFO - com.school.App - No active profile set, falling back to 1 default profile: "default"
+2026-04-10 01:17:12 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-10 01:17:12 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 109 ms. Found 5 JPA repository interfaces.
+2026-04-10 01:17:13 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2026-04-10 01:17:13 - INFO - org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-10 01:17:13 - INFO - org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-04-10 01:17:13 - INFO - org.springframework.boot.web.context.servlet.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 2895 ms
+2026-04-10 01:17:14 - INFO - org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-10 01:17:14 - INFO - org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-04-10 01:17:15 - INFO - org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-10 01:17:15 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-10 01:17:16 - INFO - com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1c2b65cc
+2026-04-10 01:17:16 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-10 01:17:16 - INFO - org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/app]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.44
+	Default catalog/schema: app/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-10 01:17:19 - INFO - org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-10 01:17:19 - INFO - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 01:17:19 - INFO - org.springframework.data.jpa.repository.query.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-10 01:17:20 - WARN - org.springframework.boot.jpa.autoconfigure.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-10 01:17:20 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/'
+2026-04-10 01:17:20 - INFO - com.school.App - Started App in 11.703 seconds (process running for 13.271)
+2026-04-10 01:17:23 - INFO - org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-10 01:17:23 - INFO - org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-04-10 01:17:23 - INFO - org.springframework.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2026-04-10 01:17:23 - WARN - org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.bind.MissingPathVariableException: Required URI template variable 'CourseId' for method parameter type Long is not present]
+2026-04-10 01:17:47 - WARN - org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.bind.MissingPathVariableException: Required URI template variable 'CourseId' for method parameter type Long is not present]
+2026-04-10 01:18:55 - INFO - com.school.controller.StudentController - Get mapping of all students
+2026-04-10 01:18:55 - INFO - com.school.controller.CourseController - Get request for courses
+2026-04-10 01:18:56 - INFO - com.school.controller.CourseController - Found 7 courses
+2026-04-10 01:18:56 - INFO - com.school.controller.StudentController - Get mapping of all students
+2026-04-10 01:18:56 - INFO - com.school.controller.CourseController - Get request for courses
+2026-04-10 01:18:56 - INFO - com.school.controller.CourseController - Found 7 courses
+2026-04-10 01:19:50 - WARN - org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.bind.MissingPathVariableException: Required URI template variable 'CourseId' for method parameter type Long is not present]
+2026-04-10 01:23:03 - INFO - org.springframework.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-10 01:23:03 - INFO - org.springframework.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-04-10 01:23:03 - INFO - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 01:23:03 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-10 01:23:03 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-10 01:23:12 - INFO - com.school.App - Starting App using Java 25.0.2 with PID 14640 (C:\Users\HP\Downloads\backend\target\classes started by HP in C:\Users\HP\Downloads\backend)
+2026-04-10 01:23:12 - DEBUG - com.school.App - Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-04-10 01:23:12 - INFO - com.school.App - No active profile set, falling back to 1 default profile: "default"
+2026-04-10 01:23:14 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-10 01:23:14 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 107 ms. Found 5 JPA repository interfaces.
+2026-04-10 01:23:15 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2026-04-10 01:23:15 - INFO - org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-10 01:23:15 - INFO - org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-04-10 01:23:15 - INFO - org.springframework.boot.web.context.servlet.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 2589 ms
+2026-04-10 01:23:16 - INFO - org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-10 01:23:16 - INFO - org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-04-10 01:23:17 - INFO - org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-10 01:23:17 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-10 01:23:18 - INFO - com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@595184d8
+2026-04-10 01:23:18 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-10 01:23:18 - INFO - org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/app]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.44
+	Default catalog/schema: app/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-10 01:23:19 - ERROR - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Failed to initialize JPA EntityManagerFactory: Property 'com.school.entity.Course.assignment' is not a collection and may not be a '@OneToMany', '@ManyToMany', or '@ElementCollection'
+2026-04-10 01:23:19 - WARN - org.springframework.boot.web.server.servlet.context.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Property 'com.school.entity.Course.assignment' is not a collection and may not be a '@OneToMany', '@ManyToMany', or '@ElementCollection'
+2026-04-10 01:23:19 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-10 01:23:19 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-10 01:23:19 - INFO - org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+2026-04-10 01:23:19 - INFO - org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-04-10 01:23:19 - ERROR - org.springframework.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Property 'com.school.entity.Course.assignment' is not a collection and may not be a '@OneToMany', '@ManyToMany', or '@ElementCollection'
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1817)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:977)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:621)
+	at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at com.school.App.main(App.java:9)
+Caused by: org.hibernate.AnnotationException: Property 'com.school.entity.Course.assignment' is not a collection and may not be a '@OneToMany', '@ManyToMany', or '@ElementCollection'
+	at org.hibernate.boot.model.internal.CollectionBinder.determineSemanticJavaType(CollectionBinder.java:996)
+	at org.hibernate.boot.model.internal.CollectionBinder.determineCollectionClassification(CollectionBinder.java:880)
+	at org.hibernate.boot.model.internal.CollectionBinder.createBinderAutomatically(CollectionBinder.java:784)
+	at org.hibernate.boot.model.internal.CollectionBinder.getCollectionBinder(CollectionBinder.java:778)
+	at org.hibernate.boot.model.internal.CollectionBinder.bindCollection(CollectionBinder.java:225)
+	at org.hibernate.boot.model.internal.PropertyBinder.bindProperty(PropertyBinder.java:895)
+	at org.hibernate.boot.model.internal.PropertyBinder.buildProperty(PropertyBinder.java:792)
+	at org.hibernate.boot.model.internal.PropertyBinder.processElementAnnotations(PropertyBinder.java:719)
+	at org.hibernate.boot.model.internal.EntityBinder.processIdPropertiesIfNotAlready(EntityBinder.java:1072)
+	at org.hibernate.boot.model.internal.EntityBinder.handleIdentifier(EntityBinder.java:380)
+	at org.hibernate.boot.model.internal.EntityBinder.bindEntityClass(EntityBinder.java:217)
+	at org.hibernate.boot.model.internal.AnnotationBinder.bindClass(AnnotationBinder.java:247)
+	at org.hibernate.boot.model.source.internal.annotations.AnnotationMetadataSourceProcessorImpl.processEntityHierarchies(AnnotationMetadataSourceProcessorImpl.java:190)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess$1.processEntityHierarchies(MetadataBuildingProcess.java:291)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.coordinateProcessors(MetadataBuildingProcess.java:325)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:199)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1392)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.populateSessionFactoryBuilder(EntityManagerFactoryBuilderImpl.java:1472)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1454)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:93)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:443)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:436)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:411)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:419)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1864)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1813)
+	... 15 common frames omitted
+2026-04-10 01:24:21 - INFO - com.school.App - Starting App using Java 25.0.2 with PID 8704 (C:\Users\HP\Downloads\backend\target\classes started by HP in C:\Users\HP\Downloads\backend)
+2026-04-10 01:24:21 - DEBUG - com.school.App - Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-04-10 01:24:21 - INFO - com.school.App - No active profile set, falling back to 1 default profile: "default"
+2026-04-10 01:24:22 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-10 01:24:22 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 85 ms. Found 5 JPA repository interfaces.
+2026-04-10 01:24:23 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2026-04-10 01:24:23 - INFO - org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-10 01:24:23 - INFO - org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-04-10 01:24:23 - INFO - org.springframework.boot.web.context.servlet.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1921 ms
+2026-04-10 01:24:23 - INFO - org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-10 01:24:23 - INFO - org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-04-10 01:24:24 - INFO - org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-10 01:24:24 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-10 01:24:25 - INFO - com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@614cd187
+2026-04-10 01:24:25 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-10 01:24:25 - INFO - org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/app]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.44
+	Default catalog/schema: app/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-10 01:24:25 - ERROR - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Failed to initialize JPA EntityManagerFactory: Property 'com.school.entity.Course.assignment' is not a collection and may not be a '@OneToMany', '@ManyToMany', or '@ElementCollection'
+2026-04-10 01:24:25 - WARN - org.springframework.boot.web.server.servlet.context.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Property 'com.school.entity.Course.assignment' is not a collection and may not be a '@OneToMany', '@ManyToMany', or '@ElementCollection'
+2026-04-10 01:24:25 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-10 01:24:25 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-10 01:24:25 - INFO - org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+2026-04-10 01:24:25 - INFO - org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-04-10 01:24:25 - ERROR - org.springframework.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Property 'com.school.entity.Course.assignment' is not a collection and may not be a '@OneToMany', '@ManyToMany', or '@ElementCollection'
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1817)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:977)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:621)
+	at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at com.school.App.main(App.java:9)
+Caused by: org.hibernate.AnnotationException: Property 'com.school.entity.Course.assignment' is not a collection and may not be a '@OneToMany', '@ManyToMany', or '@ElementCollection'
+	at org.hibernate.boot.model.internal.CollectionBinder.determineSemanticJavaType(CollectionBinder.java:996)
+	at org.hibernate.boot.model.internal.CollectionBinder.determineCollectionClassification(CollectionBinder.java:880)
+	at org.hibernate.boot.model.internal.CollectionBinder.createBinderAutomatically(CollectionBinder.java:784)
+	at org.hibernate.boot.model.internal.CollectionBinder.getCollectionBinder(CollectionBinder.java:778)
+	at org.hibernate.boot.model.internal.CollectionBinder.bindCollection(CollectionBinder.java:225)
+	at org.hibernate.boot.model.internal.PropertyBinder.bindProperty(PropertyBinder.java:895)
+	at org.hibernate.boot.model.internal.PropertyBinder.buildProperty(PropertyBinder.java:792)
+	at org.hibernate.boot.model.internal.PropertyBinder.processElementAnnotations(PropertyBinder.java:719)
+	at org.hibernate.boot.model.internal.EntityBinder.processIdPropertiesIfNotAlready(EntityBinder.java:1072)
+	at org.hibernate.boot.model.internal.EntityBinder.handleIdentifier(EntityBinder.java:380)
+	at org.hibernate.boot.model.internal.EntityBinder.bindEntityClass(EntityBinder.java:217)
+	at org.hibernate.boot.model.internal.AnnotationBinder.bindClass(AnnotationBinder.java:247)
+	at org.hibernate.boot.model.source.internal.annotations.AnnotationMetadataSourceProcessorImpl.processEntityHierarchies(AnnotationMetadataSourceProcessorImpl.java:190)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess$1.processEntityHierarchies(MetadataBuildingProcess.java:291)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.coordinateProcessors(MetadataBuildingProcess.java:325)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:199)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1392)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.populateSessionFactoryBuilder(EntityManagerFactoryBuilderImpl.java:1472)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1454)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:93)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:443)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:436)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:411)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:419)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1864)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1813)
+	... 15 common frames omitted
+2026-04-10 01:24:31 - INFO - com.school.App - Starting App using Java 25.0.2 with PID 11460 (C:\Users\HP\Downloads\backend\target\classes started by HP in C:\Users\HP\Downloads\backend)
+2026-04-10 01:24:31 - DEBUG - com.school.App - Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-04-10 01:24:31 - INFO - com.school.App - No active profile set, falling back to 1 default profile: "default"
+2026-04-10 01:24:32 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-10 01:24:32 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 91 ms. Found 5 JPA repository interfaces.
+2026-04-10 01:24:33 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2026-04-10 01:24:33 - INFO - org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-10 01:24:33 - INFO - org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-04-10 01:24:33 - INFO - org.springframework.boot.web.context.servlet.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1896 ms
+2026-04-10 01:24:33 - INFO - org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-10 01:24:33 - INFO - org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-04-10 01:24:34 - INFO - org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-10 01:24:34 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-10 01:24:34 - INFO - com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@614cd187
+2026-04-10 01:24:34 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-10 01:24:34 - INFO - org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/app]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.44
+	Default catalog/schema: app/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-10 01:24:34 - ERROR - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Failed to initialize JPA EntityManagerFactory: Property 'com.school.entity.Course.assignment' is not a collection and may not be a '@OneToMany', '@ManyToMany', or '@ElementCollection'
+2026-04-10 01:24:34 - WARN - org.springframework.boot.web.server.servlet.context.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Property 'com.school.entity.Course.assignment' is not a collection and may not be a '@OneToMany', '@ManyToMany', or '@ElementCollection'
+2026-04-10 01:24:34 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-10 01:24:34 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-10 01:24:35 - INFO - org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+2026-04-10 01:24:35 - INFO - org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-04-10 01:24:35 - ERROR - org.springframework.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Property 'com.school.entity.Course.assignment' is not a collection and may not be a '@OneToMany', '@ManyToMany', or '@ElementCollection'
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1817)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:977)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:621)
+	at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at com.school.App.main(App.java:9)
+Caused by: org.hibernate.AnnotationException: Property 'com.school.entity.Course.assignment' is not a collection and may not be a '@OneToMany', '@ManyToMany', or '@ElementCollection'
+	at org.hibernate.boot.model.internal.CollectionBinder.determineSemanticJavaType(CollectionBinder.java:996)
+	at org.hibernate.boot.model.internal.CollectionBinder.determineCollectionClassification(CollectionBinder.java:880)
+	at org.hibernate.boot.model.internal.CollectionBinder.createBinderAutomatically(CollectionBinder.java:784)
+	at org.hibernate.boot.model.internal.CollectionBinder.getCollectionBinder(CollectionBinder.java:778)
+	at org.hibernate.boot.model.internal.CollectionBinder.bindCollection(CollectionBinder.java:225)
+	at org.hibernate.boot.model.internal.PropertyBinder.bindProperty(PropertyBinder.java:895)
+	at org.hibernate.boot.model.internal.PropertyBinder.buildProperty(PropertyBinder.java:792)
+	at org.hibernate.boot.model.internal.PropertyBinder.processElementAnnotations(PropertyBinder.java:719)
+	at org.hibernate.boot.model.internal.EntityBinder.processIdPropertiesIfNotAlready(EntityBinder.java:1072)
+	at org.hibernate.boot.model.internal.EntityBinder.handleIdentifier(EntityBinder.java:380)
+	at org.hibernate.boot.model.internal.EntityBinder.bindEntityClass(EntityBinder.java:217)
+	at org.hibernate.boot.model.internal.AnnotationBinder.bindClass(AnnotationBinder.java:247)
+	at org.hibernate.boot.model.source.internal.annotations.AnnotationMetadataSourceProcessorImpl.processEntityHierarchies(AnnotationMetadataSourceProcessorImpl.java:190)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess$1.processEntityHierarchies(MetadataBuildingProcess.java:291)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.coordinateProcessors(MetadataBuildingProcess.java:325)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:199)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1392)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.populateSessionFactoryBuilder(EntityManagerFactoryBuilderImpl.java:1472)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1454)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:93)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:443)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:436)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:411)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:419)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1864)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1813)
+	... 15 common frames omitted
+2026-04-10 01:25:39 - INFO - com.school.App - Starting App using Java 25.0.2 with PID 13212 (C:\Users\HP\Downloads\backend\target\classes started by HP in C:\Users\HP\Downloads\backend)
+2026-04-10 01:25:39 - DEBUG - com.school.App - Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-04-10 01:25:39 - INFO - com.school.App - No active profile set, falling back to 1 default profile: "default"
+2026-04-10 01:25:40 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-10 01:25:40 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 79 ms. Found 5 JPA repository interfaces.
+2026-04-10 01:25:41 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2026-04-10 01:25:41 - INFO - org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-10 01:25:41 - INFO - org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-04-10 01:25:41 - INFO - org.springframework.boot.web.context.servlet.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1886 ms
+2026-04-10 01:25:41 - INFO - org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-10 01:25:41 - INFO - org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-04-10 01:25:42 - INFO - org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-10 01:25:42 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-10 01:25:42 - INFO - com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@614cd187
+2026-04-10 01:25:42 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-10 01:25:43 - INFO - org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/app]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.44
+	Default catalog/schema: app/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-10 01:25:43 - ERROR - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Failed to initialize JPA EntityManagerFactory: Property 'com.school.entity.Course.assignment' is not a collection and may not be a '@OneToMany', '@ManyToMany', or '@ElementCollection'
+2026-04-10 01:25:43 - WARN - org.springframework.boot.web.server.servlet.context.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Property 'com.school.entity.Course.assignment' is not a collection and may not be a '@OneToMany', '@ManyToMany', or '@ElementCollection'
+2026-04-10 01:25:43 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-10 01:25:43 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-10 01:25:43 - INFO - org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+2026-04-10 01:25:43 - INFO - org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-04-10 01:25:43 - ERROR - org.springframework.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Property 'com.school.entity.Course.assignment' is not a collection and may not be a '@OneToMany', '@ManyToMany', or '@ElementCollection'
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1817)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:977)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:621)
+	at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at com.school.App.main(App.java:9)
+Caused by: org.hibernate.AnnotationException: Property 'com.school.entity.Course.assignment' is not a collection and may not be a '@OneToMany', '@ManyToMany', or '@ElementCollection'
+	at org.hibernate.boot.model.internal.CollectionBinder.determineSemanticJavaType(CollectionBinder.java:996)
+	at org.hibernate.boot.model.internal.CollectionBinder.determineCollectionClassification(CollectionBinder.java:880)
+	at org.hibernate.boot.model.internal.CollectionBinder.createBinderAutomatically(CollectionBinder.java:784)
+	at org.hibernate.boot.model.internal.CollectionBinder.getCollectionBinder(CollectionBinder.java:778)
+	at org.hibernate.boot.model.internal.CollectionBinder.bindCollection(CollectionBinder.java:225)
+	at org.hibernate.boot.model.internal.PropertyBinder.bindProperty(PropertyBinder.java:895)
+	at org.hibernate.boot.model.internal.PropertyBinder.buildProperty(PropertyBinder.java:792)
+	at org.hibernate.boot.model.internal.PropertyBinder.processElementAnnotations(PropertyBinder.java:719)
+	at org.hibernate.boot.model.internal.EntityBinder.processIdPropertiesIfNotAlready(EntityBinder.java:1072)
+	at org.hibernate.boot.model.internal.EntityBinder.handleIdentifier(EntityBinder.java:380)
+	at org.hibernate.boot.model.internal.EntityBinder.bindEntityClass(EntityBinder.java:217)
+	at org.hibernate.boot.model.internal.AnnotationBinder.bindClass(AnnotationBinder.java:247)
+	at org.hibernate.boot.model.source.internal.annotations.AnnotationMetadataSourceProcessorImpl.processEntityHierarchies(AnnotationMetadataSourceProcessorImpl.java:190)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess$1.processEntityHierarchies(MetadataBuildingProcess.java:291)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.coordinateProcessors(MetadataBuildingProcess.java:325)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:199)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1392)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.populateSessionFactoryBuilder(EntityManagerFactoryBuilderImpl.java:1472)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1454)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:93)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:443)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:436)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:411)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:419)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1864)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1813)
+	... 15 common frames omitted
+2026-04-10 01:26:07 - INFO - com.school.App - Starting App using Java 25.0.2 with PID 18352 (C:\Users\HP\Downloads\backend\target\classes started by HP in C:\Users\HP\Downloads\backend)
+2026-04-10 01:26:07 - DEBUG - com.school.App - Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-04-10 01:26:07 - INFO - com.school.App - No active profile set, falling back to 1 default profile: "default"
+2026-04-10 01:26:08 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-10 01:26:08 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 93 ms. Found 5 JPA repository interfaces.
+2026-04-10 01:26:09 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2026-04-10 01:26:09 - INFO - org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-10 01:26:09 - INFO - org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-04-10 01:26:09 - INFO - org.springframework.boot.web.context.servlet.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1954 ms
+2026-04-10 01:26:09 - INFO - org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-10 01:26:09 - INFO - org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-04-10 01:26:10 - INFO - org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-10 01:26:10 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-10 01:26:11 - INFO - com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@77476fcf
+2026-04-10 01:26:11 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-10 01:26:11 - INFO - org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/app]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.44
+	Default catalog/schema: app/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-10 01:26:13 - INFO - org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-10 01:26:13 - INFO - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 01:26:13 - INFO - org.springframework.data.jpa.repository.query.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-10 01:26:13 - WARN - org.springframework.boot.jpa.autoconfigure.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-10 01:26:14 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/'
+2026-04-10 01:26:14 - INFO - com.school.App - Started App in 7.702 seconds (process running for 8.536)
+2026-04-10 01:26:38 - INFO - org.springframework.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-10 01:26:38 - INFO - org.springframework.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-04-10 01:26:38 - INFO - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 01:26:38 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-10 01:26:38 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-10 01:26:46 - INFO - com.school.App - Starting App using Java 25.0.2 with PID 15952 (C:\Users\HP\Downloads\backend\target\classes started by HP in C:\Users\HP\Downloads\backend)
+2026-04-10 01:26:46 - DEBUG - com.school.App - Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-04-10 01:26:46 - INFO - com.school.App - No active profile set, falling back to 1 default profile: "default"
+2026-04-10 01:26:48 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-10 01:26:48 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 88 ms. Found 5 JPA repository interfaces.
+2026-04-10 01:26:48 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2026-04-10 01:26:48 - INFO - org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-10 01:26:48 - INFO - org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-04-10 01:26:48 - INFO - org.springframework.boot.web.context.servlet.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1860 ms
+2026-04-10 01:26:49 - INFO - org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-10 01:26:49 - INFO - org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-04-10 01:26:49 - INFO - org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-10 01:26:49 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-10 01:26:50 - INFO - com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2567c091
+2026-04-10 01:26:50 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-10 01:26:50 - INFO - org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/app]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.44
+	Default catalog/schema: app/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-10 01:26:51 - INFO - org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-10 01:26:51 - INFO - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 01:26:51 - INFO - org.springframework.data.jpa.repository.query.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-10 01:26:51 - WARN - org.springframework.boot.jpa.autoconfigure.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-10 01:26:52 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/'
+2026-04-10 01:26:52 - INFO - com.school.App - Started App in 6.359 seconds (process running for 7.187)
+2026-04-10 01:27:29 - INFO - org.springframework.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-10 01:27:29 - INFO - org.springframework.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-04-10 01:27:29 - INFO - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 01:27:29 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-10 01:27:29 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-10 01:27:33 - INFO - com.school.App - Starting App using Java 25.0.2 with PID 13744 (C:\Users\HP\Downloads\backend\target\classes started by HP in C:\Users\HP\Downloads\backend)
+2026-04-10 01:27:33 - DEBUG - com.school.App - Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-04-10 01:27:33 - INFO - com.school.App - No active profile set, falling back to 1 default profile: "default"
+2026-04-10 01:27:35 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-10 01:27:35 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 103 ms. Found 5 JPA repository interfaces.
+2026-04-10 01:27:36 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2026-04-10 01:27:36 - INFO - org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-10 01:27:36 - INFO - org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-04-10 01:27:36 - INFO - org.springframework.boot.web.context.servlet.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 2467 ms
+2026-04-10 01:27:36 - INFO - org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-10 01:27:36 - INFO - org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-04-10 01:27:37 - INFO - org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-10 01:27:37 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-10 01:27:38 - INFO - com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@720ffab4
+2026-04-10 01:27:38 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-10 01:27:39 - INFO - org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/app]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.44
+	Default catalog/schema: app/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-10 01:27:40 - INFO - org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-10 01:27:41 - INFO - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 01:27:41 - INFO - org.springframework.data.jpa.repository.query.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-10 01:27:41 - WARN - org.springframework.boot.jpa.autoconfigure.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-10 01:27:42 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/'
+2026-04-10 01:27:42 - INFO - com.school.App - Started App in 9.576 seconds (process running for 11.324)
+2026-04-10 01:28:00 - INFO - org.springframework.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-10 01:28:00 - INFO - org.springframework.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-04-10 01:28:00 - INFO - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 01:28:00 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-10 01:28:00 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-10 01:28:11 - INFO - com.school.App - Starting App using Java 25.0.2 with PID 13272 (C:\Users\HP\Downloads\backend\target\classes started by HP in C:\Users\HP\Downloads\backend)
+2026-04-10 01:28:11 - DEBUG - com.school.App - Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-04-10 01:28:11 - INFO - com.school.App - No active profile set, falling back to 1 default profile: "default"
+2026-04-10 01:28:13 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-10 01:28:13 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 102 ms. Found 5 JPA repository interfaces.
+2026-04-10 01:28:14 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2026-04-10 01:28:14 - INFO - org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-10 01:28:14 - INFO - org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-04-10 01:28:14 - INFO - org.springframework.boot.web.context.servlet.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 2433 ms
+2026-04-10 01:28:14 - INFO - org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-10 01:28:14 - INFO - org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-04-10 01:28:15 - INFO - org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-10 01:28:15 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-10 01:28:16 - INFO - com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3a12f3e7
+2026-04-10 01:28:16 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-10 01:28:16 - INFO - org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/app]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.44
+	Default catalog/schema: app/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-10 01:28:17 - ERROR - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Failed to initialize JPA EntityManagerFactory: Property 'com.school.entity.Course.assignment' is not a collection and may not be a '@OneToMany', '@ManyToMany', or '@ElementCollection'
+2026-04-10 01:28:17 - WARN - org.springframework.boot.web.server.servlet.context.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Property 'com.school.entity.Course.assignment' is not a collection and may not be a '@OneToMany', '@ManyToMany', or '@ElementCollection'
+2026-04-10 01:28:17 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-10 01:28:17 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-10 01:28:17 - INFO - org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+2026-04-10 01:28:17 - INFO - org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-04-10 01:28:17 - ERROR - org.springframework.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Property 'com.school.entity.Course.assignment' is not a collection and may not be a '@OneToMany', '@ManyToMany', or '@ElementCollection'
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1817)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:977)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:621)
+	at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at com.school.App.main(App.java:9)
+Caused by: org.hibernate.AnnotationException: Property 'com.school.entity.Course.assignment' is not a collection and may not be a '@OneToMany', '@ManyToMany', or '@ElementCollection'
+	at org.hibernate.boot.model.internal.CollectionBinder.determineSemanticJavaType(CollectionBinder.java:996)
+	at org.hibernate.boot.model.internal.CollectionBinder.determineCollectionClassification(CollectionBinder.java:880)
+	at org.hibernate.boot.model.internal.CollectionBinder.createBinderAutomatically(CollectionBinder.java:784)
+	at org.hibernate.boot.model.internal.CollectionBinder.getCollectionBinder(CollectionBinder.java:778)
+	at org.hibernate.boot.model.internal.CollectionBinder.bindCollection(CollectionBinder.java:225)
+	at org.hibernate.boot.model.internal.PropertyBinder.bindProperty(PropertyBinder.java:895)
+	at org.hibernate.boot.model.internal.PropertyBinder.buildProperty(PropertyBinder.java:792)
+	at org.hibernate.boot.model.internal.PropertyBinder.processElementAnnotations(PropertyBinder.java:719)
+	at org.hibernate.boot.model.internal.EntityBinder.processIdPropertiesIfNotAlready(EntityBinder.java:1072)
+	at org.hibernate.boot.model.internal.EntityBinder.handleIdentifier(EntityBinder.java:380)
+	at org.hibernate.boot.model.internal.EntityBinder.bindEntityClass(EntityBinder.java:217)
+	at org.hibernate.boot.model.internal.AnnotationBinder.bindClass(AnnotationBinder.java:247)
+	at org.hibernate.boot.model.source.internal.annotations.AnnotationMetadataSourceProcessorImpl.processEntityHierarchies(AnnotationMetadataSourceProcessorImpl.java:190)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess$1.processEntityHierarchies(MetadataBuildingProcess.java:291)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.coordinateProcessors(MetadataBuildingProcess.java:325)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:199)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1392)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.populateSessionFactoryBuilder(EntityManagerFactoryBuilderImpl.java:1472)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1454)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:93)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:443)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:436)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:411)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:419)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1864)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1813)
+	... 15 common frames omitted
+2026-04-10 01:28:46 - INFO - com.school.App - Starting App using Java 25.0.2 with PID 14248 (C:\Users\HP\Downloads\backend\target\classes started by HP in C:\Users\HP\Downloads\backend)
+2026-04-10 01:28:46 - DEBUG - com.school.App - Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-04-10 01:28:46 - INFO - com.school.App - No active profile set, falling back to 1 default profile: "default"
+2026-04-10 01:28:48 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-10 01:28:48 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 123 ms. Found 5 JPA repository interfaces.
+2026-04-10 01:28:49 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2026-04-10 01:28:49 - INFO - org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-10 01:28:49 - INFO - org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-04-10 01:28:49 - INFO - org.springframework.boot.web.context.servlet.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 2551 ms
+2026-04-10 01:28:49 - INFO - org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-10 01:28:49 - INFO - org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-04-10 01:28:51 - INFO - org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-10 01:28:51 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-10 01:28:51 - INFO - com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@16a499d1
+2026-04-10 01:28:51 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-10 01:28:52 - INFO - org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/app]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.44
+	Default catalog/schema: app/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-10 01:28:52 - ERROR - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Failed to initialize JPA EntityManagerFactory: Property 'com.school.entity.Course.assignment' is not a collection and may not be a '@OneToMany', '@ManyToMany', or '@ElementCollection'
+2026-04-10 01:28:52 - WARN - org.springframework.boot.web.server.servlet.context.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Property 'com.school.entity.Course.assignment' is not a collection and may not be a '@OneToMany', '@ManyToMany', or '@ElementCollection'
+2026-04-10 01:28:52 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-10 01:28:52 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-10 01:28:52 - INFO - org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+2026-04-10 01:28:52 - INFO - org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-04-10 01:28:52 - ERROR - org.springframework.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Property 'com.school.entity.Course.assignment' is not a collection and may not be a '@OneToMany', '@ManyToMany', or '@ElementCollection'
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1817)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:977)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:621)
+	at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at com.school.App.main(App.java:9)
+Caused by: org.hibernate.AnnotationException: Property 'com.school.entity.Course.assignment' is not a collection and may not be a '@OneToMany', '@ManyToMany', or '@ElementCollection'
+	at org.hibernate.boot.model.internal.CollectionBinder.determineSemanticJavaType(CollectionBinder.java:996)
+	at org.hibernate.boot.model.internal.CollectionBinder.determineCollectionClassification(CollectionBinder.java:880)
+	at org.hibernate.boot.model.internal.CollectionBinder.createBinderAutomatically(CollectionBinder.java:784)
+	at org.hibernate.boot.model.internal.CollectionBinder.getCollectionBinder(CollectionBinder.java:778)
+	at org.hibernate.boot.model.internal.CollectionBinder.bindCollection(CollectionBinder.java:225)
+	at org.hibernate.boot.model.internal.PropertyBinder.bindProperty(PropertyBinder.java:895)
+	at org.hibernate.boot.model.internal.PropertyBinder.buildProperty(PropertyBinder.java:792)
+	at org.hibernate.boot.model.internal.PropertyBinder.processElementAnnotations(PropertyBinder.java:719)
+	at org.hibernate.boot.model.internal.EntityBinder.processIdPropertiesIfNotAlready(EntityBinder.java:1072)
+	at org.hibernate.boot.model.internal.EntityBinder.handleIdentifier(EntityBinder.java:380)
+	at org.hibernate.boot.model.internal.EntityBinder.bindEntityClass(EntityBinder.java:217)
+	at org.hibernate.boot.model.internal.AnnotationBinder.bindClass(AnnotationBinder.java:247)
+	at org.hibernate.boot.model.source.internal.annotations.AnnotationMetadataSourceProcessorImpl.processEntityHierarchies(AnnotationMetadataSourceProcessorImpl.java:190)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess$1.processEntityHierarchies(MetadataBuildingProcess.java:291)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.coordinateProcessors(MetadataBuildingProcess.java:325)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:199)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1392)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.populateSessionFactoryBuilder(EntityManagerFactoryBuilderImpl.java:1472)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1454)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:93)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:443)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:436)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:411)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:419)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1864)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1813)
+	... 15 common frames omitted
+2026-04-10 01:30:45 - INFO - com.school.App - Starting App using Java 25.0.2 with PID 16508 (C:\Users\HP\Downloads\backend\target\classes started by HP in C:\Users\HP\Downloads\backend)
+2026-04-10 01:30:45 - DEBUG - com.school.App - Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-04-10 01:30:45 - INFO - com.school.App - No active profile set, falling back to 1 default profile: "default"
+2026-04-10 01:30:46 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-10 01:30:46 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 100 ms. Found 5 JPA repository interfaces.
+2026-04-10 01:30:47 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2026-04-10 01:30:47 - INFO - org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-10 01:30:47 - INFO - org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-04-10 01:30:47 - INFO - org.springframework.boot.web.context.servlet.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1867 ms
+2026-04-10 01:30:47 - INFO - org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-10 01:30:47 - INFO - org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-04-10 01:30:48 - INFO - org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-10 01:30:48 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-10 01:30:48 - INFO - com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7404aff2
+2026-04-10 01:30:48 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-10 01:30:49 - INFO - org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/app]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.44
+	Default catalog/schema: app/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-10 01:30:50 - INFO - org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-10 01:30:50 - INFO - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 01:30:50 - INFO - org.springframework.data.jpa.repository.query.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-10 01:30:50 - WARN - org.springframework.boot.jpa.autoconfigure.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-10 01:30:51 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/'
+2026-04-10 01:30:51 - INFO - com.school.App - Started App in 6.975 seconds (process running for 7.824)
+2026-04-10 01:30:51 - INFO - org.springframework.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-10 01:30:51 - INFO - org.springframework.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-04-10 01:30:51 - INFO - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 01:30:51 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-10 01:30:51 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-10 01:30:55 - INFO - com.school.App - Starting App using Java 25.0.2 with PID 1340 (C:\Users\HP\Downloads\backend\target\classes started by HP in C:\Users\HP\Downloads\backend)
+2026-04-10 01:30:55 - DEBUG - com.school.App - Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-04-10 01:30:55 - INFO - com.school.App - No active profile set, falling back to 1 default profile: "default"
+2026-04-10 01:30:57 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-10 01:30:57 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 117 ms. Found 5 JPA repository interfaces.
+2026-04-10 01:30:58 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2026-04-10 01:30:58 - INFO - org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-10 01:30:58 - INFO - org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-04-10 01:30:58 - INFO - org.springframework.boot.web.context.servlet.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 2547 ms
+2026-04-10 01:30:58 - INFO - org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-10 01:30:59 - INFO - org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-04-10 01:30:59 - INFO - org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-10 01:31:00 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-10 01:31:00 - INFO - com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1c2b65cc
+2026-04-10 01:31:00 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-10 01:31:01 - INFO - org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/app]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.44
+	Default catalog/schema: app/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-10 01:31:02 - INFO - org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-10 01:31:03 - INFO - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 01:31:03 - INFO - org.springframework.data.jpa.repository.query.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-10 01:31:03 - WARN - org.springframework.boot.jpa.autoconfigure.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-10 01:31:04 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/'
+2026-04-10 01:31:04 - INFO - com.school.App - Started App in 9.584 seconds (process running for 11.235)
+2026-04-10 01:31:15 - INFO - org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-10 01:31:15 - INFO - org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-04-10 01:31:15 - INFO - org.springframework.web.servlet.DispatcherServlet - Completed initialization in 11 ms
+2026-04-10 01:31:15 - WARN - org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.bind.MissingPathVariableException: Required URI template variable 'CourseId' for method parameter type Long is not present]
+2026-04-10 01:31:47 - INFO - org.springframework.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-10 01:31:47 - INFO - org.springframework.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-04-10 01:31:47 - INFO - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 01:31:47 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-10 01:31:47 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

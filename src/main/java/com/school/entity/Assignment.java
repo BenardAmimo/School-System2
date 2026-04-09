@@ -1,0 +1,44 @@
+package com.school.entity;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Table(
+        name = "teacher_course_assign",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"teacher_id","course_id"}
+
+        )}
+)
+public class Assignment {
+    @Id
+    @SequenceGenerator(
+            name = "assign_gen",
+            sequenceName = "assign_gen",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "assign_gen"
+    )
+    private Long assignmentId;
+
+    @ManyToOne
+    @JoinColumn(name = "teacher_id",
+    referencedColumnName = "teacherId")
+    private Teacher teacher;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "course_id",
+            referencedColumnName = "courseId"
+    )
+        private Course course;
+}
