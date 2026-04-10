@@ -33,4 +33,10 @@ public class EnrollmentController {
         List<EnrollmentResponse> getEnrolls = enrollmentService.getAllEnrollments();
         return ResponseEntity.ok(getEnrolls);
     }
+
+    @DeleteMapping("/enroll/id/{enrollmentId}")
+    public ResponseEntity<String> deleteEnrollmentById(@PathVariable("enrollmentId")Long enrollmentId){
+        enrollmentService.deleteEnrollmentById(enrollmentId);
+        return ResponseEntity.ok("Enrollment Successfully deleted!");
+    }
 }

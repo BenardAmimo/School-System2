@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -29,6 +31,12 @@ public class Student {
  private Long studentId;
  private String name;
  private String email;
+ @OneToOne(
+         mappedBy = "student",
+         cascade = CascadeType.ALL,
+         orphanRemoval = true
+ )
+ private Enrollment enrollments;
 
 
 

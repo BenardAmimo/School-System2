@@ -34,4 +34,16 @@ public class AssignmentController {
 
         return ResponseEntity.ok(assignmentService.getAll());
     }
+    @PutMapping("/assign/{assignmentId}")
+    public ResponseEntity<AssignmentResponse> updateAssignment(@PathVariable("assignmentId")Long assignmentId,
+                                                               @RequestBody AssignmentRequest assignmentRequest){
+        AssignmentResponse assign = assignmentService.updateAssignment(assignmentId,assignmentRequest);
+
+        return ResponseEntity.status(202).body(assign);
+    }
+    @DeleteMapping("/assign/id/{assignmentId}")
+    public ResponseEntity<String> deleteAssignmentById(@PathVariable("assignmentId")Long assignmentId){
+        assignmentService.deleteAssignmentById(assignmentId);
+        return ResponseEntity.ok("Successfully deleted");
+    }
 }

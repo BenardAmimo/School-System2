@@ -1,6 +1,5 @@
 package com.school.service;
 
-import com.school.entity.Course;
 import com.school.request.CourseRequest;
 import com.school.response.CourseResponse;
 
@@ -19,7 +18,7 @@ public interface CourseServe {
     CourseResponse getByCourseName(String name);
 
 
-    void deleteCourseById(Long id);
+    void deleteCourseById(Long courseId);
 
     void deleteAllCourses();
 }

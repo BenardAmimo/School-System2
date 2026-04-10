@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.engine.internal.Cascade;
 
 import java.util.List;
 
@@ -29,5 +30,12 @@ public class Teacher {
  private Long teacherId;
  private String name;
  private String email;
+
+ @OneToMany(
+         mappedBy = "teacher",
+         cascade = CascadeType.ALL,
+         orphanRemoval = true
+ )
+ private List<Assignment> assignments;
 
 }

@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -73,5 +74,41 @@ public class AssignmentService implements AssignServe{
                 .stream()
                 .map(this::toResponse)
                 .toList();
+    }
+
+    @Override
+    public AssignmentResponse updateAssignment(Long assignmentId, AssignmentRequest assignmentRequest) {
+        Assignment assignDB = repository.findById(assignmentId).
+                orElseThrow(()->new RuntimeException("Assignment not found in the System"));
+
+        if(Objects.nonNull(assignmentRequest.getCourseId())){
+            Course course = courseRepo.findById(assignmentRequest.getCourseId()).
+                    orElseThrow(()->new RuntimeException("course not found"));
+
+            assignDB.setCourse(course);
+        }
+
+        if(Objects.nonNull(assignmentRequest.getTeacherId())){
+            Teacher teach = teacherRepo.findById(assignmentRequest.getCourseId()).
+                    orElseThrow(()->new RuntimeException("Teacher not found"));
+
+            assignDB.setTeacher(teach);
+        }
+        Assignment saved = repository.save(assignDB);
+
+        AssignmentResponse assRespo = new AssignmentResponse();
+
+        assRespo.setAssignmentId(saved.getAssignmentId());
+        assRespo.setCourseName(saved.getCourse().getName());
+        assRespo.setTeacherName(saved.getTeacher().getName());
+        return assRespo;
+    }
+
+    @Override
+    public void deleteAssignmentById(Long assignmentId) {
+        Assignment assignment = repository.findById(assignmentId)
+                .orElseThrow(() -> new RuntimeException("Assignment not found"));
+
+        repository.delete(assignment);
     }
 }

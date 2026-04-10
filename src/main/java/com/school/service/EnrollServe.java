@@ -11,4 +11,6 @@ public interface EnrollServe {
     EnrollmentResponse getEnrollments(Long enrollmentId);
 
     List<EnrollmentResponse> getAllEnrollments();
+
+    void deleteEnrollmentById(Long enrollmentId);
 }

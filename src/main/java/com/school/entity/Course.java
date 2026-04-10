@@ -30,5 +30,11 @@ public class Course {
  private Long courseId;
  private String name;
  private String description;
+ @OneToMany(
+         mappedBy = "course",
+         cascade = CascadeType.ALL,
+         orphanRemoval = true
+ )
+ private List<Assignment> assignment;
 
 }

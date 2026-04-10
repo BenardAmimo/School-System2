@@ -67,7 +67,13 @@ public class EnrollmentService implements EnrollServe {
                 .map(this::mapToDto)
                 .toList();
     }
-//mapper
+
+    @Override
+    public void deleteEnrollmentById(Long enrollmentId) {
+        enrollmentRepoitory.deleteById(enrollmentId);
+    }
+
+    //mapper
     private EnrollmentResponse mapToDto(Enrollment enrollment) {
         EnrollmentResponse enrolls =  new EnrollmentResponse();
         enrolls.setEnrollmentId(enrollment.getEnrollmentId());

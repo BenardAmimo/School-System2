@@ -101,8 +101,12 @@ public class CourseService implements CourseServe {
     }
 
     @Override
-    public void deleteCourseById(Long id) {
-        courseRepo.deleteById(id);
+    public void deleteCourseById(Long courseId) {
+
+        Course course = courseRepo.findById(courseId).
+                orElseThrow(()->new RuntimeException("Course Not found"));
+
+        courseRepo.delete(course);
     }
 
     @Override

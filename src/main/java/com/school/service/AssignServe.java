@@ -11,4 +11,8 @@ public interface AssignServe {
     AssignmentResponse getAssignmentById(Long assignmentId);
 
     List<AssignmentResponse> getAll();
+
+    AssignmentResponse updateAssignment(Long assignmentId, AssignmentRequest assignmentRequest);
+
+    void deleteAssignmentById(Long assignmentId);
 }

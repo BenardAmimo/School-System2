@@ -36,7 +36,7 @@ public class Enrollment {
             referencedColumnName = "assignmentId"
     )
     private Assignment assignment;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(
             name = "student_id",
             referencedColumnName = "studentId"

@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -40,5 +42,12 @@ public class Assignment {
             name = "course_id",
             referencedColumnName = "courseId"
     )
-        private Course course;
+    private Course course;
+
+    @OneToMany(
+            mappedBy = "assignment",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Enrollment> enrolments;
 }

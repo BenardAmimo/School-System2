@@ -85,10 +85,10 @@ public class CourseController {
     }
 
     @DeleteMapping("/course/{courseId}")
-    public ResponseEntity<String>deleteCourseById(@PathVariable("CourseId")Long id){
-        log.info("Delete request for course with id {} ",id);
+    public ResponseEntity<String>deleteCourseById(@PathVariable("CourseId")Long courseId){
+        log.info("Delete request for course with id {} ",courseId);
 
-        courseService.deleteCourseById(id);
+        courseService.deleteCourseById(courseId);
 
         return ResponseEntity.ok("Successfully deleted");
     }
