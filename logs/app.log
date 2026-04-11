@@ -2257,3 +2257,51 @@ Caused by: org.hibernate.AnnotationException: Property 'com.school.entity.Course
 2026-04-10 13:44:34 - INFO - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2026-04-10 13:44:34 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2026-04-10 13:44:34 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-10 13:44:37 - INFO - com.school.App - Starting App using Java 25.0.2 with PID 4808 (C:\Users\HP\Downloads\backend\target\classes started by HP in C:\Users\HP\Downloads\backend)
+2026-04-10 13:44:37 - DEBUG - com.school.App - Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-04-10 13:44:37 - INFO - com.school.App - No active profile set, falling back to 1 default profile: "default"
+2026-04-10 13:44:38 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-10 13:44:39 - INFO - org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 86 ms. Found 5 JPA repository interfaces.
+2026-04-10 13:44:39 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2026-04-10 13:44:39 - INFO - org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-10 13:44:39 - INFO - org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-04-10 13:44:39 - INFO - org.springframework.boot.web.context.servlet.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 2031 ms
+2026-04-10 13:44:40 - INFO - org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-10 13:44:40 - INFO - org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-04-10 13:44:41 - INFO - org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-10 13:44:41 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-10 13:44:42 - INFO - com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@44e79e9e
+2026-04-10 13:44:42 - INFO - com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-10 13:44:42 - INFO - org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/app]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.44
+	Default catalog/schema: app/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-10 13:44:44 - INFO - org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-10 13:44:44 - INFO - org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 13:44:44 - INFO - org.springframework.data.jpa.repository.query.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-10 13:44:44 - WARN - org.springframework.boot.jpa.autoconfigure.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-10 13:44:45 - INFO - org.springframework.boot.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/'
+2026-04-10 13:44:45 - INFO - com.school.App - Started App in 8.616 seconds (process running for 10.025)
+2026-04-10 13:44:59 - INFO - org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-10 13:44:59 - INFO - org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-04-10 13:44:59 - INFO - org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-04-10 13:44:59 - INFO - com.school.controller.CourseController - Get request for courses
+2026-04-10 13:44:59 - INFO - com.school.controller.StudentController - Get mapping of all students
+2026-04-10 13:45:00 - INFO - com.school.controller.CourseController - Found 7 courses
+2026-04-10 13:45:00 - INFO - com.school.controller.StudentController - Get mapping of all students
+2026-04-10 13:45:00 - INFO - com.school.controller.CourseController - Get request for courses
+2026-04-10 13:45:00 - INFO - com.school.controller.CourseController - Found 7 courses
+2026-04-10 13:45:11 - INFO - com.school.controller.StudentController - Get mapping of all students
+2026-04-10 13:45:11 - INFO - com.school.controller.CourseController - Get request for courses
+2026-04-10 13:45:11 - INFO - com.school.controller.CourseController - Found 7 courses
+2026-04-10 14:33:00 - WARN - com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=41m48s338ms520µs500ns).
+2026-04-10 19:05:46 - WARN - com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3h32m45s547ms363µs900ns).
+2026-04-10 19:32:47 - WARN - com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4m30s576ms710µs100ns).
