@@ -37,6 +37,14 @@ public class Student {
          orphanRemoval = true
  )
  private Enrollment enrollments;
+ @ManyToOne(
+         cascade = CascadeType.ALL
+ )
+ @JoinColumn(
+         name = "school_id",
+         referencedColumnName = "schoolId"
+ )
+ private School school;
 
 
 

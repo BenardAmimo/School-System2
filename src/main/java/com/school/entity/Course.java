@@ -36,5 +36,13 @@ public class Course {
          orphanRemoval = true
  )
  private List<Assignment> assignment;
+ @ManyToOne(
+         cascade = CascadeType.ALL
+ )
+ @JoinColumn(
+         name = "school_id",
+         referencedColumnName = "schoolId"
+ )
+ private School school;
 
 }

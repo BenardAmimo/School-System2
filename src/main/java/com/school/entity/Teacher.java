@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.engine.internal.Cascade;
 
 import java.util.List;
+import java.util.prefs.PreferencesFactory;
 
 @Entity
 @Data
@@ -37,5 +38,13 @@ public class Teacher {
          orphanRemoval = true
  )
  private List<Assignment> assignments;
+ @ManyToOne(
+         cascade = CascadeType.ALL
+ )
+ @JoinColumn(
+         name = "school_id",
+         referencedColumnName = "schoolId"
+ )
+ private School school;
 
 }
