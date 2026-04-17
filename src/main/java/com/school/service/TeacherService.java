@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.school.repo.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -58,6 +59,31 @@ public class TeacherService implements TeacherServe{
           .stream()
           .map(this::mapToDto)
           .toList();
+ }
+
+ @Override
+ public TeacherResponse updateTeacher(Long teacherId, TeacherRequest teacherRequest) {
+  Teacher teacherDB = teacherRepo.findById(teacherId).
+          orElseThrow(()->new RuntimeException("Teacher Not found"));
+
+  if(Objects.nonNull(teacherRequest.getName())&&!"".equalsIgnoreCase(teacherRequest.getName())){
+   teacherDB.setName(teacherRequest.getName());
+  }
+
+  if(Objects.nonNull(teacherRequest.getEmail())&&!"".equalsIgnoreCase(teacherRequest.getEmail())){
+   teacherDB.setEmail(teacherRequest.getEmail());
+  }
+
+  Teacher teach = teacherRepo.save(teacherDB);
+
+  TeacherResponse responding = new TeacherResponse();
+
+  responding.setTeacherId(teach.getTeacherId());
+  responding.setName(teach.getName());
+  responding.setEmail(teach.getEmail());
+
+
+  return responding;
  }
 
  private TeacherResponse mapToDto(Teacher teacher) {

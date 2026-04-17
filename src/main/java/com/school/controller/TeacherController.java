@@ -37,6 +37,14 @@ public ResponseEntity<TeacherResponse> createTeacher(@RequestBody TeacherRequest
      List<TeacherResponse> teachers = service.getAllTeachers();
      return ResponseEntity.ok(teachers);
  }
+
+ @PutMapping("/teacher/id/{teacherId}")
+    public ResponseEntity<TeacherResponse> updateTeachers(@PathVariable("teacherId")Long teacherId
+         ,@RequestBody TeacherRequest teacherRequest){
+     TeacherResponse repond = service.updateTeacher(teacherId,teacherRequest);
+     return ResponseEntity.status(202).body(repond);
+
+ }
  
 
 }

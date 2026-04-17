@@ -15,4 +15,6 @@ public interface TeacherServe {
     TeacherResponse getTeacherByid(Long teacherId);
 
     List<TeacherResponse> getAllTeachers();
+
+    TeacherResponse updateTeacher(Long teacherId, TeacherRequest teacherRequest);
 }

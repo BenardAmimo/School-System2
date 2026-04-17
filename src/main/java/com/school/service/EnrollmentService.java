@@ -19,6 +19,7 @@ public class EnrollmentService implements EnrollServe {
     private final EnrollmentRepoitory enrollmentRepoitory;
     private final StudentRepo studentRepo;
     private final AssignmentRepository assignmentRepository;
+
     @Override
     public EnrollmentResponse enrollStudent(EnrollmentRequest request) {
         Student student = studentRepo.findById(request.getStudentId()).

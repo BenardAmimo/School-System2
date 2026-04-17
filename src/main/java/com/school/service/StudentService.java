@@ -69,7 +69,25 @@ public class StudentService implements StudentServe {
 
     @Override
     public StudentResponse updateStudent(Long studentId, StudentRequest studentRequest) {
-        return null;
+        Student studentDB = studentRepo.findById(studentId).
+                orElseThrow(()->new RuntimeException("Student Not available!"));
+
+        if(Objects.nonNull(studentRequest.getName())&&!"".equalsIgnoreCase(studentRequest.getName())){
+            studentDB.setName(studentRequest.getName());
+        }
+
+        if(Objects.nonNull(studentRequest.getEmail())&&!"".equalsIgnoreCase(studentRequest.getEmail())){
+            studentDB.setEmail(studentRequest.getEmail());
+        }
+        Student stud = studentRepo.save(studentDB);
+
+        StudentResponse respo = new StudentResponse();
+
+                respo.setStudentId(stud.getStudentId());
+                respo.setName(stud.getName());
+                respo.setEmail(stud.getEmail());
+
+        return respo;
     }
 
     @Override
