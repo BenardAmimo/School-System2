@@ -4,6 +4,7 @@ import com.school.request.AssignmentRequest;
 import com.school.response.AssignmentResponse;
 import com.school.service.AssignmentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,18 +33,21 @@ public class AssignmentController {
     @GetMapping("/assignments")
     public ResponseEntity<List<AssignmentResponse>> getAll() {
 
-        return ResponseEntity.ok(assignmentService.getAll());
+        return new ResponseEntity<>(assignmentService.getAll(),HttpStatus.OK);
     }
     @PutMapping("/assign/{assignmentId}")
     public ResponseEntity<AssignmentResponse> updateAssignment(@PathVariable("assignmentId")Long assignmentId,
                                                                @RequestBody AssignmentRequest assignmentRequest){
         AssignmentResponse assign = assignmentService.updateAssignment(assignmentId,assignmentRequest);
 
-        return ResponseEntity.status(202).body(assign);
+        return new ResponseEntity<>(assign, HttpStatus.CREATED);
     }
+
     @DeleteMapping("/assign/id/{assignmentId}")
     public ResponseEntity<String> deleteAssignmentById(@PathVariable("assignmentId")Long assignmentId){
         assignmentService.deleteAssignmentById(assignmentId);
-        return ResponseEntity.ok("Successfully deleted");
+        return new ResponseEntity<>("Successfully deleted",HttpStatus.OK);
     }
+
+
 }

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 @RequiredArgsConstructor
 public class SchoolService implements SchoolServInter{
@@ -22,6 +23,7 @@ public class SchoolService implements SchoolServInter{
     private final TeacherRepo teacherRepo;
     private final CourseRepo courseRepo;
     private final StudentRepo studentRepo;
+
     @Override
     public SchoolResponse createNewSchool(SchoolRequest schoolRequest) {
 
@@ -55,4 +57,55 @@ public class SchoolService implements SchoolServInter{
 
         return respond;
     }
+
+    @Override
+    public SchoolResponse getSchoolById(Long schoolId) {
+
+        School school = schoolRepoitory.findById(schoolId).
+                orElseThrow(()->new RuntimeException("school not found"));
+
+        SchoolResponse resp = new SchoolResponse();
+        resp.setSchoolId(school.getSchoolId());
+        resp.setVision(school.getVision());
+        resp.setMotto(school.getMotto());
+        resp.setName(school.getName());
+        resp.setStudentName(school.getStudents().get(0).getName());
+        resp.setCourseName(school.getCourses().get(0).getName());
+        resp.setTeacherName(school.getTeachers().get(0).getName());
+        return resp;
+    }
+
+    @Override
+    public List<SchoolResponse> getAllSchools() {
+        return schoolRepoitory.findAll().
+                stream()
+                .map(this::mapper)
+                .toList();
+    }
+
+    @Override
+    public void deleteById(Long schoolId) {
+        School school = schoolRepoitory.findById(schoolId).
+                orElseThrow(()->new RuntimeException("School not Found"));
+         schoolRepoitory.delete(school);
+    }
+
+    @Override
+    public void deleteAllSchools() {
+        schoolRepoitory.deleteAll();
+    }
+
+    private SchoolResponse mapper(School school) {
+        SchoolResponse respond = new SchoolResponse();
+        respond.setSchoolId(school.getSchoolId());
+        respond.setName(school.getName());
+        respond.setMotto(school.getMotto());
+        respond.setVision(school.getVision());
+        respond.setStudentName(school.getStudents().get(0).getName());
+        respond.setTeacherName(school.getTeachers().get(0).getName());
+        respond.setCourseName(school.getCourses().get(0).getName());
+
+        return respond;
+    }
+
 }
