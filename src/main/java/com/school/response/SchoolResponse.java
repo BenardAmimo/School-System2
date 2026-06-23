@@ -13,7 +13,4 @@ public class SchoolResponse {
     private String name;
     private String motto;
     private String vision;
-    private String teacherName;
-    private String courseName;
-    private String studentName;
 }

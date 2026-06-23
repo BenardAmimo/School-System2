@@ -19,6 +19,11 @@ public class VerificationCode {
     private Long id;
     private String code;
     private LocalDateTime expirytime;
+    // Add to VerificationCode entity
+    private Long schoolId;
+    private String regNo;
+    private String teacherNo;
+    private Role role;
     @OneToOne(
             cascade = CascadeType.ALL
     )

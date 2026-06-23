@@ -40,7 +40,7 @@ public class UserReg implements UserDetails {
     private String lastName;
     private String email;
     private String password;
-    private boolean enabled;
+    private Boolean enabled;
     @Enumerated(EnumType.STRING)
     private Role role;
 

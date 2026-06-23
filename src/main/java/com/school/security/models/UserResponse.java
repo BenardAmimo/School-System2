@@ -15,5 +15,4 @@ public class UserResponse {
     private String email;
     private String username;
     private Role role;
-    private String otp; // ✅ Temporary — remove when email sending is ready
 }

@@ -14,7 +14,7 @@ public class UserRequest {
     private String lastName;
     private String email;
     private String password;
-    private boolean enabled;
+    private Boolean enabled;
     private Role role;
     private String confirmPassword;
     private Long schoolId;

@@ -1,5 +1,6 @@
 package com.school.security.controller;
 
+import com.school.security.models.RegistrationResponse;
 import com.school.security.models.UserRequest;
 import com.school.security.models.UserResponse;
 import com.school.security.service.UserService;
@@ -18,9 +19,9 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserResponse> register(@RequestBody UserRequest request){
-        UserResponse userRes = userService.register(request);
-        return ResponseEntity.status(201).body(userRes);
+    public ResponseEntity<RegistrationResponse> register(@RequestBody UserRequest request){
+        RegistrationResponse userRes = userService.register(request);
+        return ResponseEntity.status(202).body(userRes);
     }
 
     @PostMapping("/verify")

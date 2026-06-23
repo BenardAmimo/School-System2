@@ -9,6 +9,7 @@ import com.school.repo.TeacherRepo;
 import com.school.security.entity.Role;
 import com.school.security.entity.UserReg;
 import com.school.security.entity.VerificationCode;
+import com.school.security.models.RegistrationResponse;
 import com.school.security.models.UserRequest;
 import com.school.security.models.UserResponse;
 import com.school.security.repository.UserRepository;
@@ -31,14 +32,16 @@ public class UserService implements UserServiceInterface , UserDetailsService {
     private final PasswordEncoder passwordEncoder;
     private final SchoolRepository schoolRepo;
     private final VerificationRepository verificationRepository;
+    private final EmailService emailService;
 
-    public UserService(UserRepository userRepo, StudentRepo studentRepo, TeacherRepo teacherRepo, PasswordEncoder passwordEncoder, SchoolRepository schoolRepo, VerificationRepository verificationRepository) {
+    public UserService(UserRepository userRepo, StudentRepo studentRepo, TeacherRepo teacherRepo, PasswordEncoder passwordEncoder, SchoolRepository schoolRepo, VerificationRepository verificationRepository, EmailService emailService) {
         this.userRepo = userRepo;
         this.studentRepo = studentRepo;
         this.teacherRepo = teacherRepo;
         this.passwordEncoder = passwordEncoder;
         this.schoolRepo = schoolRepo;
         this.verificationRepository = verificationRepository;
+        this.emailService = emailService;
     }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -48,12 +51,12 @@ public class UserService implements UserServiceInterface , UserDetailsService {
 
     private String generateOtp() {
         SecureRandom random = new SecureRandom();
-        int otp = 100000 + random.nextInt(900000);
-        return String.valueOf(otp);
+        int code = 100000 + random.nextInt(900000);
+        return String.valueOf(code);
     }
 
     @Override
-    public UserResponse register(UserRequest request) {
+    public RegistrationResponse register(UserRequest request) {
         // these checks before building UserReg
         if (userRepo.existsByUsername(request.getUsername())) {
             throw new RuntimeException("Username already taken!");
@@ -75,49 +78,22 @@ public class UserService implements UserServiceInterface , UserDetailsService {
         UserReg saving = userRepo.save(userReg);
 
         //Generates and saves OTP
-        String otp = generateOtp();
+        String code = generateOtp();
         VerificationCode verificationCode = new VerificationCode();
-        verificationCode.setCode(otp);
+        verificationCode.setCode(code);
         verificationCode.setUserReg(saving);
-        verificationCode.setExpirytime(LocalDateTime.now().plusMinutes(10)); // ✅ 10 min expiry
+        verificationCode.setExpirytime(LocalDateTime.now().plusMinutes(10));
+        verificationCode.setSchoolId(request.getSchoolId());
+        verificationCode.setRole(request.getRole());
+        verificationCode.setTeacherNo(request.getTeacherNo());
+        verificationCode.setRegNo(request.getRegNo());
         verificationRepository.save(verificationCode);
 
-        School school = schoolRepo.findById(request.getSchoolId())
-                .orElseThrow(()->new RuntimeException("School not found"));
 
+        emailService.sendEmailToUser(saving.getEmail(), "centeredproject@gmail.com",code);
 
-        // 4. Create Student or Teacher profile based on role
-        if (request.getRole() == Role.STUDENT) {
-
-            Student student = new Student();
-            student.setRegNo(request.getRegNo());
-            student.setUserReg(saving);
-            student.setSchool(school);
-
-            studentRepo.save(student);
-
-        } else if (request.getRole() == Role.TEACHER) {
-
-            Teacher teacher = new Teacher();
-
-            teacher.setUserReg(saving);
-            teacher.setTeacherNo(request.getTeacherNo());
-            teacher.setSchool(school);
-
-            teacherRepo.save(teacher);
-
-        } else {
-            throw new RuntimeException("Invalid role. Must be STUDENT or TEACHER");
-        }
-
-        UserResponse respo = new UserResponse();
-        respo.setUserId(saving.getUserId());
-        respo.setFirstName(saving.getFirstName());
-        respo.setLastName(saving.getLastName());
-        respo.setEmail(saving.getEmail());
-        respo.setRole(saving.getRole());
-        respo.setUsername(saving.getUsername());
-        respo.setOtp(otp); // ✅ Only for testing — remove when email is wired up
+        RegistrationResponse respo = new RegistrationResponse();
+         respo.setSuccessMessage("Email successfully sent to your email!");
 
         return respo;
     }
@@ -140,7 +116,37 @@ public class UserService implements UserServiceInterface , UserDetailsService {
             user.setEnabled(true);
             userRepo.save(user);
 
-            // 4. Delete OTP after use
+        School school = schoolRepo.findById(verification.getSchoolId())
+                .orElseThrow(()->new RuntimeException("School not found"));
+
+        // 4. Create Student or Teacher profile based on role
+        if (verification.getRole() == Role.STUDENT) {
+
+            Student student = new Student();
+            student.setRegNo(verification.getRegNo());
+            student.setUserReg(user);
+            student.setSchool(school);
+
+            studentRepo.save(student);
+
+        }
+
+        else if (verification.getRole() == Role.TEACHER) {
+
+            Teacher teacher = new Teacher();
+
+            teacher.setUserReg(user);
+            teacher.setTeacherNo(verification.getTeacherNo());
+            teacher.setSchool(school);
+
+            teacherRepo.save(teacher);
+
+        } else {
+            throw new RuntimeException("Invalid role. Must be STUDENT or TEACHER");
+        }
+
+
+        // 4. Delete OTP after use
             verificationRepository.delete(verification);
 
             return "Account verified successfully! You can now log in.";
