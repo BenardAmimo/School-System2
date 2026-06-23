@@ -1,5 +1,6 @@
 
 package com.school.entity;
+import com.school.security.entity.UserReg;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,8 +29,7 @@ public class Teacher {
          generator = "teacher_gen"
  )
  private Long teacherId;
- private String name;
- private String email;
+ private String teacherNo;
 
  @OneToMany(
          mappedBy = "teacher",
@@ -45,5 +45,16 @@ public class Teacher {
          referencedColumnName = "schoolId"
  )
  private School school;
+ @OneToOne(
+         cascade = CascadeType.ALL,
+         fetch = FetchType.EAGER,
+         orphanRemoval = true
+ )
+ @JoinColumn(
+         name = "user_id",
+         referencedColumnName = "userId"
+ )
+ private UserReg userReg;
+
 
 }

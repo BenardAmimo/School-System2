@@ -1,5 +1,6 @@
 package com.school.entity;
 
+import com.school.security.entity.UserReg;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,7 +35,7 @@ public class Assignment {
 
     @ManyToOne
     @JoinColumn(name = "teacher_id",
-    referencedColumnName = "teacherId")
+            referencedColumnName = "teacherId" )
     private Teacher teacher;
 
     @ManyToOne

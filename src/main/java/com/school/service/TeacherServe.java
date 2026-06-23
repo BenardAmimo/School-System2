@@ -8,8 +8,6 @@ import java.util.List;
 
 public interface TeacherServe {
 
-    TeacherResponse createTeacher(TeacherRequest teacherRequest);
-
     TeacherResponse getTeacherByName(String name);
 
     TeacherResponse getTeacherByid(Long teacherId);

@@ -4,6 +4,8 @@ import com.school.entity.Course;
 import com.school.entity.Teacher;
 import com.school.request.TeacherRequest;
 import com.school.response.TeacherResponse;
+import com.school.security.entity.UserReg;
+import com.school.security.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.school.repo.*;
@@ -15,23 +17,8 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class TeacherService implements TeacherServe{
  private final TeacherRepo teacherRepo;
+ private final UserRepository userRepository;
 
- @Override
- public TeacherResponse createTeacher(TeacherRequest teacherRequest) {
-
-  Teacher teacher = new Teacher();
-  teacher.setName(teacherRequest.getName());
-  teacher.setEmail(teacherRequest.getEmail());
-
-  Teacher teach = teacherRepo.save(teacher);
-
-  TeacherResponse res = new TeacherResponse();
-  res.setTeacherId(teach.getTeacherId());
-  res.setName(teach.getName());
-  res.setEmail(teach.getEmail());
-
-  return res;
- }
 
  @Override
  public TeacherResponse getTeacherByName(String name) {
@@ -42,13 +29,14 @@ public class TeacherService implements TeacherServe{
  public TeacherResponse getTeacherByid(Long teacherId) {
 
   Teacher teacher = teacherRepo.findById(teacherId).
-          orElseThrow(()->new RuntimeException("Teachernot found!"));
+          orElseThrow(()->new RuntimeException("Teacher not found!"));
 
   TeacherResponse teacherResponse = new TeacherResponse();
 
   teacherResponse.setTeacherId(teacher.getTeacherId());
-  teacherResponse.setName(teacher.getName());
-  teacherResponse.setEmail(teacher.getEmail());
+  teacherResponse.setFirstName(teacher.getUserReg().getFirstName());
+  teacherResponse.setLastName(teacher.getUserReg().getLastName());
+  teacherResponse.setEmail(teacher.getUserReg().getEmail());
 
   return teacherResponse;
  }
@@ -65,22 +53,25 @@ public class TeacherService implements TeacherServe{
  public TeacherResponse updateTeacher(Long teacherId, TeacherRequest teacherRequest) {
   Teacher teacherDB = teacherRepo.findById(teacherId).
           orElseThrow(()->new RuntimeException("Teacher Not found"));
+  UserReg user  = userRepository.findById(teacherRequest.getUserId()).
+          orElseThrow(()->new RuntimeException("User not found!"));
 
-  if(Objects.nonNull(teacherRequest.getName())&&!"".equalsIgnoreCase(teacherRequest.getName())){
-   teacherDB.setName(teacherRequest.getName());
+  if(Objects.nonNull(teacherRequest.getTeacherNo())&&!"".equalsIgnoreCase(teacherRequest.getTeacherNo())){
+   teacherDB.setTeacherNo(teacherRequest.getTeacherNo());
   }
 
-  if(Objects.nonNull(teacherRequest.getEmail())&&!"".equalsIgnoreCase(teacherRequest.getEmail())){
+  /*if(Objects.nonNull(teacherRequest.getEmail())&&!"".equalsIgnoreCase(teacherRequest.getEmail())){
    teacherDB.setEmail(teacherRequest.getEmail());
-  }
-
+  }*/
+  teacherDB.setUserReg(user);
   Teacher teach = teacherRepo.save(teacherDB);
 
   TeacherResponse responding = new TeacherResponse();
 
   responding.setTeacherId(teach.getTeacherId());
-  responding.setName(teach.getName());
-  responding.setEmail(teach.getEmail());
+  responding.setFirstName(teach.getUserReg().getFirstName());
+  responding.setLastName(teach.getUserReg().getLastName());
+  responding.setEmail(teach.getUserReg().getEmail());
 
 
   return responding;
@@ -89,8 +80,9 @@ public class TeacherService implements TeacherServe{
  private TeacherResponse mapToDto(Teacher teacher) {
   TeacherResponse resp = new TeacherResponse();
   resp.setTeacherId(teacher.getTeacherId());
-  resp.setName(teacher.getName());
-  resp.setEmail(teacher.getEmail());
+  resp.setFirstName(teacher.getUserReg().getFirstName());
+  resp.setLastName(teacher.getUserReg().getLastName());
+  resp.setEmail(teacher.getUserReg().getEmail());
 
   return resp;
  }

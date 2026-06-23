@@ -6,8 +6,6 @@ import com.school.response.StudentResponse;
 import java.util.List;
 public interface StudentServe {
 
-    StudentResponse creatStudent(StudentRequest studentRequest);
-
     List<StudentResponse> getAllStudents();
 
     StudentResponse getStudentById(Long studentId);

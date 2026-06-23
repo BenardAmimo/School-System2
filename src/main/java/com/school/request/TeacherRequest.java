@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TeacherRequest {
- private String name;
- private String email;
+ private String teacherNo;
+ private Long userId;
 }

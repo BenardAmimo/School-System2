@@ -20,15 +20,6 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @PostMapping("/students")
-    public ResponseEntity<StudentResponse> creatStudent(@RequestBody StudentRequest studentRequest){
-
-        log.info("Saving new student with name: {} ",studentRequest.getName());
-        StudentResponse creating = studentService.creatStudent(studentRequest);
-        log.info("Student saved with id {} ",creating.getStudentId());
-        return ResponseEntity.status(201).body(creating);
-    }
-
 
     @GetMapping("/students")
     public ResponseEntity<List<StudentResponse>> getAllStudents(){
@@ -50,9 +41,7 @@ public class StudentController {
     @PutMapping("/student/update/{studentId}")
     public ResponseEntity<StudentResponse> updateStudent(@PathVariable("studentId")Long studentId,
                                                  @RequestBody StudentRequest studentRequest){
-        log.info("Put Request for student: {} ",studentRequest.getName());
         StudentResponse updating = studentService.updateStudent(studentId,studentRequest);
-        log.info("Updated student with id {} ",updating.getStudentId());
 
         return ResponseEntity.status(202).body(updating);
     }

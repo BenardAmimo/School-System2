@@ -1,5 +1,4 @@
-
-package com.school.request;
+package com.school.security.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,9 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StudentRequest {
- private String regNo;
- private Long userId;
-
-
+public class UserResponse {
+    private Long UserId;
 }

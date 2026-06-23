@@ -37,9 +37,11 @@ public class EnrollmentService implements EnrollServe {
         EnrollmentResponse enr = new EnrollmentResponse();
 
         enr.setEnrollmentId(saving.getEnrollmentId());
-        enr.setStudentName(saving.getStudent().getName());
+        enr.setStudentName(saving.getStudent().getUserReg().getFirstName());
+        enr.setStudentName(saving.getStudent().getUserReg().getLastName());
         enr.setCourseName(saving.getAssignment().getCourse().getName());
-        enr.setTeacherName(saving.getAssignment().getTeacher().getName());
+        enr.setTeacherName(saving.getAssignment().getTeacher().getUserReg().getFirstName());
+        enr.setTeacherName(saving.getAssignment().getTeacher().getUserReg().getLastName());
 
         return enr;
     }
@@ -53,9 +55,11 @@ public class EnrollmentService implements EnrollServe {
         EnrollmentResponse enrollmentResponse = new EnrollmentResponse();
 
         enrollmentResponse.setEnrollmentId(enrollment.getEnrollmentId());
-        enrollmentResponse.setTeacherName(enrollment.getAssignment().getTeacher().getName());
+        enrollmentResponse.setTeacherName(enrollment.getAssignment().getTeacher().getUserReg().getFirstName());
+        enrollmentResponse.setTeacherName(enrollment.getAssignment().getTeacher().getUserReg().getLastName());
         enrollmentResponse.setCourseName(enrollment.getAssignment().getCourse().getName());
-        enrollmentResponse.setStudentName(enrollment.getStudent().getName());
+        enrollmentResponse.setStudentName(enrollment.getStudent().getUserReg().getFirstName());
+        enrollmentResponse.setStudentName(enrollment.getStudent().getUserReg().getLastName());
 
 
         return enrollmentResponse;
@@ -72,9 +76,11 @@ public class EnrollmentService implements EnrollServe {
     private EnrollmentResponse mapToDto(Enrollment enrollment) {
         EnrollmentResponse enrolls =  new EnrollmentResponse();
         enrolls.setEnrollmentId(enrollment.getEnrollmentId());
-        enrolls.setStudentName(enrollment.getStudent().getName());
+        enrolls.setStudentName(enrollment.getStudent().getUserReg().getFirstName());
+        enrolls.setStudentName(enrollment.getStudent().getUserReg().getLastName());
         enrolls.setCourseName(enrollment.getAssignment().getCourse().getName());
-        enrolls.setTeacherName(enrollment.getAssignment().getTeacher().getName());
+        enrolls.setTeacherName(enrollment.getAssignment().getTeacher().getUserReg().getFirstName());
+        enrolls.setTeacherName(enrollment.getAssignment().getTeacher().getUserReg().getLastName());
 
         return enrolls;
     }

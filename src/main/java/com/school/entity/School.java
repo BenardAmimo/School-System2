@@ -1,5 +1,6 @@
 package com.school.entity;
 
+import com.school.security.entity.UserReg;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,4 +42,7 @@ private List<Student> students;
         mappedBy = "school"
 )
 private List<Course> courses;
+
 }
+
+

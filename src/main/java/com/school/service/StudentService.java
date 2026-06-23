@@ -9,6 +9,8 @@ import com.school.repo.StudentRepo;
 import com.school.repo.TeacherRepo;
 import com.school.request.StudentRequest;
 import com.school.response.StudentResponse;
+import com.school.security.entity.UserReg;
+import com.school.security.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,21 +23,8 @@ import java.util.Objects;
 @Slf4j
 public class StudentService implements StudentServe {
     private final StudentRepo studentRepo;
+    private final UserRepository userRepository;
 
-    @Override
-    public StudentResponse creatStudent(StudentRequest studentRequest) {
-        Student student = new Student();
-        student.setName(studentRequest.getName());
-        student.setEmail(studentRequest.getEmail());
-
-        Student stud = studentRepo.save(student);
-
-        StudentResponse respo = new StudentResponse();
-        respo.setStudentId(stud.getStudentId());
-        respo.setName(stud.getName());
-        respo.setEmail(stud.getEmail());
-        return respo;
-    }
 
     @Override
     public List<StudentResponse> getAllStudents() {
@@ -48,8 +37,9 @@ public class StudentService implements StudentServe {
     private StudentResponse mapToDto(Student student) {
         StudentResponse stude = new StudentResponse();
         stude.setStudentId(student.getStudentId());
-        stude.setName(student.getName());
-        stude.setEmail(student.getEmail());
+        stude.setFirstName(student.getUserReg().getLastName());
+        stude.setLastName(student.getUserReg().getFirstName());
+        stude.setEmail(student.getUserReg().getEmail());
 
         return stude;
     }
@@ -61,8 +51,9 @@ public class StudentService implements StudentServe {
 
         StudentResponse studentResponse = new StudentResponse();
         studentResponse.setStudentId(student.getStudentId());
-        studentResponse.setName(student.getName());
-        studentResponse.setEmail(student.getEmail());
+        studentResponse.setFirstName(student.getUserReg().getFirstName());
+        studentResponse.setFirstName(student.getUserReg().getFirstName());
+        studentResponse.setEmail(student.getUserReg().getEmail());
 
         return studentResponse;
     }
@@ -72,20 +63,25 @@ public class StudentService implements StudentServe {
         Student studentDB = studentRepo.findById(studentId).
                 orElseThrow(()->new RuntimeException("Student Not available!"));
 
-        if(Objects.nonNull(studentRequest.getName())&&!"".equalsIgnoreCase(studentRequest.getName())){
-            studentDB.setName(studentRequest.getName());
+        UserReg user = userRepository.findById((studentRequest.getUserId()))
+                .orElseThrow(()->new RuntimeException("User not found"));
+
+        if(Objects.nonNull(studentRequest.getRegNo())&&!"".equalsIgnoreCase(studentRequest.getRegNo())){
+            studentDB.setRegNo(studentRequest.getRegNo());
         }
 
-        if(Objects.nonNull(studentRequest.getEmail())&&!"".equalsIgnoreCase(studentRequest.getEmail())){
+        /* if(Objects.nonNull(studentRequest.getEmail())&&!"".equalsIgnoreCase(studentRequest.getEmail())){
             studentDB.setEmail(studentRequest.getEmail());
-        }
+        }*/
+        studentDB.setUserReg(user);
         Student stud = studentRepo.save(studentDB);
 
         StudentResponse respo = new StudentResponse();
 
                 respo.setStudentId(stud.getStudentId());
-                respo.setName(stud.getName());
-                respo.setEmail(stud.getEmail());
+                respo.setFirstName(stud.getUserReg().getFirstName());
+                respo.setLastName(stud.getUserReg().getLastName());
+                respo.setEmail(stud.getUserReg().getEmail());
 
         return respo;
     }

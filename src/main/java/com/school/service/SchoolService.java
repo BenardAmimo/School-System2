@@ -5,7 +5,7 @@ import com.school.entity.School;
 import com.school.entity.Student;
 import com.school.entity.Teacher;
 import com.school.repo.CourseRepo;
-import com.school.repo.SchoolRepoitory;
+import com.school.repo.SchoolRepository;
 import com.school.repo.StudentRepo;
 import com.school.repo.TeacherRepo;
 import com.school.request.SchoolRequest;
@@ -19,7 +19,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class SchoolService implements SchoolServInter{
-    private final SchoolRepoitory schoolRepoitory;
+    private final SchoolRepository schoolRepoitory;
     private final TeacherRepo teacherRepo;
     private final CourseRepo courseRepo;
     private final StudentRepo studentRepo;
@@ -48,9 +48,11 @@ public class SchoolService implements SchoolServInter{
 
             SchoolResponse respond = new SchoolResponse();
             respond.setSchoolId(saved.getSchoolId());
-            respond.setTeacherName(saved.getTeachers().get(0).getName());
+            respond.setTeacherName(saved.getTeachers().get(0).getUserReg().getFirstName());
+            respond.setTeacherName(saved.getTeachers().get(0).getUserReg().getLastName());
             respond.setCourseName(saved.getCourses().get(0).getName());
-            respond.setStudentName(saved.getStudents().get(0).getName());
+            respond.setStudentName(saved.getStudents().get(0).getUserReg().getFirstName());
+        respond.setStudentName(saved.getStudents().get(0).getUserReg().getLastName());
             respond.setName(saved.getName());
             respond.setMotto(saved.getMotto());
             respond.setVision(saved.getVision());
@@ -69,9 +71,11 @@ public class SchoolService implements SchoolServInter{
         resp.setVision(school.getVision());
         resp.setMotto(school.getMotto());
         resp.setName(school.getName());
-        resp.setStudentName(school.getStudents().get(0).getName());
+        resp.setStudentName(school.getStudents().get(0).getUserReg().getFirstName());
+        resp.setStudentName(school.getStudents().get(0).getUserReg().getLastName());
         resp.setCourseName(school.getCourses().get(0).getName());
-        resp.setTeacherName(school.getTeachers().get(0).getName());
+        resp.setTeacherName(school.getTeachers().get(0).getUserReg().getFirstName());
+        resp.setTeacherName(school.getTeachers().get(0).getUserReg().getLastName());
         return resp;
     }
 
@@ -101,8 +105,11 @@ public class SchoolService implements SchoolServInter{
         respond.setName(school.getName());
         respond.setMotto(school.getMotto());
         respond.setVision(school.getVision());
-        respond.setStudentName(school.getStudents().get(0).getName());
-        respond.setTeacherName(school.getTeachers().get(0).getName());
+        respond.setStudentName(school.getStudents().get(0).getUserReg().getFirstName());
+        respond.setStudentName(school.getStudents().get(0).getUserReg().getLastName());
+        respond.setTeacherName(school.getTeachers().get(0).getUserReg().getFirstName());
+        respond.setTeacherName(school.getTeachers().get(0).getUserReg().getLastName());
+
         respond.setCourseName(school.getCourses().get(0).getName());
 
         return respond;

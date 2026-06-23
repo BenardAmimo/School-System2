@@ -40,7 +40,8 @@ public class AssignmentService implements AssignServe{
         AssignmentResponse resp = new AssignmentResponse();
         resp.setAssignmentId(saved.getAssignmentId());
         resp.setCourseName(saved.getCourse().getName());
-        resp.setTeacherName(saved.getTeacher().getName());
+        resp.setTeacherName(saved.getTeacher().getUserReg().getFirstName());
+        resp.setTeacherName(saved.getTeacher().getUserReg().getLastName());
 
         return resp;
     }
@@ -53,7 +54,8 @@ public class AssignmentService implements AssignServe{
         AssignmentResponse assignmentResponse = new AssignmentResponse();
 
         assignmentResponse.setAssignmentId(assignment.getAssignmentId());
-        assignmentResponse.setTeacherName(assignment.getTeacher().getName());
+        assignmentResponse.setTeacherName(assignment.getTeacher().getUserReg().getFirstName());
+        assignmentResponse.setTeacherName(assignment.getTeacher().getUserReg().getLastName());
         assignmentResponse.setCourseName(assignment.getCourse().getName());
 
         return assignmentResponse;
@@ -63,7 +65,8 @@ public class AssignmentService implements AssignServe{
 
         AssignmentResponse res = new AssignmentResponse();
         res.setAssignmentId(ca.getAssignmentId());
-        res.setTeacherName(ca.getTeacher().getName());
+        res.setTeacherName(ca.getTeacher().getUserReg().getFirstName());
+        res.setTeacherName(ca.getTeacher().getUserReg().getLastName());
         res.setCourseName(ca.getCourse().getName());
         return res;
     }
@@ -100,7 +103,8 @@ public class AssignmentService implements AssignServe{
 
         assRespo.setAssignmentId(saved.getAssignmentId());
         assRespo.setCourseName(saved.getCourse().getName());
-        assRespo.setTeacherName(saved.getTeacher().getName());
+        assRespo.setTeacherName(saved.getTeacher().getUserReg().getFirstName());
+        assRespo.setTeacherName(saved.getTeacher().getUserReg().getLastName());
         return assRespo;
     }
 

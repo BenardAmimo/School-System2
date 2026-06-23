@@ -17,11 +17,6 @@ public class TeacherController {
 
  public TeacherController(TeacherService s){this.service=s;}
 
-@PostMapping("/teachers")
-public ResponseEntity<TeacherResponse> createTeacher(@RequestBody TeacherRequest teacherRequest){
-  return ResponseEntity.status(201).body(service.createTeacher(teacherRequest));
- }
-
  @GetMapping("/{name}")
  public ResponseEntity<TeacherResponse> getTeacherByName(@PathVariable("name")String name){
      return ResponseEntity.ok(service.getTeacherByName(name));

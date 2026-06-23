@@ -1,5 +1,6 @@
 package com.school.entity;
 
+import com.school.security.entity.UserReg;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -42,4 +43,6 @@ public class Enrollment {
             referencedColumnName = "studentId"
     )
     private Student student;
+
+
 }

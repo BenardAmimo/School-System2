@@ -1,5 +1,6 @@
 
 package com.school.entity;
+import com.school.security.entity.UserReg;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
