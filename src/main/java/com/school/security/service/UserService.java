@@ -8,9 +8,12 @@ import com.school.repo.StudentRepo;
 import com.school.repo.TeacherRepo;
 import com.school.security.entity.Role;
 import com.school.security.entity.UserReg;
+import com.school.security.entity.VerificationCode;
 import com.school.security.models.UserRequest;
 import com.school.security.models.UserResponse;
 import com.school.security.repository.UserRepository;
+import com.school.security.repository.VerificationRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
+import java.time.LocalDateTime;
 
 @Service
 public class UserService implements UserServiceInterface , UserDetailsService {
@@ -26,13 +30,15 @@ public class UserService implements UserServiceInterface , UserDetailsService {
     private final TeacherRepo teacherRepo;
     private final PasswordEncoder passwordEncoder;
     private final SchoolRepository schoolRepo;
+    private final VerificationRepository verificationRepository;
 
-    public UserService(UserRepository userRepo, StudentRepo studentRepo, TeacherRepo teacherRepo, PasswordEncoder passwordEncoder, SchoolRepository schoolRepo) {
+    public UserService(UserRepository userRepo, StudentRepo studentRepo, TeacherRepo teacherRepo, PasswordEncoder passwordEncoder, SchoolRepository schoolRepo, VerificationRepository verificationRepository) {
         this.userRepo = userRepo;
         this.studentRepo = studentRepo;
         this.teacherRepo = teacherRepo;
         this.passwordEncoder = passwordEncoder;
         this.schoolRepo = schoolRepo;
+        this.verificationRepository = verificationRepository;
     }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -48,6 +54,14 @@ public class UserService implements UserServiceInterface , UserDetailsService {
 
     @Override
     public UserResponse register(UserRequest request) {
+        // these checks before building UserReg
+        if (userRepo.existsByUsername(request.getUsername())) {
+            throw new RuntimeException("Username already taken!");
+        }
+
+        if (userRepo.existsByEmail(request.getEmail())) {
+            throw new RuntimeException("Email already registered!");
+        }
 
         UserReg userReg = UserReg.builder()
                 .email(request.getEmail())
@@ -59,6 +73,14 @@ public class UserService implements UserServiceInterface , UserDetailsService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .build();
         UserReg saving = userRepo.save(userReg);
+
+        //Generates and saves OTP
+        String otp = generateOtp();
+        VerificationCode verificationCode = new VerificationCode();
+        verificationCode.setCode(otp);
+        verificationCode.setUserReg(saving);
+        verificationCode.setExpirytime(LocalDateTime.now().plusMinutes(10)); // ✅ 10 min expiry
+        verificationRepository.save(verificationCode);
 
         School school = schoolRepo.findById(request.getSchoolId())
                 .orElseThrow(()->new RuntimeException("School not found"));
@@ -88,13 +110,41 @@ public class UserService implements UserServiceInterface , UserDetailsService {
             throw new RuntimeException("Invalid role. Must be STUDENT or TEACHER");
         }
 
-
-
         UserResponse respo = new UserResponse();
         respo.setUserId(saving.getUserId());
+        respo.setFirstName(saving.getFirstName());
+        respo.setLastName(saving.getLastName());
+        respo.setEmail(saving.getEmail());
+        respo.setRole(saving.getRole());
+        respo.setUsername(saving.getUsername());
+        respo.setOtp(otp); // ✅ Only for testing — remove when email is wired up
 
         return respo;
     }
+
+    @Override
+    @Transactional
+    public String verifyUser(String code) {
+
+            VerificationCode verification = verificationRepository.findByCode(code)
+                    .orElseThrow(() -> new RuntimeException("Invalid OTP!"));
+
+            // 2. Check expiry
+            if (LocalDateTime.now().isAfter(verification.getExpirytime())) {
+                verificationRepository.delete(verification);
+                throw new RuntimeException("OTP has expired! Please register again.");
+            }
+
+            // 3. Enable the user
+            UserReg user = verification.getUserReg();
+            user.setEnabled(true);
+            userRepo.save(user);
+
+            // 4. Delete OTP after use
+            verificationRepository.delete(verification);
+
+            return "Account verified successfully! You can now log in.";
+        }
 
 
 }

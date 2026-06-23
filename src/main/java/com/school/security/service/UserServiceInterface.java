@@ -5,4 +5,6 @@ import com.school.security.models.UserResponse;
 
 public interface UserServiceInterface {
     UserResponse register(UserRequest request);
+
+    String verifyUser(String code);
 }
