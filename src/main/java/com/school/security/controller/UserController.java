@@ -1,8 +1,6 @@
 package com.school.security.controller;
 
-import com.school.security.models.RegistrationResponse;
-import com.school.security.models.UserRequest;
-import com.school.security.models.UserResponse;
+import com.school.security.models.*;
 import com.school.security.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,5 +25,11 @@ public class UserController {
     @PostMapping("/verify")
     public ResponseEntity<String> verifyUser(@RequestParam String code) {
         return ResponseEntity.ok(userService.verifyUser(code));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> loginUser(@RequestBody LoginRequest loginRequest){
+        LoginResponse login = userService.loginUser(loginRequest);
+        return ResponseEntity.ok(login);
     }
 }

@@ -20,7 +20,7 @@ public class SchoolController {
         return ResponseEntity.status(202).body(res);
     }
 
-    @GetMapping("/schoo/{schoolId}")
+    @GetMapping("/school/{schoolId}")
     public ResponseEntity<SchoolResponse> getSchoolById(@PathVariable("schoolId")Long schoolId){
         SchoolResponse respo = schoolService.getSchoolById(schoolId);
         return ResponseEntity.ok(respo);

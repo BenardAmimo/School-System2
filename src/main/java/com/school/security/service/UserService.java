@@ -9,12 +9,16 @@ import com.school.repo.TeacherRepo;
 import com.school.security.entity.Role;
 import com.school.security.entity.UserReg;
 import com.school.security.entity.VerificationCode;
+import com.school.security.models.LoginRequest;
+import com.school.security.models.LoginResponse;
 import com.school.security.models.RegistrationResponse;
 import com.school.security.models.UserRequest;
-import com.school.security.models.UserResponse;
 import com.school.security.repository.UserRepository;
 import com.school.security.repository.VerificationRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -33,8 +37,10 @@ public class UserService implements UserServiceInterface , UserDetailsService {
     private final SchoolRepository schoolRepo;
     private final VerificationRepository verificationRepository;
     private final EmailService emailService;
+    private final JwtService jwtService;
+    private final AuthenticationManager authenticationManager;
 
-    public UserService(UserRepository userRepo, StudentRepo studentRepo, TeacherRepo teacherRepo, PasswordEncoder passwordEncoder, SchoolRepository schoolRepo, VerificationRepository verificationRepository, EmailService emailService) {
+    public UserService(UserRepository userRepo, StudentRepo studentRepo, TeacherRepo teacherRepo, PasswordEncoder passwordEncoder, SchoolRepository schoolRepo, VerificationRepository verificationRepository, EmailService emailService, JwtService jwtService, @Lazy AuthenticationManager authenticationManager) {
         this.userRepo = userRepo;
         this.studentRepo = studentRepo;
         this.teacherRepo = teacherRepo;
@@ -42,10 +48,12 @@ public class UserService implements UserServiceInterface , UserDetailsService {
         this.schoolRepo = schoolRepo;
         this.verificationRepository = verificationRepository;
         this.emailService = emailService;
+        this.jwtService = jwtService;
+        this.authenticationManager = authenticationManager;
     }
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepo.findByUsername(username).
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return userRepo.findByEmail(email).
                 orElseThrow(()->new UsernameNotFoundException("Username not found"));
     }
 
@@ -56,8 +64,9 @@ public class UserService implements UserServiceInterface , UserDetailsService {
     }
 
     @Override
+    @Transactional
     public RegistrationResponse register(UserRequest request) {
-        // these checks before building UserReg
+
         if (userRepo.existsByUsername(request.getUsername())) {
             throw new RuntimeException("Username already taken!");
         }
@@ -90,7 +99,7 @@ public class UserService implements UserServiceInterface , UserDetailsService {
         verificationRepository.save(verificationCode);
 
 
-        emailService.sendEmailToUser(saving.getEmail(), "centeredproject@gmail.com",code);
+        emailService.sendEmailToUser(saving.getEmail(),code);
 
         RegistrationResponse respo = new RegistrationResponse();
          respo.setSuccessMessage("Email successfully sent to your email!");
@@ -116,11 +125,13 @@ public class UserService implements UserServiceInterface , UserDetailsService {
             user.setEnabled(true);
             userRepo.save(user);
 
-        School school = schoolRepo.findById(verification.getSchoolId())
-                .orElseThrow(()->new RuntimeException("School not found"));
+
 
         // 4. Create Student or Teacher profile based on role
         if (verification.getRole() == Role.STUDENT) {
+
+            School school = schoolRepo.findById(verification.getSchoolId())
+                    .orElseThrow(()->new RuntimeException("School not found"));
 
             Student student = new Student();
             student.setRegNo(verification.getRegNo());
@@ -133,6 +144,9 @@ public class UserService implements UserServiceInterface , UserDetailsService {
 
         else if (verification.getRole() == Role.TEACHER) {
 
+            School school = schoolRepo.findById(verification.getSchoolId())
+                    .orElseThrow(()->new RuntimeException("School not found"));
+
             Teacher teacher = new Teacher();
 
             teacher.setUserReg(user);
@@ -141,16 +155,43 @@ public class UserService implements UserServiceInterface , UserDetailsService {
 
             teacherRepo.save(teacher);
 
-        } else {
-            throw new RuntimeException("Invalid role. Must be STUDENT or TEACHER");
         }
 
-
-        // 4. Delete OTP after use
             verificationRepository.delete(verification);
 
             return "Account verified successfully! You can now log in.";
         }
+
+    @Override
+    public LoginResponse loginUser(LoginRequest loginRequest) {
+
+        UserReg user = userRepo.findByEmail(loginRequest.getEmail())
+                .orElseThrow(()->new RuntimeException("Email not registered"));
+
+
+
+        authenticationManager.authenticate(
+
+                new UsernamePasswordAuthenticationToken(
+
+                        loginRequest.getEmail(),
+                        loginRequest.getPassword()
+
+                )
+
+        );
+
+        String token = jwtService.generateToken(user);
+
+        LoginResponse response = new LoginResponse();
+        response.setToken(token);
+        response.setRole(user.getRole().name());
+        response.setFirstName(user.getFirstName());
+        response.setLastName(user.getLastName());
+        response.setMessage("Login successful!");
+
+        return response;
+    }
 
 
 }
