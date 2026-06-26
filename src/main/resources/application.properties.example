@@ -27,5 +27,6 @@ spring.mail.properties.mail.smtp.starttls.required=true
 spring.mail.properties.mail.smtp.connectiontimeout=5000
 spring.mail.properties.mail.smtp.timeout=5000
 spring.mail.properties.mail.smtp.writetimeout=5000
-.security.jwt-secret=YOUR OWN SECURITY KEY
-jkapi.security.jwt-expiration=86400000
+
+school.security.jwt-secret=YOUR OWN SECURITY KEY
+school.security.jwt-expiration=86400000
