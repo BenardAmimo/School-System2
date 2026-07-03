@@ -17,7 +17,4 @@ public class UserRequest {
     private Boolean enabled;
     private Role role;
     private String confirmPassword;
-    private Long schoolId;
-    private String regNo;
-    private String teacherNo;
 }

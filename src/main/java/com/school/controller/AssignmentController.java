@@ -20,7 +20,7 @@ public class AssignmentController {
     public ResponseEntity<AssignmentResponse> assignCourse(@RequestBody AssignmentRequest request){
         AssignmentResponse assign = assignmentService.assignCourse(request);
 
-        return ResponseEntity.status(201).body(assign);
+        return ResponseEntity.status(HttpStatus.CREATED).body(assign);
     }
 
     @GetMapping("/assign/id/{assignmentId}")

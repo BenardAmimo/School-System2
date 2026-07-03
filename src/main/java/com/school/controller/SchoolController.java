@@ -3,6 +3,7 @@ import com.school.request.SchoolRequest;
 import com.school.response.SchoolResponse;
 import com.school.service.SchoolService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,7 @@ public class SchoolController {
     @PostMapping("/school")
     public ResponseEntity<SchoolResponse> createNewSchool(@RequestBody SchoolRequest schoolRequest){
         SchoolResponse res = schoolService.createNewSchool(schoolRequest);
-        return ResponseEntity.status(202).body(res);
+        return ResponseEntity.status(HttpStatus.CREATED).body(res);
     }
 
     @GetMapping("/school/{schoolId}")
@@ -26,7 +27,7 @@ public class SchoolController {
         return ResponseEntity.ok(respo);
     }
 
-    @GetMapping("/schools")
+    @GetMapping("/school/")
     public ResponseEntity<List<SchoolResponse>>getAllSchools(){
         List<SchoolResponse> schoolResponses = schoolService.getAllSchools();
         return ResponseEntity.ok(schoolResponses);

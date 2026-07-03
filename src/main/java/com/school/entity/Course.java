@@ -36,9 +36,7 @@ public class Course {
          orphanRemoval = true
  )
  private List<Assignment> assignment;
- @ManyToOne(
-         cascade = CascadeType.ALL
- )
+ @ManyToOne
  @JoinColumn(
          name = "school_id",
          referencedColumnName = "schoolId"

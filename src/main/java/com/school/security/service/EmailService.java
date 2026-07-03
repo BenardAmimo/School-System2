@@ -14,12 +14,12 @@ public class EmailService {
     }
     @Value("${spring.mail.username}")
     private String fromEmail;
-    public void sendEmailToUser(String to,String code){
+    public void sendInviteEmail(String to,String code){
         SimpleMailMessage messaging = new SimpleMailMessage();
         messaging.setTo(to);
         messaging.setFrom(fromEmail);
-        messaging.setSubject("Verification code to your account");
-        messaging.setText("Use the code sent below to verify your account creation:\n"+ code);
+        messaging.setSubject("Invitation code to your account");
+        messaging.setText("Use the code sent below to access your account creation:\n"+ code);
 
         javaMailSender.send(messaging);
 

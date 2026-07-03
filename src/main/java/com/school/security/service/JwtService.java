@@ -1,5 +1,6 @@
 package com.school.security.service;
 
+import com.school.security.entity.UserReg;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 
 @Service
@@ -22,9 +25,16 @@ public class JwtService {
     @Value("${school.security.jwt-expiration}")
     private long jwtExpiration;
 
-    // ✅ Generate token on login
     public String generateToken(UserDetails userDetails) {
+        Map<String, Object> claims = new HashMap<>();
+        UserReg user = (UserReg) userDetails;
+        claims.put("role", user.getRole().name());
+        return generateToken(claims, userDetails);
+    }
+    // New overload that accepts extra claims
+    public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
         return Jwts.builder()
+                .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
@@ -32,12 +42,11 @@ public class JwtService {
                 .compact();
     }
 
-    // ✅ Extract email/username from token
     public String extractUsername(String token) {
+
         return extractClaim(token, Claims::getSubject);
     }
 
-    // ✅ Check if token is valid
     public boolean isTokenValid(String token, UserDetails userDetails) {
         String username = extractUsername(token);
         return username.equals(userDetails.getUsername())

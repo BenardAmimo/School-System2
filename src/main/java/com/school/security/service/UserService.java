@@ -1,20 +1,13 @@
 package com.school.security.service;
 
-import com.school.entity.School;
-import com.school.entity.Student;
-import com.school.entity.Teacher;
 import com.school.repo.SchoolRepository;
 import com.school.repo.StudentRepo;
 import com.school.repo.TeacherRepo;
-import com.school.security.entity.Role;
+import com.school.security.entity.InviteToken;
 import com.school.security.entity.UserReg;
-import com.school.security.entity.VerificationCode;
-import com.school.security.models.LoginRequest;
-import com.school.security.models.LoginResponse;
-import com.school.security.models.RegistrationResponse;
-import com.school.security.models.UserRequest;
+import com.school.security.models.*;
+import com.school.security.repository.InviteTokenRepo;
 import com.school.security.repository.UserRepository;
-import com.school.security.repository.VerificationRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,7 +18,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.security.SecureRandom;
 import java.time.LocalDateTime;
 
 @Service
@@ -35,18 +27,18 @@ public class UserService implements UserServiceInterface , UserDetailsService {
     private final TeacherRepo teacherRepo;
     private final PasswordEncoder passwordEncoder;
     private final SchoolRepository schoolRepo;
-    private final VerificationRepository verificationRepository;
+    private final InviteTokenRepo inviteTokenRepo;
     private final EmailService emailService;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public UserService(UserRepository userRepo, StudentRepo studentRepo, TeacherRepo teacherRepo, PasswordEncoder passwordEncoder, SchoolRepository schoolRepo, VerificationRepository verificationRepository, EmailService emailService, JwtService jwtService, @Lazy AuthenticationManager authenticationManager) {
+    public UserService(UserRepository userRepo, StudentRepo studentRepo, TeacherRepo teacherRepo, PasswordEncoder passwordEncoder, SchoolRepository schoolRepo , InviteTokenRepo inviteTokenRepo, EmailService emailService, JwtService jwtService, @Lazy AuthenticationManager authenticationManager) {
         this.userRepo = userRepo;
         this.studentRepo = studentRepo;
         this.teacherRepo = teacherRepo;
         this.passwordEncoder = passwordEncoder;
         this.schoolRepo = schoolRepo;
-        this.verificationRepository = verificationRepository;
+        this.inviteTokenRepo = inviteTokenRepo;
         this.emailService = emailService;
         this.jwtService = jwtService;
         this.authenticationManager = authenticationManager;
@@ -57,110 +49,75 @@ public class UserService implements UserServiceInterface , UserDetailsService {
                 orElseThrow(()->new UsernameNotFoundException("Username not found"));
     }
 
-    private String generateOtp() {
-        SecureRandom random = new SecureRandom();
-        int code = 100000 + random.nextInt(900000);
-        return String.valueOf(code);
-    }
 
-    @Override
     @Transactional
-    public RegistrationResponse register(UserRequest request) {
-
-        if (userRepo.existsByUsername(request.getUsername())) {
-            throw new RuntimeException("Username already taken!");
-        }
+    @Override
+    public String inviteUser(InviteRequest request) {
 
         if (userRepo.existsByEmail(request.getEmail())) {
             throw new RuntimeException("Email already registered!");
         }
 
+        // Created with no username/password yet — those come from the user later.
         UserReg userReg = UserReg.builder()
                 .email(request.getEmail())
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
-                .username(request.getUsername())
                 .role(request.getRole())
                 .enabled(false)
-                .password(passwordEncoder.encode(request.getPassword()))
                 .build();
-        UserReg saving = userRepo.save(userReg);
 
-        //Generates and saves OTP
-        String code = generateOtp();
-        VerificationCode verificationCode = new VerificationCode();
-        verificationCode.setCode(code);
-        verificationCode.setUserReg(saving);
-        verificationCode.setExpirytime(LocalDateTime.now().plusMinutes(10));
-        verificationCode.setSchoolId(request.getSchoolId());
-        verificationCode.setRole(request.getRole());
-        verificationCode.setTeacherNo(request.getTeacherNo());
-        verificationCode.setRegNo(request.getRegNo());
-        verificationRepository.save(verificationCode);
+        UserReg saved = userRepo.save(userReg);
 
+        String token = java.util.UUID.randomUUID().toString();
 
-        emailService.sendEmailToUser(saving.getEmail(),code);
+        InviteToken invite = InviteToken.builder()
+                .token(token)
+                .userReg(saved)
+                .used(false)
+                .expiresAt(LocalDateTime.now().plusDays(7)) // adjust window as needed
+                .createdAt(LocalDateTime.now())
+                .build();
 
-        RegistrationResponse respo = new RegistrationResponse();
-         respo.setSuccessMessage("Email successfully sent to your email!");
+        inviteTokenRepo.save(invite);
 
-        return respo;
+        emailService.sendInviteEmail(saved.getEmail(), token); // build this link as your frontend expects, e.g. https://yourapp.com/complete-registration?token=...
+
+        return token;
     }
 
-    @Override
     @Transactional
-    public String verifyUser(String code) {
+    @Override
+    public RegistrationResponse completeRegistration(CompleteRegistrationRequest request) {
 
-            VerificationCode verification = verificationRepository.findByCode(code)
-                    .orElseThrow(() -> new RuntimeException("Invalid OTP!"));
+        InviteToken invite = inviteTokenRepo.findByToken(request.getToken())
+                .orElseThrow(() -> new RuntimeException("Invalid invite token!"));
 
-            // 2. Check expiry
-            if (LocalDateTime.now().isAfter(verification.getExpirytime())) {
-                verificationRepository.delete(verification);
-                throw new RuntimeException("OTP has expired! Please register again.");
-            }
-
-            // 3. Enable the user
-            UserReg user = verification.getUserReg();
-            user.setEnabled(true);
-            userRepo.save(user);
-
-
-
-        // 4. Create Student or Teacher profile based on role
-        if (verification.getRole() == Role.STUDENT) {
-
-            School school = schoolRepo.findById(verification.getSchoolId())
-                    .orElseThrow(()->new RuntimeException("School not found"));
-
-            Student student = new Student();
-            student.setRegNo(verification.getRegNo());
-            student.setUserReg(user);
-            student.setSchool(school);
-
-            studentRepo.save(student);
-
+        if (invite.isUsed()) {
+            throw new RuntimeException("This invite has already been used!");
         }
 
-        else if (verification.getRole() == Role.TEACHER) {
-
-            School school = schoolRepo.findById(verification.getSchoolId())
-                    .orElseThrow(()->new RuntimeException("School not found"));
-
-            Teacher teacher = new Teacher();
-
-            teacher.setUserReg(user);
-            teacher.setTeacherNo(verification.getTeacherNo());
-            teacher.setSchool(school);
-
-            teacherRepo.save(teacher);
-
+        if (LocalDateTime.now().isAfter(invite.getExpiresAt())) {
+            throw new RuntimeException("This invite has expired! Ask your admin to resend it.");
         }
 
-            verificationRepository.delete(verification);
-
-            return "Account verified successfully! You can now log in.";
+        if (userRepo.existsByUsername(request.getUsername())) {
+            throw new RuntimeException("Username already taken!");
         }
+
+        UserReg user = invite.getUserReg();
+        user.setUsername(request.getUsername());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setEnabled(true);
+        userRepo.save(user);
+
+        invite.setUsed(true);
+        inviteTokenRepo.save(invite);
+
+        RegistrationResponse response = new RegistrationResponse();
+        response.setSuccessMessage("Account activated! You can now log in.");
+        return response;
+    }
 
     @Override
     public LoginResponse loginUser(LoginRequest loginRequest) {

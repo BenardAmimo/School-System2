@@ -1,5 +1,6 @@
 package com.school.security.repository;
 
+import com.school.security.entity.Role;
 import com.school.security.entity.UserReg;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,4 +17,6 @@ public interface UserRepository extends JpaRepository<UserReg,Long> {
     boolean existsByEmail(String email);
 
     Optional<UserReg> findByEmail(String email);
+
+    boolean existsByRole(Role role);
 }

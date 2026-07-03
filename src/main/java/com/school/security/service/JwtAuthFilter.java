@@ -31,26 +31,21 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
-        // 1. Get Authorization header
+
         String authHeader = request.getHeader("Authorization");
 
-        // 2. No token — skip
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // 3. Extract token
         String token = authHeader.substring(7);
 
-        // 4. Extract username/email
         String username = jwtService.extractUsername(token);
 
-        // 5. Validate and authenticate
         if (username != null &&
                 SecurityContextHolder.getContext().getAuthentication() == null) {
 
-            // ✅ Correct type — org.springframework.security.core.userdetails.UserDetails
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
             if (jwtService.isTokenValid(token, userDetails)) {
