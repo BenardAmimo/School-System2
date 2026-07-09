@@ -1,5 +1,7 @@
 package com.school.service;
 
+import com.example.demo.config.error.CourseNotFoundException;
+import com.example.demo.config.error.TeacherNotFoundException;
 import com.school.entity.Assignment;
 import com.school.entity.Course;
 import com.school.entity.Teacher;
@@ -22,13 +24,13 @@ public class AssignmentService implements AssignServe{
     private final CourseRepo courseRepo;
 
     @Override
-    public AssignmentResponse assignCourse(AssignmentRequest request){
+    public AssignmentResponse assignCourse(AssignmentRequest request) throws CourseNotFoundException {
 
         Teacher teacher = teacherRepo.findById(request.getTeacherId()).
-                orElseThrow(()->new RuntimeException("Teacher not found!"));
+                orElseThrow(()->new TeacherNotFoundException("Teacher not found!"));
 
         Course course = courseRepo.findById(request.getCourseId()).
-                orElseThrow(()->new RuntimeException("Course nt Found!"));
+                orElseThrow(()->new CourseNotFoundException("Course nt Found!"));
 
         Assignment assignment = new Assignment();
 

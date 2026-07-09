@@ -1,5 +1,6 @@
 package com.school.controller;
 
+import com.example.demo.config.error.CourseNotFoundException;
 import com.school.request.AssignmentRequest;
 import com.school.response.AssignmentResponse;
 import com.school.service.AssignmentService;
@@ -17,7 +18,7 @@ public class AssignmentController {
     private final AssignmentService assignmentService;
 
     @PostMapping("/assigns")
-    public ResponseEntity<AssignmentResponse> assignCourse(@RequestBody AssignmentRequest request){
+    public ResponseEntity<AssignmentResponse> assignCourse(@RequestBody AssignmentRequest request) throws CourseNotFoundException {
         AssignmentResponse assign = assignmentService.assignCourse(request);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(assign);

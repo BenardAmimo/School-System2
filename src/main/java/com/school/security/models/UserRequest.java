@@ -8,13 +8,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserRequest {
-    private String username;
+public class UserRequest{
     private String firstName;
     private String lastName;
     private String email;
-    private String password;
     private Boolean enabled;
     private Role role;
-    private String confirmPassword;
+    private String teacherNo;
+    private String regNo;
 }

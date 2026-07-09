@@ -62,7 +62,6 @@ public class JwtService {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    // ✅ Generic claim extractor
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
@@ -72,7 +71,6 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
-    // ✅ Build signing key from secret
     private Key getSigningKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);

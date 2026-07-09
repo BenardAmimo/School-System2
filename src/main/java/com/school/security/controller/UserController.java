@@ -2,12 +2,14 @@ package com.school.security.controller;
 
 import com.school.security.models.*;
 import com.school.security.service.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.w3c.dom.stylesheets.LinkStyle;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
@@ -18,11 +20,9 @@ public class UserController {
         this.userService = userService;
     }
 
-
-    // Admin invites a specific person with a role already assigned
     @PostMapping("/admin/invite-user")
     @PreAuthorize("hasRole('SUPER_ADMIN')")
-    public ResponseEntity<String> inviteUser(@RequestBody InviteRequest request) {
+    public ResponseEntity<String> inviteUser(@RequestBody UserRequest request) {
         userService.inviteUser(request);
         return ResponseEntity.ok("Invite sent");
     }
@@ -37,5 +37,11 @@ public class UserController {
     public ResponseEntity<LoginResponse> loginUser(@RequestBody LoginRequest loginRequest){
         LoginResponse login = userService.loginUser(loginRequest);
         return ResponseEntity.ok(login);
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<UserResponse>> findAllUsers(){
+        List<UserResponse> allUsers = userService.findAllUsers();
+        return ResponseEntity.ok(allUsers);
     }
 }
