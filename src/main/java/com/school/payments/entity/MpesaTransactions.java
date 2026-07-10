@@ -37,6 +37,6 @@ public class MpesaTransactions {
             name = "funds_id",
             referencedColumnName = "fundsId"
     )
-    private List<Funds> fundsList = new ArrayList<>();
+    private Funds funds;
 
 }

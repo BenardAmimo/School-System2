@@ -57,6 +57,6 @@ public class Student {
  @OneToMany(
          mappedBy = "students"
  )
- private Funds funds;
+ private List<Funds> funds;
 
 }

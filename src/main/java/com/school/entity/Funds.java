@@ -30,14 +30,15 @@ public class Funds {
             name = "student_id",
             referencedColumnName = "studentId"
     )
-    private List<Student> students = new ArrayList<>();
+    private Student students;
+
     private LocalDateTime paidAt;
     private BigDecimal amountPaid;
     private FundsType fundsType;
-    @OneToOne(
-            mappedBy = "fundsList"
+    @OneToMany(
+            mappedBy = "funds"
     )
-    private MpesaTransactions mpesaTransactions;
+    private List<MpesaTransactions> mpesaTransactions;
 
 
 
