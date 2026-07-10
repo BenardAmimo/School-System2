@@ -54,5 +54,9 @@ public class Student {
          referencedColumnName = "userId"
  )
  private UserReg userReg;
+ @OneToMany(
+         mappedBy = "students"
+ )
+ private Funds funds;
 
 }
