@@ -36,11 +36,6 @@ public class Course {
          orphanRemoval = true
  )
  private List<Assignment> assignment;
- @ManyToOne
- @JoinColumn(
-         name = "school_id",
-         referencedColumnName = "schoolId"
- )
- private School school;
+
 
 }

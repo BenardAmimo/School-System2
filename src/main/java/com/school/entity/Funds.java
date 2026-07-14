@@ -32,8 +32,8 @@ public class Funds {
     )
     private Student students;
 
-    private LocalDateTime paidAt;
-    private BigDecimal amountPaid;
+    private LocalDateTime CreatedAt;
+    private BigDecimal amount;
     private FundsType fundsType;
     @OneToMany(
             mappedBy = "funds"

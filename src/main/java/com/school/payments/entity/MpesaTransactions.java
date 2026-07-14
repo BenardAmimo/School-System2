@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Data
@@ -21,7 +19,7 @@ public class MpesaTransactions {
             strategy = GenerationType.AUTO
     )
     private Long id;
-    private String checkOutRequestId;
+    private String checkoutRequestId;
     private String merchantRequestId;
     private String phoneNumber;
     private BigDecimal amount;

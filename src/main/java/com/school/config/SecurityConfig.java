@@ -42,7 +42,7 @@ public class SecurityConfig {
                 )
 
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers( "/login","/school/**","/complete-registration").permitAll()
+                        .requestMatchers( "/login","/school/**","/complete-registration","/stk/callback").permitAll()
                         //.requestMatchers(HttpMethod.GET, "/school/**").permitAll()
                         //.requestMatchers(HttpMethod.POST, "/school/**").hasRole("ADMIN")
                         //.requestMatchers(HttpMethod.PUT, "/school/**").hasRole("ADMIN")

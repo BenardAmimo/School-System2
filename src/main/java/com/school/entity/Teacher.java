@@ -37,14 +37,6 @@ public class Teacher {
          orphanRemoval = true
  )
  private List<Assignment> assignments;
- @ManyToOne(
-         cascade = CascadeType.ALL
- )
- @JoinColumn(
-         name = "school_id",
-         referencedColumnName = "schoolId"
- )
- private School school;
  @OneToOne(
          cascade = CascadeType.ALL,
          fetch = FetchType.EAGER,

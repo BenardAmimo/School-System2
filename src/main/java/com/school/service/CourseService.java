@@ -1,9 +1,7 @@
 package com.school.service;
 
 import com.school.entity.Course;
-import com.school.entity.School;
 import com.school.repo.CourseRepo;
-import com.school.repo.SchoolRepository;
 import com.school.request.CourseRequest;
 import com.school.response.CourseResponse;
 import lombok.RequiredArgsConstructor;
@@ -18,19 +16,14 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class CourseService implements CourseServe {
     private final CourseRepo courseRepo;
-    private final SchoolRepository schoolRepository;
 
 
     @Override
     public CourseResponse createCourse(CourseRequest courseRequest) {
 
-        School school = schoolRepository.findById(courseRequest.getSchoolId())
-                .orElseThrow(()->new RuntimeException("School not found"));
-
         Course course = new Course();
         course.setName(courseRequest.getName());
         course.setDescription(courseRequest.getDescription());
-        course.setSchool(school);
 
         Course saved = courseRepo.save(course);
 
@@ -38,7 +31,7 @@ public class CourseService implements CourseServe {
         response.setCourseId(saved.getCourseId());
         response.setName(saved.getName());
         response.setDescription(saved.getDescription());
-        response.setSchoolName(saved.getSchool().getName());
+
         return response;
     }
 

@@ -2,7 +2,6 @@ package com.school.security.service;
 
 import com.school.entity.Student;
 import com.school.entity.Teacher;
-import com.school.repo.SchoolRepository;
 import com.school.repo.StudentRepo;
 import com.school.repo.TeacherRepo;
 import com.school.security.entity.InviteCode;
@@ -31,18 +30,16 @@ public class UserService implements UserServiceInterface , UserDetailsService {
     private final StudentRepo studentRepo;
     private final TeacherRepo teacherRepo;
     private final PasswordEncoder passwordEncoder;
-    private final SchoolRepository schoolRepo;
     private final InviteTokenRepo inviteTokenRepo;
     private final EmailService emailService;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public UserService(UserRepository userRepo, StudentRepo studentRepo, TeacherRepo teacherRepo, PasswordEncoder passwordEncoder, SchoolRepository schoolRepo , InviteTokenRepo inviteTokenRepo, EmailService emailService, JwtService jwtService, @Lazy AuthenticationManager authenticationManager) {
+    public UserService(UserRepository userRepo, StudentRepo studentRepo, TeacherRepo teacherRepo, PasswordEncoder passwordEncoder, InviteTokenRepo inviteTokenRepo, EmailService emailService, JwtService jwtService, @Lazy AuthenticationManager authenticationManager) {
         this.userRepo = userRepo;
         this.studentRepo = studentRepo;
         this.teacherRepo = teacherRepo;
         this.passwordEncoder = passwordEncoder;
-        this.schoolRepo = schoolRepo;
         this.inviteTokenRepo = inviteTokenRepo;
         this.emailService = emailService;
         this.jwtService = jwtService;

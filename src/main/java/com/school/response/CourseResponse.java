@@ -11,5 +11,5 @@ public class CourseResponse {
     private Long courseId;
     private String name;
     private String description;
-    private String schoolName;
+
 }
