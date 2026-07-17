@@ -39,6 +39,12 @@ public class Funds {
             mappedBy = "funds"
     )
     private List<MpesaTransactions> mpesaTransactions;
+    @ManyToOne
+    @JoinColumn(
+            name = "term_id",
+            referencedColumnName = "termId"
+    )
+    private Term term;
 
 
 
