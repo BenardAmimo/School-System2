@@ -1,12 +1,7 @@
 package com.school.service;
 
-import com.example.demo.config.error.StudentNotFoundtException;
-import com.school.entity.Course;
 import com.school.entity.Student;
-import com.school.entity.Teacher;
-import com.school.repo.CourseRepo;
 import com.school.repo.StudentRepo;
-import com.school.repo.TeacherRepo;
 import com.school.request.StudentRequest;
 import com.school.response.StudentResponse;
 import com.school.security.entity.UserReg;

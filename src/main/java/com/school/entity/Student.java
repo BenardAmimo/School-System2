@@ -30,12 +30,7 @@ public class Student {
  )
  private Long studentId;
  private String regNo;
- @OneToOne(
-         mappedBy = "student",
-         cascade = CascadeType.ALL,
-         orphanRemoval = true
- )
- private Enrollment enrollments;
+ 
 
  @OneToOne(
          cascade = CascadeType.ALL,

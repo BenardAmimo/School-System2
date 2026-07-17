@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AssignmentRequest {
     private Long teacherId;
-    private Long courseId;
+    private Long subjectId;
 }

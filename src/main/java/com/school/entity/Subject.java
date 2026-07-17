@@ -1,11 +1,9 @@
 
 package com.school.entity;
-import com.school.security.entity.UserReg;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.tool.schema.internal.StandardUserDefinedTypeExporter;
 
 import java.util.List;
 
@@ -14,24 +12,24 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(
-        name = "courses_tbl"
+        name = "subject_tbl"
 )
-public class Course {
+public class Subject {
  @Id
  @SequenceGenerator(
-         name = "course_gen",
-         sequenceName = "course_gen",
+         name = "subject_gen",
+         sequenceName = "subject_gen",
          allocationSize = 1
  )
  @GeneratedValue(
          strategy = GenerationType.SEQUENCE,
- generator = "course_gen"
+ generator = "subject_gen"
  )
- private Long courseId;
+ private Long subjectId;
  private String name;
  private String description;
  @OneToMany(
-         mappedBy = "course",
+         mappedBy = "subject",
          cascade = CascadeType.ALL,
          orphanRemoval = true
  )

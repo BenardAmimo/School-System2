@@ -1,6 +1,5 @@
-package com.example.demo.config.error;
+package com.school.error;
 
-import jakarta.persistence.Entity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -10,9 +9,9 @@ import org.springframework.web.context.request.WebRequest;
 @ControllerAdvice
 public class ErrorHandling{
 
-    @ExceptionHandler(CourseNotFoundException.class)
+    @ExceptionHandler(SubjectNotFoundException.class)
     public ResponseEntity<ErrorMessage> courseNotFoundException(
-            CourseNotFoundException courseNotFoundException,
+            SubjectNotFoundException courseNotFoundException,
             WebRequest request){
 
         ErrorMessage message = new ErrorMessage(HttpStatus.NOT_FOUND,
@@ -41,6 +40,14 @@ public class ErrorHandling{
         ErrorMessage message = new ErrorMessage(HttpStatus.NOT_FOUND,
                 studentNotFoundException.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+    }
+
+    @ExceptionHandler(MpesaException.class)
+    public ResponseEntity<ErrorMessage> mpesaException(MpesaException mpesaException, WebRequest request){
+
+        ErrorMessage error = new ErrorMessage(HttpStatus.NOT_FOUND,mpesaException.getMessage());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
 }

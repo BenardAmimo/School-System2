@@ -1,12 +1,12 @@
 package com.school.service;
 
-import com.example.demo.config.error.CourseNotFoundException;
-import com.example.demo.config.error.TeacherNotFoundException;
+import com.school.error.SubjectNotFoundException;
+import com.school.error.TeacherNotFoundException;
 import com.school.entity.Assignment;
-import com.school.entity.Course;
+import com.school.entity.Subject;
 import com.school.entity.Teacher;
 import com.school.repo.AssignmentRepository;
-import com.school.repo.CourseRepo;
+import com.school.repo.SubjectRepository;
 import com.school.repo.TeacherRepo;
 import com.school.request.AssignmentRequest;
 import com.school.response.AssignmentResponse;
@@ -21,27 +21,27 @@ import java.util.Objects;
 public class AssignmentService implements AssignServe{
     private final AssignmentRepository repository;
     private final TeacherRepo teacherRepo;
-    private final CourseRepo courseRepo;
+    private final SubjectRepository subjectRepository;
 
     @Override
-    public AssignmentResponse assignCourse(AssignmentRequest request) throws CourseNotFoundException {
+    public AssignmentResponse assignCourse(AssignmentRequest request) throws SubjectNotFoundException {
 
         Teacher teacher = teacherRepo.findById(request.getTeacherId()).
                 orElseThrow(()->new TeacherNotFoundException("Teacher not found!"));
 
-        Course course = courseRepo.findById(request.getCourseId()).
-                orElseThrow(()->new CourseNotFoundException("Course nt Found!"));
+        Subject subject = subjectRepository.findById(request.getSubjectId()).
+                orElseThrow(()->new SubjectNotFoundException("Course nt Found!"));
 
         Assignment assignment = new Assignment();
 
         assignment.setTeacher(teacher);
-        assignment.setCourse(course);
+        assignment.setSubject(subject);
 
         Assignment saved = repository.save(assignment);
 
         AssignmentResponse resp = new AssignmentResponse();
         resp.setAssignmentId(saved.getAssignmentId());
-        resp.setCourseName(saved.getCourse().getName());
+        resp.setSubjectName(saved.getSubject().getName());
         resp.setTeacherName(saved.getTeacher().getUserReg().getFirstName());
         resp.setTeacherName(saved.getTeacher().getUserReg().getLastName());
 
@@ -58,7 +58,7 @@ public class AssignmentService implements AssignServe{
         assignmentResponse.setAssignmentId(assignment.getAssignmentId());
         assignmentResponse.setTeacherName(assignment.getTeacher().getUserReg().getFirstName());
         assignmentResponse.setTeacherName(assignment.getTeacher().getUserReg().getLastName());
-        assignmentResponse.setCourseName(assignment.getCourse().getName());
+        assignmentResponse.setSubjectName(assignment.getSubject().getName());
 
         return assignmentResponse;
     }
@@ -69,7 +69,7 @@ public class AssignmentService implements AssignServe{
         res.setAssignmentId(ca.getAssignmentId());
         res.setTeacherName(ca.getTeacher().getUserReg().getFirstName());
         res.setTeacherName(ca.getTeacher().getUserReg().getLastName());
-        res.setCourseName(ca.getCourse().getName());
+        res.setSubjectName(ca.getSubject().getName());
         return res;
     }
 
@@ -86,15 +86,15 @@ public class AssignmentService implements AssignServe{
         Assignment assignDB = repository.findById(assignmentId).
                 orElseThrow(()->new RuntimeException("Assignment not found in the System"));
 
-        if(Objects.nonNull(assignmentRequest.getCourseId())){
-            Course course = courseRepo.findById(assignmentRequest.getCourseId()).
+        if(Objects.nonNull(assignmentRequest.getSubjectId())){
+            Subject subject = subjectRepository.findById(assignmentRequest.getSubjectId()).
                     orElseThrow(()->new RuntimeException("course not found"));
 
-            assignDB.setCourse(course);
+            assignDB.setSubject(subject);
         }
 
         if(Objects.nonNull(assignmentRequest.getTeacherId())){
-            Teacher teach = teacherRepo.findById(assignmentRequest.getCourseId()).
+            Teacher teach = teacherRepo.findById(assignmentRequest.getSubjectId()).
                     orElseThrow(()->new RuntimeException("Teacher not found"));
 
             assignDB.setTeacher(teach);
@@ -104,7 +104,7 @@ public class AssignmentService implements AssignServe{
         AssignmentResponse assRespo = new AssignmentResponse();
 
         assRespo.setAssignmentId(saved.getAssignmentId());
-        assRespo.setCourseName(saved.getCourse().getName());
+        assRespo.setSubjectName(saved.getSubject().getName());
         assRespo.setTeacherName(saved.getTeacher().getUserReg().getFirstName());
         assRespo.setTeacherName(saved.getTeacher().getUserReg().getLastName());
         return assRespo;

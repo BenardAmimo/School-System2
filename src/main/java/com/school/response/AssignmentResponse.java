@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class AssignmentResponse {
     private Long assignmentId;
-    private String courseName;
+    private String subjectName;
     private String teacherName;
 }

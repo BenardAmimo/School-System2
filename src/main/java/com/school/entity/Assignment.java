@@ -1,6 +1,5 @@
 package com.school.entity;
 
-import com.school.security.entity.UserReg;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,15 +39,10 @@ public class Assignment {
 
     @ManyToOne
     @JoinColumn(
-            name = "course_id",
-            referencedColumnName = "courseId"
+            name = "subject_id",
+            referencedColumnName = "SubjectId"
     )
-    private Course course;
+    private Subject subject;
 
-    @OneToMany(
-            mappedBy = "assignment",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<Enrollment> enrolments;
+
 }

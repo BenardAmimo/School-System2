@@ -1,13 +1,13 @@
 package com.school.service;
 
-import com.example.demo.config.error.CourseNotFoundException;
+import com.school.error.SubjectNotFoundException;
 import com.school.request.AssignmentRequest;
 import com.school.response.AssignmentResponse;
 
 import java.util.List;
 
 public interface AssignServe {
-    AssignmentResponse assignCourse(AssignmentRequest request) throws CourseNotFoundException;
+    AssignmentResponse assignCourse(AssignmentRequest request) throws SubjectNotFoundException;
 
     AssignmentResponse getAssignmentById(Long assignmentId);
 

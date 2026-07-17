@@ -1,4 +1,4 @@
-package com.example.demo.config.error;
+package com.school.error;
 
 public class TeacherNotFoundException extends RuntimeException{
     public TeacherNotFoundException() {

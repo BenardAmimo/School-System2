@@ -1,6 +1,5 @@
 
 package com.school.service;
-import com.school.entity.Course;
 import com.school.entity.Teacher;
 import com.school.request.TeacherRequest;
 import com.school.response.TeacherResponse;
