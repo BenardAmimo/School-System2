@@ -25,13 +25,16 @@ public class MpesaReconciliationJob {
         this.idempotencyRepository = idempotencyRepository;
         this.queryService = queryService;
     }
-
-    @Scheduled(fixedDelay = 120_000)
+    @Scheduled(initialDelay = 90_000,fixedDelay = 120_000)
     @Transactional
     public void reconcilePendingTransactions() {
         LocalDateTime cutoff = LocalDateTime.now().minusMinutes(3);
         List<MpesaTransactions> stuck = transactionRepository
-                .findByStatusAndCreatedAtBefore(Status.PENDING, cutoff);
+                .findByStatusAndCreatedAtBefore(Status.PENDING, cutoff)
+                .stream()
+                .filter(t -> t.getCheckoutRequestId() != null && !t.getCheckoutRequestId().isBlank())
+                .limit(5) // stay safely under the sandbox's 5 requests/60s Spike Arrest limit
+                .toList();
 
         for (MpesaTransactions transaction : stuck) {
             try {
@@ -45,6 +48,8 @@ public class MpesaReconciliationJob {
                     newStatus = Status.FAILED;
                 } else {
                     newStatus = null;
+                    log.info("Transaction {} still processing (ResultCode={}), leaving as PENDING",
+                            transaction.getCheckoutRequestId(), resultCode);
                 }
 
                 if (newStatus != null) {
@@ -52,9 +57,7 @@ public class MpesaReconciliationJob {
                     transaction.setUpdatedAt(LocalDateTime.now());
                     transactionRepository.save(transaction);
 
-                    idempotencyRepository.findAll().stream()
-                            .filter(r -> transaction.getCheckoutRequestId().equals(r.getCheckoutRequestId()))
-                            .findFirst()
+                    idempotencyRepository.findByCheckoutRequestId(transaction.getCheckoutRequestId())
                             .ifPresent(r -> {
                                 r.setStatus(newStatus);
                                 idempotencyRepository.save(r);
@@ -62,9 +65,19 @@ public class MpesaReconciliationJob {
 
                     log.info("Reconciled {} -> {}", transaction.getCheckoutRequestId(), newStatus);
                 }
+
             } catch (Exception ex) {
                 log.error("Reconciliation failed for {}", transaction.getCheckoutRequestId(), ex);
+            }
+
+            // Space out calls so we never exceed Safaricom sandbox's Spike Arrest limit
+            try {
+                Thread.sleep(13_000); // 5 calls * 13s ≈ 65s, safely under the 60s window
+            } catch (InterruptedException ie) {
+                Thread.currentThread().interrupt();
+                break;
             }
         }
     }
 }
+

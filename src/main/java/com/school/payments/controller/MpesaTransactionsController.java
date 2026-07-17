@@ -18,6 +18,7 @@ import java.util.Map;
 
 @RestController
 @Slf4j
+@CrossOrigin(origins = "*")
 public class MpesaTransactionsController{
     private final MpesaTransactionService mpesaTransactionService;
     private final MpesaTransactionsRepository transactionsRepository;
@@ -27,7 +28,8 @@ public class MpesaTransactionsController{
         this.transactionsRepository = transactionsRepository;
     }
     @PostMapping("/stkPush")
-    public ResponseEntity<MpesaTransactionsResponse> initiateStkPush(@RequestBody MpesaTransactionRequest transactionRequest,@RequestHeader("idempotency-key") String idempotencyKey){
+    public ResponseEntity<MpesaTransactionsResponse> initiateStkPush(@RequestBody MpesaTransactionRequest transactionRequest,
+                                                                     @RequestHeader("idempotency-key") String idempotencyKey){
         MpesaTransactionsResponse response = mpesaTransactionService
                 .initiateStkPush(transactionRequest,idempotencyKey);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);

@@ -36,9 +36,7 @@ public class Student {
          orphanRemoval = true
  )
  private Enrollment enrollments;
- @ManyToOne(
-         cascade = CascadeType.ALL
- )
+
  @OneToOne(
          cascade = CascadeType.ALL,
          fetch = FetchType.EAGER,
@@ -49,6 +47,7 @@ public class Student {
          referencedColumnName = "userId"
  )
  private UserReg userReg;
+
  @OneToMany(
          mappedBy = "students"
  )

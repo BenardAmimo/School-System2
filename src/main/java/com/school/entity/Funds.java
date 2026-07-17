@@ -32,7 +32,7 @@ public class Funds {
     )
     private Student students;
 
-    private LocalDateTime CreatedAt;
+    private LocalDateTime createdAt;
     private BigDecimal amount;
     private FundsType fundsType;
     @OneToMany(

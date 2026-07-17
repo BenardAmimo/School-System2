@@ -1,9 +1,6 @@
 package com.school.payments.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,11 +13,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class IdempotencyRecord {
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.AUTO
-    )
-    private String idempotencyKey;
+    @Column(name = "idempotency_key", nullable = false, updatable = false)    private String idempotencyKey;
     private String checkoutRequestId;
+    @Enumerated(EnumType.STRING)
     private Status status;
     private LocalDateTime createdAt;
 }

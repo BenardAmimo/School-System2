@@ -7,9 +7,9 @@ import com.school.service.FundsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class FundsController {
@@ -27,5 +27,10 @@ public class FundsController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(respo);
 
+    }
+
+    @GetMapping("/{studentId}/funds")
+    public ResponseEntity<List<FundsResponse>> getStudentFunds(@PathVariable Long studentId) {
+        return ResponseEntity.ok(fundsService.getStudentFunds(studentId));
     }
 }

@@ -48,9 +48,9 @@ public class SecurityConfig {
                         //.requestMatchers(HttpMethod.PUT, "/school/**").hasRole("ADMIN")
                         //.requestMatchers(HttpMethod.DELETE, "/school/**").hasRole("ADMIN")
 
-                        .requestMatchers("/admin/invite-user").hasRole("SUPER_ADMIN")
+                        .requestMatchers("/admin/invite-user","/stkPush").hasRole("SUPER_ADMIN")
                         .requestMatchers("/teacher/**").hasAnyRole("TEACHER", "ADMIN")
-                        .requestMatchers("/student/**").hasAnyRole("STUDENT", "ADMIN", "TEACHER")
+                        .requestMatchers("/stkPush","/student/**").hasAnyRole("STUDENT", "ADMIN", "TEACHER")
 
                         .anyRequest().authenticated()
                 )

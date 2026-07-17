@@ -2,13 +2,17 @@ package com.school.service;
 
 import com.school.entity.Funds;
 import com.school.entity.Student;
+import com.school.payments.entity.MpesaTransactions;
+import com.school.payments.entity.Status;
 import com.school.repo.FundsRepository;
 import com.school.repo.StudentRepo;
 import com.school.request.FundsRequest;
 import com.school.response.FundsResponse;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class FundsService implements FundsServe{
@@ -23,21 +27,44 @@ public class FundsService implements FundsServe{
     @Override
     public FundsResponse createFunds(FundsRequest fundsRequest) {
         Student student = studentRepo.findById(fundsRequest.getStudentId())
-                .orElseThrow(()->new RuntimeException("Student is not found"));
+                .orElseThrow(() -> new RuntimeException("Student is not found"));
 
         Funds funds = new Funds();
         funds.setAmount(fundsRequest.getAmount());
         funds.setStudents(student);
         funds.setCreatedAt(LocalDateTime.now());
         //fundType
-        Funds saved = fundsRepository.save(funds);
+        fundsRepository.save(funds);
 
-        FundsResponse response = new FundsResponse();
-        response.setCreatedAt(saved.getCreatedAt());
-        response.setFundsId(saved.getFundsId());
-        response.setAmount(saved.getAmount());
-        response.setStudentsName(saved.getStudents().getRegNo());
-
-        return response;
+        return FundsResponse.builder()
+                .fundsId(funds.getFundsId())
+                .fundsType(funds.getFundsType())
+                .amountDue(funds.getAmount())
+                .createdAt(funds.getCreatedAt())
+                .build();
     }
-}
+        public List<FundsResponse> getStudentFunds(Long studentId) {
+            return fundsRepository.findByStudents_StudentId(studentId).stream()
+                    .map(this::toDto)
+                    .toList();
+        }
+
+        private FundsResponse toDto(Funds funds) {
+            BigDecimal amountPaid = funds.getMpesaTransactions() == null
+                    ? BigDecimal.ZERO
+                    : funds.getMpesaTransactions().stream()
+                    .filter(t -> t.getStatus() == Status.SUCCESS)
+                    .map(MpesaTransactions::getAmount)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+            return FundsResponse.builder()
+                    .fundsId(funds.getFundsId())
+                    .fundsType(funds.getFundsType())
+                    .amountDue(funds.getAmount())
+                    .amountPaid(amountPaid)
+                    .balance(funds.getAmount().subtract(amountPaid))
+                    .createdAt(funds.getCreatedAt())
+                    .build();
+        }
+    }
+
