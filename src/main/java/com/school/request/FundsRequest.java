@@ -7,4 +7,5 @@ import java.math.BigDecimal;
 public class FundsRequest {
     private Long studentId;
     private BigDecimal amount;
+    private Long termId;
 }

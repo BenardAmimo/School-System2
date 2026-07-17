@@ -15,4 +15,6 @@ public class FundsResponse {
     private BigDecimal amountPaid;
     private BigDecimal balance;
     private LocalDateTime createdAt;
+    private String termName;
+    private String termYear;
 }

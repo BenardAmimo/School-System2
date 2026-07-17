@@ -2,10 +2,12 @@ package com.school.service;
 
 import com.school.entity.Funds;
 import com.school.entity.Student;
+import com.school.entity.Term;
 import com.school.payments.entity.MpesaTransactions;
 import com.school.payments.entity.Status;
 import com.school.repo.FundsRepository;
 import com.school.repo.StudentRepo;
+import com.school.repo.TermRepository;
 import com.school.request.FundsRequest;
 import com.school.response.FundsResponse;
 import org.springframework.stereotype.Service;
@@ -18,10 +20,12 @@ import java.util.List;
 public class FundsService implements FundsServe{
     private final StudentRepo studentRepo;
     private final FundsRepository fundsRepository;
+    private final TermRepository termRepository;
 
-    public FundsService(StudentRepo studentRepo, FundsRepository fundsRepository) {
+    public FundsService(StudentRepo studentRepo, FundsRepository fundsRepository, TermRepository termRepository) {
         this.studentRepo = studentRepo;
         this.fundsRepository = fundsRepository;
+        this.termRepository = termRepository;
     }
 
     @Override
@@ -29,10 +33,14 @@ public class FundsService implements FundsServe{
         Student student = studentRepo.findById(fundsRequest.getStudentId())
                 .orElseThrow(() -> new RuntimeException("Student is not found"));
 
+        Term term = termRepository.findById(fundsRequest.getTermId())
+                .orElseThrow(()->new RuntimeException("No term Found for those funds"));
+
         Funds funds = new Funds();
         funds.setAmount(fundsRequest.getAmount());
         funds.setStudents(student);
         funds.setCreatedAt(LocalDateTime.now());
+        funds.setTerm(term);
         //fundType
         fundsRepository.save(funds);
 
@@ -41,6 +49,8 @@ public class FundsService implements FundsServe{
                 .fundsType(funds.getFundsType())
                 .amountDue(funds.getAmount())
                 .createdAt(funds.getCreatedAt())
+                .termName(funds.getTerm().getName())
+                .termYear(funds.getTerm().getYear())
                 .build();
     }
         public List<FundsResponse> getStudentFunds(Long studentId) {
