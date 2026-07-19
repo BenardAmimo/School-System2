@@ -1,6 +1,10 @@
 package com.school.service;
 
+import com.school.entity.SchoolClasses;
+import com.school.entity.Student;
 import com.school.entity.Subject;
+import com.school.repo.SchoolClassesRepository;
+import com.school.repo.StudentRepository;
 import com.school.repo.SubjectRepository;
 import com.school.request.SubjectRequest;
 import com.school.response.SubjectResponse;
@@ -16,6 +20,34 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class SubjectService implements SubjectServe {
     private final SubjectRepository subjectRepository;
+    private final StudentRepository studentRepository;
+    private final SchoolClassesRepository schoolClassesRepository;
+
+    @Override
+    public SubjectResponse createSubject(SubjectRequest subjectRequest) {
+        Student student = studentRepository.findById(subjectRequest.getStudentId())
+                .orElseThrow(()->new RuntimeException("Student not in the System"));
+        SchoolClasses classes = schoolClassesRepository.findById(subjectRequest.getClassesId())
+                .orElseThrow(()->new RuntimeException("No classes Available"));
+        Subject subject = new Subject();
+        subject.setName(subjectRequest.getName());
+        subject.setStudent(student);
+        subject.setSchoolClasses(classes);
+        subject.setDescription(subjectRequest.getDescription());
+
+        Subject saved = subjectRepository.save(subject);
+
+        SubjectResponse response = new SubjectResponse();
+        response.setSubjectId(saved.getSubjectId());
+        response.setName(saved.getName());
+        response.setDescription(saved.getDescription());
+        response.setStudentsFirstName(saved.getStudent().getFirstName());
+        response.setStudentsLastName(saved.getStudent().getLastName());
+        response.setClassesName(saved.getSchoolClasses().getName());
+
+        return response;
+
+    }
 
 
     @Override
@@ -76,22 +108,7 @@ public class SubjectService implements SubjectServe {
 
     }
 
-    @Override
-    public SubjectResponse createSubject(SubjectRequest subjectRequest) {
-        Subject subject = new Subject();
-        subject.setName(subjectRequest.getName());
-        subject.setDescription(subjectRequest.getDescription());
 
-        Subject saved = subjectRepository.save(subject);
-
-        SubjectResponse response = new SubjectResponse();
-        response.setSubjectId(saved.getSubjectId());
-        response.setName(saved.getName());
-        response.setDescription(saved.getDescription());
-
-        return response;
-
-    }
 
     @Override
     public SubjectResponse updateSubject(Long subjectId, SubjectRequest subjectRequest) {

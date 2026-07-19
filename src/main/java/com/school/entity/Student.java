@@ -1,12 +1,12 @@
 package com.school.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -25,4 +25,20 @@ public class Student {
     private Long studentId;
     private String firstName;
     private String lastName;
+    @OneToOne(
+            mappedBy = "student"
+    )
+    private Parent parent;
+
+    @OneToMany(
+            mappedBy = "student"
+    )
+    private List<Subject> subject = new ArrayList<>();
+
+    @ManyToOne()
+    @JoinColumn(
+            name = "classes_id",
+            referencedColumnName = "classesId"
+    )
+    private SchoolClasses classes;
 }

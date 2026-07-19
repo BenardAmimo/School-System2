@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SubjectRequest {
+public class SchoolClassesRequest {
+    private String location;
     private String name;
-    private String description;
+    private String year;
     private Long studentId;
-    private Long classesId;
 }

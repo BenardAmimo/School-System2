@@ -34,6 +34,18 @@ public class Subject {
          orphanRemoval = true
  )
  private List<Assignment> assignment;
+ @ManyToOne()
+ @JoinColumn(
+         name = "student_id",
+         referencedColumnName = "studentId"
+ )
+ private Student student;
+ @ManyToOne()
+ @JoinColumn(
+        name = "classes_id",
+         referencedColumnName = "classesId"
+ )
+ private SchoolClasses schoolClasses;
 
 
 }

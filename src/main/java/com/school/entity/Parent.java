@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 
 @Entity
 @Data
@@ -40,5 +39,12 @@ public class Parent {
          referencedColumnName = "userId"
  )
  private UserReg userReg;
+
+ @OneToOne(
+ )@JoinColumn(
+         name = "student_id",
+         referencedColumnName = "studentId"
+ )
+ private Student student;
 
 }

@@ -29,23 +29,23 @@ public class ParentService implements ParentServe {
                 .toList();
     }
 
-    private ParentResponse mapToDto(Parent student) {
+    private ParentResponse mapToDto(Parent parent) {
         ParentResponse parenting = new ParentResponse();
-        parenting.setStudentId(student.getParentId());
-        parenting.setFirstName(student.getUserReg().getLastName());
-        parenting.setLastName(student.getUserReg().getFirstName());
-        parenting.setEmail(student.getUserReg().getEmail());
+        parenting.setParentId(parent.getParentId());
+        parenting.setFirstName(parent.getUserReg().getLastName());
+        parenting.setLastName(parent.getUserReg().getFirstName());
+        parenting.setEmail(parent.getUserReg().getEmail());
 
         return parenting;
     }
 
     @Override
-    public ParentResponse getParentById(Long studentId) {
-        Parent parent = parentRepo.findById(studentId).
-                orElseThrow(()->new RuntimeException("Student not found!"));
+    public ParentResponse getParentById(Long parentId) {
+        Parent parent = parentRepo.findById(parentId).
+                orElseThrow(()->new RuntimeException("Parent not found!"));
 
         ParentResponse parentResponse = new ParentResponse();
-        parentResponse.setStudentId(parent.getParentId());
+        parentResponse.setParentId(parent.getParentId());
         parentResponse.setFirstName(parent.getUserReg().getFirstName());
         parentResponse.setLastName(parent.getUserReg().getLastName());
         parentResponse.setEmail(parent.getUserReg().getEmail());
