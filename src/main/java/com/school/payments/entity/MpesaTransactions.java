@@ -15,8 +15,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class MpesaTransactions {
     @Id
+    @SequenceGenerator(
+            name = "transact_gen",
+            sequenceName = "transact_gen",
+            allocationSize = 1
+    )
     @GeneratedValue(
-            strategy = GenerationType.AUTO
+            strategy = GenerationType.SEQUENCE,
+            generator = "transact_gen"
     )
     private Long id;
     private String checkoutRequestId;

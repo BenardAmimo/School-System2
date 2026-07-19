@@ -46,7 +46,7 @@ public class UserReg implements UserDetails {
     @OneToOne(
             mappedBy = "userReg"
     )
-    private Student student;
+    private Parent student;
     @OneToOne(
             mappedBy = "userReg"
     )

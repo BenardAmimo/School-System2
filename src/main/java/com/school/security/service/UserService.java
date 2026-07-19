@@ -1,8 +1,8 @@
 package com.school.security.service;
 
-import com.school.entity.Student;
+import com.school.entity.Parent;
 import com.school.entity.Teacher;
-import com.school.repo.StudentRepo;
+import com.school.repo.ParentRepo;
 import com.school.repo.TeacherRepo;
 import com.school.security.entity.InviteCode;
 import com.school.security.entity.Role;
@@ -11,6 +11,7 @@ import com.school.security.models.*;
 import com.school.security.repository.InviteTokenRepo;
 import com.school.security.repository.UserRepository;
 import jakarta.transaction.Transactional;
+import org.jspecify.annotations.NonNull;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,7 +28,7 @@ import java.util.List;
 @Service
 public class UserService implements UserServiceInterface , UserDetailsService {
     private final UserRepository userRepo;
-    private final StudentRepo studentRepo;
+    private final ParentRepo parentRepo;
     private final TeacherRepo teacherRepo;
     private final PasswordEncoder passwordEncoder;
     private final InviteTokenRepo inviteTokenRepo;
@@ -35,9 +36,9 @@ public class UserService implements UserServiceInterface , UserDetailsService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public UserService(UserRepository userRepo, StudentRepo studentRepo, TeacherRepo teacherRepo, PasswordEncoder passwordEncoder, InviteTokenRepo inviteTokenRepo, EmailService emailService, JwtService jwtService, @Lazy AuthenticationManager authenticationManager) {
+    public UserService(UserRepository userRepo, ParentRepo parentRepo, TeacherRepo teacherRepo, PasswordEncoder passwordEncoder, InviteTokenRepo inviteTokenRepo, EmailService emailService, JwtService jwtService, @Lazy AuthenticationManager authenticationManager) {
         this.userRepo = userRepo;
-        this.studentRepo = studentRepo;
+        this.parentRepo = parentRepo;
         this.teacherRepo = teacherRepo;
         this.passwordEncoder = passwordEncoder;
         this.inviteTokenRepo = inviteTokenRepo;
@@ -46,7 +47,7 @@ public class UserService implements UserServiceInterface , UserDetailsService {
         this.authenticationManager = authenticationManager;
     }
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(@NonNull String email) throws UsernameNotFoundException {
         return userRepo.findByEmail(email).
                 orElseThrow(()->new UsernameNotFoundException("Username not found"));
     }
@@ -73,8 +74,8 @@ public class UserService implements UserServiceInterface , UserDetailsService {
             if (request.getRole() == Role.TEACHER && request.getTeacherNo() == null) {
                 throw new RuntimeException("Teacher number is required for TEACHER role");
             }
-            if (request.getRole() == Role.STUDENT && request.getRegNo() == null) {
-                throw new RuntimeException("Registration number is required for STUDENT role");
+            if (request.getRole() == Role.PARENT) {
+                throw new RuntimeException("Registration number is required for PARENT role");
             }
 
             // Created with no username/password yet — those come from the user later.
@@ -95,11 +96,10 @@ public class UserService implements UserServiceInterface , UserDetailsService {
 
                 teacherRepo.save(teacher);
 
-            } else if (request.getRole() == Role.STUDENT) {
-                Student student = new Student();
-                student.setUserReg(userReg);
-                student.setRegNo(request.getRegNo());
-                studentRepo.save(student);
+            } else if (request.getRole() == Role.PARENT) {
+                Parent parent = new Parent();
+                parent.setUserReg(userReg);
+                parentRepo.save(parent);
 
             } else if (request.getRole() == Role.ADMIN) {
                 // no extra table needed

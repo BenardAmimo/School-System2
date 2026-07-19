@@ -1,12 +1,14 @@
 package com.school.service;
 
 import com.school.entity.Funds;
+import com.school.entity.Parent;
 import com.school.entity.Student;
 import com.school.entity.Term;
 import com.school.payments.entity.MpesaTransactions;
 import com.school.payments.entity.Status;
 import com.school.repo.FundsRepository;
-import com.school.repo.StudentRepo;
+import com.school.repo.ParentRepo;
+import com.school.repo.StudentRepository;
 import com.school.repo.TermRepository;
 import com.school.request.FundsRequest;
 import com.school.response.FundsResponse;
@@ -18,11 +20,11 @@ import java.util.List;
 
 @Service
 public class FundsService implements FundsServe{
-    private final StudentRepo studentRepo;
+    private final StudentRepository studentRepo;
     private final FundsRepository fundsRepository;
     private final TermRepository termRepository;
 
-    public FundsService(StudentRepo studentRepo, FundsRepository fundsRepository, TermRepository termRepository) {
+    public FundsService(StudentRepository studentRepo, FundsRepository fundsRepository, TermRepository termRepository) {
         this.studentRepo = studentRepo;
         this.fundsRepository = fundsRepository;
         this.termRepository = termRepository;

@@ -1,9 +1,6 @@
 package com.school.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +15,15 @@ import java.util.List;
 @Data
 public class Term {
     @Id
+    @SequenceGenerator(
+            name = "term_gen",
+            sequenceName = "term_gen",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy =GenerationType.SEQUENCE,
+            generator = "term_gen"
+    )
     private Long termId;
     private String name;
     private String year;

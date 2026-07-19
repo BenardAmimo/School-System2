@@ -1,51 +1,28 @@
-
 package com.school.entity;
-import com.school.security.entity.UserReg;
-import jakarta.persistence.*;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Table(
-        name = "students_tbl"
+        name = "Students_tbl"
 )
 public class Student {
- @Id
- @SequenceGenerator(
-         name = "student_gen",
-         sequenceName = "student_gen",
-         allocationSize = 1
- )
- @GeneratedValue(
-         strategy = GenerationType.SEQUENCE,
-         generator = "student_gen"
- )
- private Long studentId;
- private String regNo;
- 
-
- @OneToOne(
-         cascade = CascadeType.ALL,
-         fetch = FetchType.EAGER,
-         orphanRemoval = true
- )
- @JoinColumn(
-         name = "user_id",
-         referencedColumnName = "userId"
- )
- private UserReg userReg;
-
- @OneToMany(
-         mappedBy = "students"
- )
- private List<Funds> funds;
-
+    @Id
+    @SequenceGenerator(
+            name = "stud_gen",
+            sequenceName = "stud_gen",
+            allocationSize = 1
+    )
+    private Long studentId;
+    private String firstName;
+    private String lastName;
 }

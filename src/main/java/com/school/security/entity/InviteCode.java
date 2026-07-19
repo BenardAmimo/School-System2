@@ -17,7 +17,15 @@ import java.time.LocalDateTime;
 public class InviteCode {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(
+            name = "inviteCode_gen",
+            sequenceName = "inviteCode_gen",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "inviteCode_gen"
+    )
     private Long id;
 
     @Column(nullable = false, unique = true)

@@ -1,66 +1,26 @@
 package com.school.controller;
 
-import com.school.entity.Student;
 import com.school.request.StudentRequest;
 import com.school.response.StudentResponse;
-import com.school.service.StudentService;
-import lombok.extern.slf4j.Slf4j;
+import com.school.service.StudentsService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin(origins = "*")
-@Slf4j
 public class StudentController {
-    private final StudentService studentService;
+    private final StudentsService studentsService;
 
-    public StudentController(StudentService studentService) {
-        this.studentService = studentService;
+    public StudentController(StudentsService studentsService) {
+        this.studentsService = studentsService;
     }
 
+    @PostMapping("/Students")
+    public ResponseEntity<StudentResponse> createStudent(@RequestBody StudentRequest studentRequest){
+        StudentResponse response = studentsService.createStudents(studentRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
-    @GetMapping("/students")
-    public ResponseEntity<List<StudentResponse>> getAllStudents(){
-        log.info("Get mapping of all students");
-        List<StudentResponse> students = studentService.getAllStudents();
-
-        return ResponseEntity.ok(students);
-    }
-
-
-    @GetMapping("/student/id/{studentId}")
-    public ResponseEntity<StudentResponse> getStudentById(@PathVariable("studentId") Long studentId){
-        log.info("Get request for student with id {} ",studentId);
-        StudentResponse student = studentService.getStudentById(studentId);
-        log.info("Student found with id {} ",student.getStudentId());
-        return ResponseEntity.ok(student);
-    }
-
-    @PutMapping("/student/update/{studentId}")
-    public ResponseEntity<StudentResponse> updateStudent(@PathVariable("studentId")Long studentId,
-                                                 @RequestBody StudentRequest studentRequest){
-        StudentResponse updating = studentService.updateStudent(studentId,studentRequest);
-
-        return ResponseEntity.status(202).body(updating);
-    }
-
-
-    @GetMapping("/student/name/{name}")
-    public ResponseEntity<StudentResponse>getStudentByName(@PathVariable("name")String name){
-        log.info("Get Request for student: {} ",name);
-        StudentResponse student = studentService.getStudentByName(name);
-        log.info("Student with id {} found",student.getStudentId());
-        return ResponseEntity.ok(student);
-    }
-
-
-    @DeleteMapping("/student/id/{studentId}")
-    public ResponseEntity<String> deleteStudent(@PathVariable("studentId")Long studentId){
-        log.info("Delete Request for student id {} ",studentId);
-            StudentResponse stud = studentService.deleteStudent(studentId);
-            log.info("student {} successfully deleted",stud.getStudentId());
-        return ResponseEntity.ok("Successfully deleted");
     }
 }

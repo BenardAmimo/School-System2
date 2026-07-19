@@ -13,7 +13,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class IdempotencyRecord {
     @Id
-    @Column(name = "idempotency_key", nullable = false, updatable = false)    private String idempotencyKey;
+    @Column(name = "idempotency_key",
+            nullable = false,
+            updatable = false
+    )
+    private String idempotencyKey;
     private String checkoutRequestId;
     @Enumerated(EnumType.STRING)
     private Status status;

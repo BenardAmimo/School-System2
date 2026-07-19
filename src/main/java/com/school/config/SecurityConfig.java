@@ -50,7 +50,7 @@ public class SecurityConfig {
 
                         .requestMatchers("/admin/invite-user","/stkPush").hasRole("SUPER_ADMIN")
                         .requestMatchers("/teacher/**").hasAnyRole("TEACHER", "ADMIN")
-                        .requestMatchers("/stkPush","/student/**").hasAnyRole("STUDENT", "ADMIN", "TEACHER")
+                        .requestMatchers("/stkPush","/student/**").hasAnyRole("PARENT", "ADMIN", "TEACHER")
 
                         .anyRequest().authenticated()
                 )

@@ -32,13 +32,13 @@ public class ErrorHandling{
     }
 
 
-    @ExceptionHandler(StudentNotFoundtException.class)
-    public ResponseEntity<ErrorMessage> studentNotFoundException(
-            StudentNotFoundtException studentNotFoundException,
+    @ExceptionHandler(ParentNotFoundtException.class)
+    public ResponseEntity<ErrorMessage> parentNotFoundException(
+            ParentNotFoundtException parentNotFoundtException,
             WebRequest request){
 
         ErrorMessage message = new ErrorMessage(HttpStatus.NOT_FOUND,
-                studentNotFoundException.getMessage());
+                parentNotFoundtException.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
     }
 

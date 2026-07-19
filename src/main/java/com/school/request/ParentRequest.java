@@ -1,3 +1,4 @@
+
 package com.school.request;
 
 import lombok.AllArgsConstructor;
@@ -7,7 +8,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StudentRequest {
-    private String firstName;
-    private String lastName;
+public class ParentRequest {
+ private Long userId;
+
+
 }
