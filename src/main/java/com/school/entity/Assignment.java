@@ -14,8 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Table(
-        name = "teacher_course_assign",
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"teacher_id","course_id"}
+        name = "teacher_subject_assign",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"teacher_id","subject_id"}
 
         )}
 )
@@ -40,7 +40,7 @@ public class Assignment {
     @ManyToOne
     @JoinColumn(
             name = "subject_id",
-            referencedColumnName = "SubjectId"
+            referencedColumnName = "subjectId"
     )
     private Subject subject;
 

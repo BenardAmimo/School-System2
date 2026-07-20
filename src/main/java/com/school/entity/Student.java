@@ -22,18 +22,19 @@ public class Student {
             sequenceName = "stud_gen",
             allocationSize = 1
     )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "stud_gen"
+    )
     private Long studentId;
     private String firstName;
     private String lastName;
-    @OneToOne(
-            mappedBy = "student"
+    @ManyToOne()
+    @JoinColumn(
+            name = "parent_id",
+            referencedColumnName = "parentId"
     )
     private Parent parent;
-
-    @OneToMany(
-            mappedBy = "student"
-    )
-    private List<Subject> subject = new ArrayList<>();
 
     @ManyToOne()
     @JoinColumn(
@@ -41,4 +42,15 @@ public class Student {
             referencedColumnName = "classesId"
     )
     private SchoolClasses classes;
+
+    @ManyToOne()
+    @JoinColumn(
+            name = "teacher_id",
+            referencedColumnName = "teacherId"
+    )
+    private Teacher teacher;
+    @OneToMany(
+            mappedBy = "students"
+    )
+    private List<Funds> funds = new ArrayList<>();
 }

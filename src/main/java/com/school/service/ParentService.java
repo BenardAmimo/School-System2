@@ -2,6 +2,7 @@ package com.school.service;
 
 import com.school.entity.Parent;
 import com.school.repo.ParentRepo;
+import com.school.repo.StudentRepository;
 import com.school.request.ParentRequest;
 import com.school.response.ParentResponse;
 import com.school.security.entity.UserReg;
@@ -19,6 +20,7 @@ import java.util.Objects;
 public class ParentService implements ParentServe {
     private final ParentRepo parentRepo;
     private final UserRepository userRepository;
+
 
 
     @Override

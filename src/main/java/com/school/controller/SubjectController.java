@@ -6,6 +6,7 @@ import com.school.response.SubjectResponse;
 import com.school.service.SubjectService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -22,19 +23,20 @@ public class SubjectController {
     }
 
     @PostMapping("/subjects")
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
     public ResponseEntity<SubjectResponse> createCourse(@RequestBody SubjectRequest subjectRequest){
-        log.info("POST request to save course: {}", subjectRequest);
+        log.info("POST request to save Subject: {}", subjectRequest);
 
         SubjectResponse fun = subjectService.createSubject(subjectRequest);
 
-        log.info("Course saved with id{}",fun.getSubjectId());
+        log.info("Subject saved with id{}",fun.getSubjectId());
 
         return ResponseEntity.status(201).body(fun);
     }
 
     @GetMapping("/subjects")
     public ResponseEntity<List<SubjectResponse>> fetchAllSubjects(){
-        log.info("Get request for courses");
+        log.info("Get request for subjects");
 
         List<SubjectResponse> subjects = subjectService.fetchAllSubjects();
 
@@ -42,7 +44,7 @@ public class SubjectController {
             subjects = new ArrayList<>(); //  prevent null
         }
 
-        log.info("Found {} courses",subjects.size());
+        log.info("Found {} subjects",subjects.size());
 
         return ResponseEntity.ok(subjects);
     }
@@ -52,7 +54,7 @@ public class SubjectController {
 
         SubjectResponse gett = subjectService.getByIdSubjectId(SubjectId);
 
-        log.info("Course found with id {} ",gett.getSubjectId());
+        log.info("subject found with id {} ",gett.getSubjectId());
         return ResponseEntity.ok(gett);
     }
 
@@ -66,7 +68,7 @@ public class SubjectController {
 
         SubjectResponse updating = subjectService.updateSubject(subjectId,subjectRequest);
 
-        log.info("Course updated with id {} ",updating.getSubjectId());
+        log.info("Subject updated with id {} ",updating.getSubjectId());
         return ResponseEntity.status(202).body(updating);
 
     }
@@ -74,7 +76,7 @@ public class SubjectController {
     @GetMapping("/subject/{name}")
     public ResponseEntity<SubjectResponse> getBySubjectName(@PathVariable("name")String name){
 
-        log.info("Get request with courseName {} ",name);
+        log.info("Get request with subjectName {} ",name);
 
         SubjectResponse fun = subjectService.getBySubjectName(name);
 
@@ -82,9 +84,9 @@ public class SubjectController {
         return ResponseEntity.ok(fun);
     }
 
-    @DeleteMapping("/course/{courseId}")
+    @DeleteMapping("/subject/{subjectId}")
     public ResponseEntity<String>deleteSubjectById(@PathVariable("SubjectId")Long subjectId){
-        log.info("Delete request for course with id {} ",subjectId);
+        log.info("Delete request for subject with id {} ",subjectId);
 
         subjectService.deleteSubjectById(subjectId);
 

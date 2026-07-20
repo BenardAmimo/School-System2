@@ -24,7 +24,7 @@ public class AssignmentService implements AssignServe{
     private final SubjectRepository subjectRepository;
 
     @Override
-    public AssignmentResponse assignCourse(AssignmentRequest request) throws SubjectNotFoundException {
+    public AssignmentResponse assignSubject(AssignmentRequest request) throws SubjectNotFoundException {
 
         Teacher teacher = teacherRepo.findById(request.getTeacherId()).
                 orElseThrow(()->new TeacherNotFoundException("Teacher not found!"));
@@ -88,7 +88,7 @@ public class AssignmentService implements AssignServe{
 
         if(Objects.nonNull(assignmentRequest.getSubjectId())){
             Subject subject = subjectRepository.findById(assignmentRequest.getSubjectId()).
-                    orElseThrow(()->new RuntimeException("course not found"));
+                    orElseThrow(()->new RuntimeException("Subject not found"));
 
             assignDB.setSubject(subject);
         }

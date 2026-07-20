@@ -7,6 +7,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Data
@@ -20,7 +23,7 @@ public class Parent {
  @Id
  @SequenceGenerator(
          name = "parent_gen",
-         sequenceName = "student_gen",
+         sequenceName = "parent_gen",
          allocationSize = 1
  )
  @GeneratedValue(
@@ -28,6 +31,7 @@ public class Parent {
          generator = "parent_gen"
  )
  private Long parentId;
+ private String phoneNumber;
 
  @OneToOne(
          cascade = CascadeType.ALL,
@@ -40,11 +44,9 @@ public class Parent {
  )
  private UserReg userReg;
 
- @OneToOne(
- )@JoinColumn(
-         name = "student_id",
-         referencedColumnName = "studentId"
+ @OneToMany(
+         mappedBy = "parent"
  )
- private Student student;
+ private List<Student> student = new ArrayList<>();
 
 }

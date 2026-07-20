@@ -7,7 +7,7 @@ import com.school.response.AssignmentResponse;
 import java.util.List;
 
 public interface AssignServe {
-    AssignmentResponse assignCourse(AssignmentRequest request) throws SubjectNotFoundException;
+    AssignmentResponse assignSubject(AssignmentRequest request) throws SubjectNotFoundException;
 
     AssignmentResponse getAssignmentById(Long assignmentId);
 

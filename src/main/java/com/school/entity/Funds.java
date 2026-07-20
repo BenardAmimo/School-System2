@@ -29,7 +29,7 @@ public class Funds {
             generator = "funds_gen"
     )
     private Long fundsId;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(
             name = "student_id",
             referencedColumnName = "studentId"
@@ -38,11 +38,13 @@ public class Funds {
 
     private LocalDateTime createdAt;
     private BigDecimal amount;
+    @Enumerated(value = EnumType.STRING)
     private FundsType fundsType;
     @OneToMany(
             mappedBy = "funds"
     )
     private List<MpesaTransactions> mpesaTransactions;
+
     @ManyToOne
     @JoinColumn(
             name = "term_id",

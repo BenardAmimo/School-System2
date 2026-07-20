@@ -25,13 +25,11 @@ public class SubjectService implements SubjectServe {
 
     @Override
     public SubjectResponse createSubject(SubjectRequest subjectRequest) {
-        Student student = studentRepository.findById(subjectRequest.getStudentId())
-                .orElseThrow(()->new RuntimeException("Student not in the System"));
+
         SchoolClasses classes = schoolClassesRepository.findById(subjectRequest.getClassesId())
                 .orElseThrow(()->new RuntimeException("No classes Available"));
         Subject subject = new Subject();
         subject.setName(subjectRequest.getName());
-        subject.setStudent(student);
         subject.setSchoolClasses(classes);
         subject.setDescription(subjectRequest.getDescription());
 
@@ -41,8 +39,6 @@ public class SubjectService implements SubjectServe {
         response.setSubjectId(saved.getSubjectId());
         response.setName(saved.getName());
         response.setDescription(saved.getDescription());
-        response.setStudentsFirstName(saved.getStudent().getFirstName());
-        response.setStudentsLastName(saved.getStudent().getLastName());
         response.setClassesName(saved.getSchoolClasses().getName());
 
         return response;

@@ -1,8 +1,10 @@
 package com.school.security.service;
 
 import com.school.entity.Parent;
+import com.school.entity.Student;
 import com.school.entity.Teacher;
 import com.school.repo.ParentRepo;
+import com.school.repo.StudentRepository;
 import com.school.repo.TeacherRepo;
 import com.school.security.entity.InviteCode;
 import com.school.security.entity.Role;
@@ -29,6 +31,7 @@ import java.util.List;
 public class UserService implements UserServiceInterface , UserDetailsService {
     private final UserRepository userRepo;
     private final ParentRepo parentRepo;
+    private final StudentRepository studentRepository;
     private final TeacherRepo teacherRepo;
     private final PasswordEncoder passwordEncoder;
     private final InviteTokenRepo inviteTokenRepo;
@@ -36,9 +39,10 @@ public class UserService implements UserServiceInterface , UserDetailsService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public UserService(UserRepository userRepo, ParentRepo parentRepo, TeacherRepo teacherRepo, PasswordEncoder passwordEncoder, InviteTokenRepo inviteTokenRepo, EmailService emailService, JwtService jwtService, @Lazy AuthenticationManager authenticationManager) {
+    public UserService(UserRepository userRepo, ParentRepo parentRepo, StudentRepository studentRepository, TeacherRepo teacherRepo, PasswordEncoder passwordEncoder, InviteTokenRepo inviteTokenRepo, EmailService emailService, JwtService jwtService, @Lazy AuthenticationManager authenticationManager) {
         this.userRepo = userRepo;
         this.parentRepo = parentRepo;
+        this.studentRepository = studentRepository;
         this.teacherRepo = teacherRepo;
         this.passwordEncoder = passwordEncoder;
         this.inviteTokenRepo = inviteTokenRepo;
@@ -89,9 +93,14 @@ public class UserService implements UserServiceInterface , UserDetailsService {
 
             UserReg saved = userRepo.save(userReg);
 
+            Student student = studentRepository.findById(request.getStudentId())
+                    .orElseThrow(()->new RuntimeException("Student Not found"));
+
             if (request.getRole() == Role.TEACHER) {
                 Teacher teacher = new Teacher();
+
                 teacher.setUserReg(userReg);
+                teacher.setStudents((List<Student>) student);
                 teacher.setTeacherNo(request.getTeacherNo());
 
                 teacherRepo.save(teacher);
@@ -99,6 +108,7 @@ public class UserService implements UserServiceInterface , UserDetailsService {
             } else if (request.getRole() == Role.PARENT) {
                 Parent parent = new Parent();
                 parent.setUserReg(userReg);
+
                 parentRepo.save(parent);
 
             } else if (request.getRole() == Role.ADMIN) {

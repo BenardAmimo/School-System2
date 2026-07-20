@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ParentRequest {
  private Long userId;
+ private String phoneNumber;
 
 
 }

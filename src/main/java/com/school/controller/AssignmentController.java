@@ -7,6 +7,7 @@ import com.school.service.AssignmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,8 +19,9 @@ public class AssignmentController {
     private final AssignmentService assignmentService;
 
     @PostMapping("/assigns")
-    public ResponseEntity<AssignmentResponse> assignCourse(@RequestBody AssignmentRequest request) throws SubjectNotFoundException {
-        AssignmentResponse assign = assignmentService.assignCourse(request);
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    public ResponseEntity<AssignmentResponse> assignSubject(@RequestBody AssignmentRequest request) throws SubjectNotFoundException {
+        AssignmentResponse assign = assignmentService.assignSubject(request);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(assign);
     }

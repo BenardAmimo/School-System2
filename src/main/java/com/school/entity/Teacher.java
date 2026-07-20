@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.engine.internal.Cascade;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.prefs.PreferencesFactory;
 
@@ -47,6 +48,10 @@ public class Teacher {
          referencedColumnName = "userId"
  )
  private UserReg userReg;
+ @OneToMany(
+         mappedBy = "teacher"
+ )
+ private List<Student> students = new ArrayList<>();
 
 
 }
