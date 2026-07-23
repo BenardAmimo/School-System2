@@ -1,6 +1,7 @@
 package com.school.security.entity;
 
 import com.school.entity.*;
+import io.netty.util.NetUtil;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +20,9 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Table(
-        name = "Users"
+        name = "Users",
+        uniqueConstraints = {
+                @UniqueConstraint( columnNames= "email")}
 )
 public class UserReg implements UserDetails {
     @Id
@@ -34,13 +37,25 @@ public class UserReg implements UserDetails {
 
     )
     private Long userId;
+
+    @Column(unique = true)
     private String username;
+
+    @Column(nullable = false)
     private String firstName;
+
+    @Column(nullable = false)
     private String lastName;
+
     private String email;
+
     private String password;
+
+    @Column(nullable = false)
     private Boolean enabled;
+
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Role role;
 
     @OneToOne(

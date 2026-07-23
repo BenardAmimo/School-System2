@@ -5,12 +5,12 @@ import com.school.response.StudentResponse;
 import com.school.service.StudentsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api")
 public class StudentController {
     private final StudentsService studentsService;
 
@@ -18,11 +18,16 @@ public class StudentController {
         this.studentsService = studentsService;
     }
 
-    @PostMapping("/Students")
-    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    @PostMapping("/students")
     public ResponseEntity<StudentResponse> createStudent(@RequestBody StudentRequest studentRequest){
         StudentResponse response = studentsService.createStudents(studentRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
+    }
+
+    @GetMapping("/students")
+    public ResponseEntity<List<StudentResponse>> getAllStudents(){
+        List<StudentResponse> responses = studentsService.getAllStudents();
+        return ResponseEntity.ok(responses);
     }
 }

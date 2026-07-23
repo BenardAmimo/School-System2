@@ -11,5 +11,4 @@ public class SchoolClassesRequest {
     private String location;
     private String name;
     private String year;
-    private Long studentId;
 }

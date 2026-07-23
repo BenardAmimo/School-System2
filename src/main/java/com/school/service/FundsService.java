@@ -1,15 +1,13 @@
 package com.school.service;
 
-import com.school.entity.Funds;
-import com.school.entity.Parent;
-import com.school.entity.Student;
-import com.school.entity.Term;
+import com.school.entity.*;
 import com.school.payments.entity.MpesaTransactions;
 import com.school.payments.entity.Status;
 import com.school.repo.FundsRepository;
 import com.school.repo.ParentRepo;
 import com.school.repo.StudentRepository;
 import com.school.repo.TermRepository;
+import com.school.request.BulkFundsRequest;
 import com.school.request.FundsRequest;
 import com.school.response.FundsResponse;
 import org.springframework.stereotype.Service;
@@ -43,7 +41,7 @@ public class FundsService implements FundsServe{
         funds.setStudents(student);
         funds.setCreatedAt(LocalDateTime.now());
         funds.setTerm(term);
-        //fundType
+        funds.setFundsType(fundsRequest.getFundsType());//to be fixed
         fundsRepository.save(funds);
 
         return FundsResponse.builder()
@@ -55,7 +53,31 @@ public class FundsService implements FundsServe{
                 .termYear(funds.getTerm().getYear())
                 .build();
     }
-        public List<FundsResponse> getStudentFunds(Long studentId) {
+
+    @Override
+    public int createFundsForAllStudents(BulkFundsRequest request) {
+        Term term = termRepository.findById(request.getTermId())
+                .orElseThrow(() -> new RuntimeException("Term not found"));
+
+        List<Student> allStudents = studentRepo.findAll();
+
+        List<Funds> newFunds = allStudents.stream()
+                .map(student -> {
+                    Funds funds = new Funds();
+                    funds.setStudents(student);
+                    funds.setTerm(term);
+                    funds.setFundsType(request.getFundsType());
+                    funds.setAmount(request.getAmount());
+                    funds.setCreatedAt(LocalDateTime.now());
+                    return funds;
+                })
+                .toList();
+
+        fundsRepository.saveAll(newFunds);
+        return newFunds.size();
+    }
+
+    public List<FundsResponse> getStudentFunds(Long studentId) {
             return fundsRepository.findByStudents_StudentId(studentId).stream()
                     .map(this::toDto)
                     .toList();
@@ -76,6 +98,8 @@ public class FundsService implements FundsServe{
                     .amountPaid(amountPaid)
                     .balance(funds.getAmount().subtract(amountPaid))
                     .createdAt(funds.getCreatedAt())
+                    .termName(funds.getTerm() != null ? funds.getTerm().getName() : null)
+                    .termYear(funds.getTerm() != null ? funds.getTerm().getYear() : null)
                     .build();
         }
     }

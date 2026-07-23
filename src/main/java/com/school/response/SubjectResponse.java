@@ -12,5 +12,6 @@ public class SubjectResponse {
     private String name;
     private String description;
     private String classesName;
+    private int assignmentCount;
 
 }

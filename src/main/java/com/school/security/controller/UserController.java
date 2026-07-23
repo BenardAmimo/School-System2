@@ -10,7 +10,9 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
-public class UserController {
+public class
+
+UserController {
     private final UserService userService;
 
     public UserController(UserService userService) {

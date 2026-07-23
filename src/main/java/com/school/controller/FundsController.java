@@ -1,6 +1,7 @@
 package com.school.controller;
 
 
+import com.school.request.BulkFundsRequest;
 import com.school.request.FundsRequest;
 import com.school.response.FundsResponse;
 import com.school.service.FundsService;
@@ -22,7 +23,6 @@ public class FundsController {
     }
 
     @PostMapping("/funds")
-    @PreAuthorize("hasRole('SUPER_ADMIN')")
     public ResponseEntity<FundsResponse> createFunds(@RequestBody FundsRequest fundsRequest){
         FundsResponse respo = fundsService.createFunds(fundsRequest);
 
@@ -31,7 +31,14 @@ public class FundsController {
     }
 
     @GetMapping("/{studentId}/funds")
-    public ResponseEntity<List<FundsResponse>> getStudentFunds(@PathVariable Long studentId) {
+    public ResponseEntity <List<FundsResponse>> getStudentFunds(@PathVariable Long studentId) {
         return ResponseEntity.ok(fundsService.getStudentFunds(studentId));
+    }
+
+    @PostMapping("/funds/bulk")
+    public ResponseEntity<String> createFundsForAllStudents(@RequestBody BulkFundsRequest request) {
+        int count = fundsService.createFundsForAllStudents(request);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body("Created fee records for " + count + " students");
     }
 }

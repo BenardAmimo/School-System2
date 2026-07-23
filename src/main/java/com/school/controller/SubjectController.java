@@ -23,7 +23,6 @@ public class SubjectController {
     }
 
     @PostMapping("/subjects")
-    @PreAuthorize("hasRole('SUPER_ADMIN')")
     public ResponseEntity<SubjectResponse> createCourse(@RequestBody SubjectRequest subjectRequest){
         log.info("POST request to save Subject: {}", subjectRequest);
 

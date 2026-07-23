@@ -12,6 +12,7 @@ public class SchoolClassesResponse {
     private String location;
     private String name;
     private String year;
+    private int studentsCount;
     //private String studentsFirstName;
     //private String studentsLastName;
 

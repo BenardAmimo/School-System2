@@ -11,6 +11,7 @@ public class StudentRequest {
     private String firstName;
     private String lastName;
     private Long parentId;
+    private Long classesId;
 
 
 }

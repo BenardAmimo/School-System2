@@ -43,12 +43,6 @@ public class Student {
     )
     private SchoolClasses classes;
 
-    @ManyToOne()
-    @JoinColumn(
-            name = "teacher_id",
-            referencedColumnName = "teacherId"
-    )
-    private Teacher teacher;
     @OneToMany(
             mappedBy = "students"
     )

@@ -3,6 +3,7 @@ import com.school.security.service.JwtAuthFilter;
 import com.school.security.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -42,15 +43,23 @@ public class SecurityConfig {
                 )
 
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers( "/login","/school/**","/complete-registration","/stk/callback").permitAll()
-                        //.requestMatchers(HttpMethod.GET, "/school/**").permitAll()
-                        //.requestMatchers(HttpMethod.POST, "/school/**").hasRole("ADMIN")
-                        //.requestMatchers(HttpMethod.PUT, "/school/**").hasRole("ADMIN")
-                        //.requestMatchers(HttpMethod.DELETE, "/school/**").hasRole("ADMIN")
+                        .requestMatchers( "/login","/complete-registration","/stk/callback","/stkPush").permitAll()
 
-                        .requestMatchers("/admin/invite-user","/stkPush").hasRole("SUPER_ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/assigns","/funds","/classes","/students","/subjects","/term","/funds/bulk").hasAnyRole("ADMIN","SUPER_ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/assign/{assignmentId}","/parent/id/{parentId}","/parent/update/{parentId}").hasAnyRole("ADMIN","SUPER_ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/parent/id/{parentId}").hasAnyRole("ADMIN","SUPER_ADMIN")
+                        //.requestMatchers(HttpMethod.GET,"/assignments","/assign/id/{assignmentId}","/{studentId}/funds","/parents","/parent/id/{parentId}","/parent/name/{name}","/classes","/students","/subjects","/teachers","/teacher/id/{teacherId}","/teacher/{name}","/terms").hasAnyRole("SUPER_ADMIN","ADMIN")
+                        .requestMatchers(HttpMethod.GET,"/api/finance/summary").hasAnyRole("SUPER_ADMIN","ADMIN")
+
+                        .requestMatchers(HttpMethod.GET,"/assignments","/assign/id/{assignmentId}","/{studentId}/funds",
+                                "/parents","/parent/id/{parentId}","/parent/name/{name}").hasAnyRole("SUPER_ADMIN","ADMIN")
+                        .requestMatchers(HttpMethod.GET,"/classes","/students","/subjects","/teachers",
+                                "/teacher/id/{teacherId}","/teacher/{name}").hasAnyRole("SUPER_ADMIN","ADMIN","TEACHER")
+                        .requestMatchers(HttpMethod.GET,"/terms").hasAnyRole("SUPER_ADMIN","ADMIN")
+
+                        .requestMatchers("/admin/invite-user").hasRole("SUPER_ADMIN")
                         .requestMatchers("/teacher/**").hasAnyRole("TEACHER", "ADMIN")
-                        .requestMatchers("/stkPush","/student/**").hasAnyRole("PARENT", "ADMIN", "TEACHER")
+
 
                         .anyRequest().authenticated()
                 )

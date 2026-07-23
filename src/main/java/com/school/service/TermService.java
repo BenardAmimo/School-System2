@@ -6,6 +6,8 @@ import com.school.request.TermRequest;
 import com.school.response.TermResponse;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TermService implements TermServe{
     private final TermRepository termRepository;
@@ -33,5 +35,24 @@ public class TermService implements TermServe{
 
 
         return termResponse;
+    }
+
+    @Override
+    public List<TermResponse> getAllTerms() {
+        return termRepository
+                .findAll()
+                .stream()
+                .map(this::toTermRespo)
+                .toList();
+    }
+    private TermResponse toTermRespo(Term term){
+        TermResponse response = new TermResponse();
+        response.setTermId(term.getTermId());
+        response.setName(term.getName());
+        response.setYear(term.getYear());
+        response.setStartDate(term.getStartDate());
+        response.setEndDate(term.getEndDate());
+
+        return response;
     }
 }

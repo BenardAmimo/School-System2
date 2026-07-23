@@ -19,7 +19,6 @@ public class AssignmentController {
     private final AssignmentService assignmentService;
 
     @PostMapping("/assigns")
-    @PreAuthorize("hasRole('SUPER_ADMIN')")
     public ResponseEntity<AssignmentResponse> assignSubject(@RequestBody AssignmentRequest request) throws SubjectNotFoundException {
         AssignmentResponse assign = assignmentService.assignSubject(request);
 

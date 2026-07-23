@@ -9,5 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TeacherRequest {
  private String teacherNo;
+ private String phoneNumber;
  private Long userId;
+ private Long classesId;
 }

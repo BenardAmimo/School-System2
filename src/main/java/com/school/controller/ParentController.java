@@ -21,7 +21,7 @@ public class ParentController {
 
 
     @GetMapping("/parents")
-    public ResponseEntity<List<ParentResponse>> getAllParents(){
+    public ResponseEntity <List<ParentResponse>> getAllParents(){
         log.info("Get mapping of all parents");
         List<ParentResponse> parents = parentService.getAllParents();
 

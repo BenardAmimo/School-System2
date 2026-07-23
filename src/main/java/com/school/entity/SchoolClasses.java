@@ -37,4 +37,8 @@ public class SchoolClasses {
     )
     private List<Subject> subjects = new ArrayList<>();
 
+    @OneToMany(mappedBy = "classes")
+    private List<Teacher> teachers = new ArrayList<>();
+
+
 }

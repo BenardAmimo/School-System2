@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserService implements UserServiceInterface , UserDetailsService {
@@ -78,9 +79,8 @@ public class UserService implements UserServiceInterface , UserDetailsService {
             if (request.getRole() == Role.TEACHER && request.getTeacherNo() == null) {
                 throw new RuntimeException("Teacher number is required for TEACHER role");
             }
-            if (request.getRole() == Role.PARENT) {
-                throw new RuntimeException("Registration number is required for PARENT role");
-            }
+            //Holds the password position until user sets one
+           // String placeholder = UUID.randomUUID().toString();
 
             // Created with no username/password yet — those come from the user later.
             UserReg userReg = UserReg.builder()
@@ -88,25 +88,24 @@ public class UserService implements UserServiceInterface , UserDetailsService {
                     .firstName(request.getFirstName())
                     .lastName(request.getLastName())
                     .role(request.getRole())
+                   // .password(passwordEncoder.encode(placeholder))
                     .enabled(false)
                     .build();
 
             UserReg saved = userRepo.save(userReg);
 
-            Student student = studentRepository.findById(request.getStudentId())
-                    .orElseThrow(()->new RuntimeException("Student Not found"));
-
             if (request.getRole() == Role.TEACHER) {
                 Teacher teacher = new Teacher();
 
                 teacher.setUserReg(userReg);
-                teacher.setStudents((List<Student>) student);
                 teacher.setTeacherNo(request.getTeacherNo());
+                teacher.setPhoneNumber(request.getPhoneNumber());
 
                 teacherRepo.save(teacher);
 
             } else if (request.getRole() == Role.PARENT) {
                 Parent parent = new Parent();
+                parent.setPhoneNumber(request.getPhoneNumber());
                 parent.setUserReg(userReg);
 
                 parentRepo.save(parent);
@@ -190,6 +189,7 @@ public class UserService implements UserServiceInterface , UserDetailsService {
             response.setRole(user.getRole().name());
             response.setFirstName(user.getFirstName());
             response.setLastName(user.getLastName());
+            response.setEmail(user.getEmail());
             response.setMessage("Login successful!");
 
             return response;

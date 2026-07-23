@@ -1,17 +1,16 @@
-package com.school.security.models;
+package com.school.response;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginResponse {
-    private String token;
-    private String role;
+@Builder
+public class StudentSummary {
+    private Long studentId;
     private String firstName;
     private String lastName;
-    private String message;
-    private String email;
 }

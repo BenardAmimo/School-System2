@@ -31,6 +31,7 @@ public class Teacher {
  )
  private Long teacherId;
  private String teacherNo;
+ private String phoneNumber;
 
  @OneToMany(
          mappedBy = "teacher",
@@ -48,10 +49,13 @@ public class Teacher {
          referencedColumnName = "userId"
  )
  private UserReg userReg;
- @OneToMany(
-         mappedBy = "teacher"
+
+ @ManyToOne()
+ @JoinColumn(
+         name = "classes_id",
+         referencedColumnName = "classesId"
  )
- private List<Student> students = new ArrayList<>();
+ private SchoolClasses classes;
 
 
 }

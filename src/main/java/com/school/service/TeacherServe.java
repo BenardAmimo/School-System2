@@ -2,6 +2,7 @@ package com.school.service;
 
 import com.school.entity.Teacher;
 import com.school.request.TeacherRequest;
+import com.school.response.TeacherClassSummary;
 import com.school.response.TeacherResponse;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface TeacherServe {
     List<TeacherResponse> getAllTeachers();
 
     TeacherResponse updateTeacher(Long teacherId, TeacherRequest teacherRequest);
+
+    List<TeacherClassSummary> getMyClasses(Long teacherId);
 }

@@ -6,9 +6,8 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 @Data
-public class FundsRequest {
-    private Long studentId;
-    private BigDecimal amount;
+public class BulkFundsRequest {
     private Long termId;
     private FundsType fundsType;
+    private BigDecimal amount;
 }

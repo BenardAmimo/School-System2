@@ -24,7 +24,6 @@ public class UserRequest{
     @NotBlank
     private String teacherNo;
     @NotBlank
-    private String regNo;
-    @NotNull
-    private Long studentId;
+    private String phoneNumber;
+
 }
