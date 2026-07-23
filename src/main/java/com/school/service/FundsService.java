@@ -59,9 +59,12 @@ public class FundsService implements FundsServe{
         Term term = termRepository.findById(request.getTermId())
                 .orElseThrow(() -> new RuntimeException("Term not found"));
 
-        List<Student> allStudents = studentRepo.findAll();
+        List<Student> allStudents = studentRepo.findByClasses_ClassesId(request.getClassesId());
 
-        List<Funds> newFunds = allStudents.stream()
+        List<Funds> newFunds = allStudents
+                .stream()
+                .filter(student -> !fundsRepository.existsByStudents_StudentIdAndTerm_TermIdAndFundsType(
+                        student.getStudentId(), term.getTermId(), request.getFundsType()))
                 .map(student -> {
                     Funds funds = new Funds();
                     funds.setStudents(student);

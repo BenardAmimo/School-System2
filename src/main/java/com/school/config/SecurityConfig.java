@@ -52,9 +52,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET,"/api/finance/summary").hasAnyRole("SUPER_ADMIN","ADMIN")
 
                         .requestMatchers(HttpMethod.GET,"/assignments","/assign/id/{assignmentId}","/{studentId}/funds",
-                                "/parents","/parent/id/{parentId}","/parent/name/{name}").hasAnyRole("SUPER_ADMIN","ADMIN")
+                                "/parents","/parent/id/{parentId}","/parent/name/{name}").hasAnyRole("SUPER_ADMIN","ADMIN","PARENT","TEACHER")
                         .requestMatchers(HttpMethod.GET,"/classes","/students","/subjects","/teachers",
-                                "/teacher/id/{teacherId}","/teacher/{name}").hasAnyRole("SUPER_ADMIN","ADMIN","TEACHER")
+                                "/teacher/id/{teacherId}","/teacher/{name}").hasAnyRole("SUPER_ADMIN","ADMIN","TEACHER","PARENT")
                         .requestMatchers(HttpMethod.GET,"/terms").hasAnyRole("SUPER_ADMIN","ADMIN")
 
                         .requestMatchers("/admin/invite-user").hasRole("SUPER_ADMIN")

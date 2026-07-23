@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 
 @Data
 public class BulkFundsRequest {
+    private Long classesId;
     private Long termId;
     private FundsType fundsType;
     private BigDecimal amount;

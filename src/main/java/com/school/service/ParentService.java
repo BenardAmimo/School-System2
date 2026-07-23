@@ -4,6 +4,7 @@ import com.school.entity.Parent;
 import com.school.repo.ParentRepo;
 import com.school.repo.StudentRepository;
 import com.school.request.ParentRequest;
+import com.school.response.ChildSummary;
 import com.school.response.ParentResponse;
 import com.school.security.entity.UserReg;
 import com.school.security.repository.UserRepository;
@@ -20,6 +21,7 @@ import java.util.Objects;
 public class ParentService implements ParentServe {
     private final ParentRepo parentRepo;
     private final UserRepository userRepository;
+    private final StudentRepository studentRepository;
 
 
 
@@ -90,4 +92,20 @@ public class ParentService implements ParentServe {
         return null;
     }
 
+    @Override
+    public List<ChildSummary> getMyChildren(String email) {
+        Parent parent = parentRepo.findByUserReg_Email(email)
+                .orElseThrow(() -> new RuntimeException("This account is not linked to a parent record"));
+
+        return studentRepository.findByParent_ParentId(parent.getParentId()).stream()
+                .map(s -> ChildSummary.builder()
+                        .studentId(s.getStudentId())
+                        .firstName(s.getFirstName())
+                        .lastName(s.getLastName())
+                        .className(s.getClasses() != null ? s.getClasses().getName() : "Unassigned")
+                        .build())
+                .toList();
+    }
 }
+
+

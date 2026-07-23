@@ -1,10 +1,13 @@
 package com.school.controller;
 
 import com.school.request.ParentRequest;
+import com.school.response.ChildSummary;
 import com.school.response.ParentResponse;
 import com.school.service.ParentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -60,5 +63,11 @@ public class ParentController {
             ParentResponse parent = parentService.deleteParent(parentId);
             log.info("parent {} successfully deleted",parent.getParentId());
         return ResponseEntity.ok("Successfully deleted");
+    }
+
+    @GetMapping("/me/children")
+    @PreAuthorize("hasAnyRole('PARENT', 'ADMIN', 'SUPER_ADMIN', 'TEACHER')")
+    public ResponseEntity<List<ChildSummary>> getMyChildren(Authentication authentication) {
+        return ResponseEntity.ok(parentService.getMyChildren(authentication.getName()));
     }
 }

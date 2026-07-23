@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -27,11 +28,14 @@ public class MpesaTransactionsController{
         this.mpesaTransactionService = mpesaTransactionService;
         this.transactionsRepository = transactionsRepository;
     }
+
     @PostMapping("/stkPush")
-    public ResponseEntity<MpesaTransactionsResponse> initiateStkPush(@RequestBody MpesaTransactionRequest transactionRequest,
-                                                                     @RequestHeader("idempotency-key") String idempotencyKey){
+    public ResponseEntity<MpesaTransactionsResponse> initiateStkPush(
+            @RequestBody MpesaTransactionRequest transactionRequest,
+            @RequestHeader("idempotency-key") String idempotencyKey,
+            Authentication authentication) {
         MpesaTransactionsResponse response = mpesaTransactionService
-                .initiateStkPush(transactionRequest,idempotencyKey);
+                .initiateStkPush(transactionRequest, idempotencyKey, authentication);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
     }
     @PostMapping("/stk/callback")

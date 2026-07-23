@@ -8,7 +8,9 @@ import com.school.repo.ParentRepo;
 import com.school.repo.SchoolClassesRepository;
 import com.school.repo.StudentRepository;
 import com.school.request.StudentRequest;
+import com.school.response.MychildResponse;
 import com.school.response.StudentResponse;
+import com.school.response.StudentSubjectSummary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,6 +52,45 @@ public class StudentsService implements StudentsServ {
                 .toList();
     }
 
+    @Override
+    public List<MychildResponse> getMyChildren(String email) {
+        Parent parent = parentRepo.findByUserReg_Email(email)
+                .orElseThrow(() -> new RuntimeException("This account is not linked to a parent record"));
+
+        return parent.getStudent().stream()
+                .map(this::toChildResponse)
+                .toList();
+    }
+
+    private MychildResponse toChildResponse(Student student) {
+        SchoolClasses schoolClass = student.getClasses();
+
+        List<StudentSubjectSummary> subjects = schoolClass == null
+                ? List.of()
+                : schoolClass.getSubjects().stream()
+                .map(subject -> {
+                    String teacherName = subject.getAssignment().isEmpty()
+                            ? "Unassigned"
+                            : subject.getAssignment().get(0).getTeacher().getUserReg().getFirstName()
+                            + " " + subject.getAssignment().get(0).getTeacher().getUserReg().getLastName();
+
+                    return StudentSubjectSummary.builder()
+                            .subjectId(subject.getSubjectId())
+                            .subjectName(subject.getName())
+                            .teacherName(teacherName)
+                            .build();
+                })
+                .toList();
+
+        return MychildResponse.builder()
+                .studentId(student.getStudentId())
+                .firstName(student.getFirstName())
+                .lastName(student.getLastName())
+                .className(schoolClass != null ? schoolClass.getName() : "Unassigned")
+                .classLocation(schoolClass != null ? schoolClass.getLocation() : null)
+                .subjects(subjects)
+                .build();
+    }
     private StudentResponse toResponse(Student student) {
         StudentResponse respond = new StudentResponse();
         respond.setStudentId(student.getStudentId());

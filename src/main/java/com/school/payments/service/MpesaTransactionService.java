@@ -1,6 +1,7 @@
 package com.school.payments.service;
 
 import com.school.entity.Funds;
+import com.school.entity.Parent;
 import com.school.error.MpesaException;
 import com.school.payments.MpesaConfig;
 import com.school.payments.entity.IdempotencyRecord;
@@ -11,10 +12,13 @@ import com.school.payments.model.MpesaTransactionsResponse;
 import com.school.payments.repository.IdempotencyKeyRepo;
 import com.school.payments.repository.MpesaTransactionsRepository;
 import com.school.repo.FundsRepository;
+import com.school.repo.ParentRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -33,34 +37,48 @@ public class MpesaTransactionService implements MpesaTransServe {
     private final MpesaConfig mpesaConfig;
     private final WebClient mpesaWebclient;
     private final FundsRepository fundsRepository;
+    private final ParentRepo parentRepo;
 
-    public MpesaTransactionService(MpesaTransactionsRepository transactionsRepository, IdempotencyKeyRepo idempotencyKeyRepo, MpesaAuthService authService, MpesaConfig mpesaConfig, WebClient mpesaWebclient, FundsRepository fundsRepository) {
+    public MpesaTransactionService(MpesaTransactionsRepository transactionsRepository, IdempotencyKeyRepo idempotencyKeyRepo, MpesaAuthService authService, MpesaConfig mpesaConfig, WebClient mpesaWebclient, FundsRepository fundsRepository, ParentRepo parentRepo) {
         this.transactionsRepository = transactionsRepository;
         this.idempotencyKeyRepo = idempotencyKeyRepo;
         this.authService = authService;
         this.mpesaConfig = mpesaConfig;
         this.mpesaWebclient = mpesaWebclient;
         this.fundsRepository = fundsRepository;
+        this.parentRepo = parentRepo;
     }
 
     @Override
-    public MpesaTransactionsResponse initiateStkPush(MpesaTransactionRequest transactionRequest, String idempotencyKey) {
+    public MpesaTransactionsResponse initiateStkPush(MpesaTransactionRequest transactionRequest, String idempotencyKey, Authentication authentication) {
 
-       Optional<IdempotencyRecord> exists = idempotencyKeyRepo.findById(idempotencyKey);
+        Optional<IdempotencyRecord> exists = idempotencyKeyRepo.findById(idempotencyKey);
 
         if (exists.isPresent()) {
             IdempotencyRecord record = exists.get();
-            //Logging
             MpesaTransactions transact = transactionsRepository.findByCheckoutRequestId(record.getCheckoutRequestId())
                     .orElseThrow(() -> new MpesaException("Mpesa transaction Not found for idempotency key "));
             return toDto(transact,"Duplicate Request");
-
         }
 
         Funds funds = fundsRepository.findById(transactionRequest.getFundsId())
                 .orElseThrow(()->new MpesaException("Funds are not yet into the account"));
 
+        // ownership check — only PARENT role is restricted to their own children's funds
+        boolean isParent = authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_PARENT"));
 
+        if (isParent) {
+            String email = authentication.getName();
+            Parent parent = parentRepo.findByUserReg_Email(email)
+                    .orElseThrow(() -> new MpesaException("This account is not linked to a parent record"));
+
+            Long fundsOwnerParentId = funds.getStudents().getParent().getParentId();
+            if (!fundsOwnerParentId.equals(parent.getParentId())) {
+                throw new AccessDeniedException("You can only pay fees for your own children.");
+            }
+        }
+        // TEACHER, ADMIN, SUPER_ADMIN skip the check — allowed to pay for any student
 
         String token = authService.generateAccessToken();
         String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
@@ -146,7 +164,4 @@ public class MpesaTransactionService implements MpesaTransServe {
 
         return transact;
     }
-
-
 }
-

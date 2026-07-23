@@ -1,6 +1,7 @@
 package com.school.service;
 
 import com.school.request.ParentRequest;
+import com.school.response.ChildSummary;
 import com.school.response.ParentResponse;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface ParentServe {
     ParentResponse getParentByName(String name);
 
     ParentResponse deleteParent(Long parentId);
+
+    List<ChildSummary> getMyChildren(String name);
 }

@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,7 +15,8 @@ public class SchoolClassesResponse {
     private String name;
     private String year;
     private int studentsCount;
-    //private String studentsFirstName;
-    //private String studentsLastName;
 
+    private List<ClassStudentSummary> student;
+    private List<ClassSubjectSummary> subjects;
+    private List<ClassTeacherSummary> teachers;
 }
