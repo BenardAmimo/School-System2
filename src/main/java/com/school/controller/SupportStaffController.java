@@ -17,7 +17,7 @@ public class SupportStaffController {
         this.staffService = staffService;
     }
 
-    @PostMapping("/support")
+    @PostMapping("/staff")
     public ResponseEntity<SupportStaffResponse> createNewSupportStaff(@RequestBody SupportStaffRequest request){
         SupportStaffResponse res = staffService.createNewSupportStaff(request);
 
@@ -35,6 +35,18 @@ public class SupportStaffController {
     public ResponseEntity <List<SupportStaffResponse>> getAllStaffs(){
         List<SupportStaffResponse> staffs = staffService.getAllStaffs();
         return ResponseEntity.ok(staffs);
+    }
+
+    @PutMapping("staff/{staffId}")
+    public ResponseEntity<SupportStaffResponse> updateStaff(
+            @PathVariable Long staffId,
+            @RequestBody SupportStaffRequest request) {
+        return ResponseEntity.ok(staffService.updateStaff(staffId, request));
+    }
+    @DeleteMapping("staff/{staffId}")
+    public ResponseEntity<Void> deleteStaff(@PathVariable Long staffId) {
+        staffService.deleteStaffById(staffId);
+        return ResponseEntity.noContent().build();
     }
 
 }

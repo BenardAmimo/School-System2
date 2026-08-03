@@ -11,4 +11,8 @@ public interface SupportStaffServ {
     SupportStaffResponse findOneStaff(Long staffId);
 
     List<SupportStaffResponse> getAllStaffs();
+
+    SupportStaffResponse updateStaff(Long staffId, SupportStaffRequest request);
+
+    void deleteStaffById(Long staffId);
 }

@@ -7,6 +7,7 @@ import com.school.response.SupportStaffResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class SupportStaffService implements SupportStaffServ {
@@ -50,6 +51,32 @@ public class SupportStaffService implements SupportStaffServ {
                 .stream()
                 .map(this::mappings)
                 .toList();
+    }
+
+    @Override
+    public SupportStaffResponse updateStaff(Long staffId, SupportStaffRequest request) {
+        SupportStaff staffDB = staffRepository.findById(staffId)
+                .orElseThrow(() -> new RuntimeException("Support staff not found"));
+
+        if (Objects.nonNull(request.getFirstName()) && !request.getFirstName().isBlank()) {
+            staffDB.setFirstName(request.getFirstName());
+        }
+        if (Objects.nonNull(request.getLastName()) && !request.getLastName().isBlank()) {
+            staffDB.setLastName(request.getLastName());
+        }
+        if (Objects.nonNull(request.getWorkDone()) && !request.getWorkDone().isBlank()) {
+            staffDB.setWorkDone(request.getWorkDone());
+        }
+
+        SupportStaff saved = staffRepository.save(staffDB);
+        return mappings(saved);
+    }
+
+    @Override
+    public void deleteStaffById(Long staffId) {
+        SupportStaff staff = staffRepository.findById(staffId)
+                .orElseThrow(() -> new RuntimeException("Support staff not found"));
+        staffRepository.delete(staff);
     }
 
     private SupportStaffResponse mappings(SupportStaff staff){

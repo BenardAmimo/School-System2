@@ -45,17 +45,16 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers( "/login","/complete-registration","/stk/callback","/stkPush").permitAll()
 
-                        .requestMatchers(HttpMethod.POST, "/assigns","/funds","/classes","/students","/subjects","/term","/funds/bulk").hasAnyRole("ADMIN","SUPER_ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/assign/{assignmentId}","/parent/id/{parentId}","/parent/update/{parentId}").hasAnyRole("ADMIN","SUPER_ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/parent/id/{parentId}").hasAnyRole("ADMIN","SUPER_ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/assigns","/funds","/classes","/students","/subjects","/term","/funds/bulk","/staff").hasAnyRole("ADMIN","SUPER_ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/assign/{assignmentId}","/parent/id/{parentId}","/parent/update/{parentId}","/staff/{staffId}").hasAnyRole("ADMIN","SUPER_ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/parent/id/{parentId}","/staff/{staffId}").hasAnyRole("ADMIN","SUPER_ADMIN")
                         //.requestMatchers(HttpMethod.GET,"/assignments","/assign/id/{assignmentId}","/{studentId}/funds","/parents","/parent/id/{parentId}","/parent/name/{name}","/classes","/students","/subjects","/teachers","/teacher/id/{teacherId}","/teacher/{name}","/terms").hasAnyRole("SUPER_ADMIN","ADMIN")
-                        .requestMatchers(HttpMethod.GET,"/api/finance/summary").hasAnyRole("SUPER_ADMIN","ADMIN")
+                        .requestMatchers(HttpMethod.GET,"/api/finance/summary","/staff/{staffId}","/staffs").hasAnyRole("SUPER_ADMIN","ADMIN")
 
                         .requestMatchers(HttpMethod.GET,"/assignments","/assign/id/{assignmentId}","/{studentId}/funds",
                                 "/parents","/parent/id/{parentId}","/parent/name/{name}").hasAnyRole("SUPER_ADMIN","ADMIN","PARENT","TEACHER")
                         .requestMatchers(HttpMethod.GET,"/classes","/students","/subjects","/teachers",
                                 "/teacher/id/{teacherId}","/teacher/{name}").hasAnyRole("SUPER_ADMIN","ADMIN","TEACHER","PARENT")
-                        .requestMatchers(HttpMethod.GET,"/terms").hasAnyRole("SUPER_ADMIN","ADMIN")
 
                         .requestMatchers("/admin/invite-user").hasRole("SUPER_ADMIN")
                         .requestMatchers("/teacher/**").hasAnyRole("TEACHER", "ADMIN")
