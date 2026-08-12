@@ -32,6 +32,9 @@ public class Teacher {
  private Long teacherId;
  private String teacherNo;
  private String phoneNumber;
+ @Enumerated(EnumType.STRING)
+ private Gender gender;
+ private Long age;
 
  @OneToMany(
          mappedBy = "teacher",

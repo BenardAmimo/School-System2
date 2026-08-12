@@ -24,5 +24,9 @@ public class SupportStaff {
     private String firstName;
     private String lastName;
     private String workDone;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+    private Long age;
+    private String phoneNumber;
 
 }

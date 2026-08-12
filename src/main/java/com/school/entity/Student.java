@@ -29,6 +29,9 @@ public class Student {
     private Long studentId;
     private String firstName;
     private String lastName;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+    private Long age;
     @ManyToOne()
     @JoinColumn(
             name = "parent_id",

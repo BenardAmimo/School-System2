@@ -2,10 +2,7 @@
 package com.school.entity;
 import com.school.security.entity.UserReg;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +29,9 @@ public class Parent {
  )
  private Long parentId;
  private String phoneNumber;
+ private Long age;
+ @Enumerated(EnumType.STRING)
+ private Gender gender;
 
  @OneToOne(
          cascade = CascadeType.ALL,

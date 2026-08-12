@@ -1,5 +1,6 @@
 package com.school.response;
 
+import com.school.entity.Gender;
 import lombok.Builder;
 import lombok.Data;
 
@@ -10,4 +11,7 @@ public class ChildSummary {
     private String firstName;
     private String lastName;
     private String className;
+    private Gender gender;
+    private Long age;
+
 }
