@@ -60,6 +60,13 @@ public class TeacherService implements TeacherServe {
   if (Objects.nonNull(teacherRequest.getPhoneNumber()) && !teacherRequest.getPhoneNumber().isBlank()) {
    teacherDB.setPhoneNumber(teacherRequest.getPhoneNumber());
   }
+  if (Objects.nonNull(teacherRequest.getAge())){//add the and part
+   teacherDB.setAge(teacherRequest.getAge());
+  }
+
+  if (Objects.nonNull(teacherRequest.getGender())){//add the and part if applicable
+   teacherDB.setGender(teacherRequest.getGender());
+  }
 
   if (Objects.nonNull(teacherRequest.getClassesId())) {
    SchoolClasses classes = schoolClassesRepository.findById(teacherRequest.getClassesId())
@@ -103,6 +110,8 @@ public class TeacherService implements TeacherServe {
                           .studentId(s.getStudentId())
                           .firstName(s.getFirstName())
                           .lastName(s.getLastName())
+                          .gender(s.getGender())
+                          .age(s.getAge())
                           .build())
                   .toList())
           .build();
@@ -115,6 +124,8 @@ public class TeacherService implements TeacherServe {
   resp.setFirstName(teacher.getUserReg().getFirstName());
   resp.setLastName(teacher.getUserReg().getLastName());
   resp.setEmail(teacher.getUserReg().getEmail());
+  resp.setAge(teacher.getAge());
+  resp.setGender(teacher.getGender());
   resp.setPhoneNumber(teacher.getPhoneNumber());
   if (teacher.getClasses() != null) {
    resp.setClassName(teacher.getClasses().getName());

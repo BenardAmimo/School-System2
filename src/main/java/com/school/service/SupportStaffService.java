@@ -24,6 +24,9 @@ public class SupportStaffService implements SupportStaffServ {
         staff.setFirstName(request.getFirstName());
         staff.setLastName(request.getLastName());
         staff.setWorkDone(request.getWorkDone());
+        staff.setAge(request.getAge());
+        staff.setGender(request.getGender());
+        staff.setPhoneNumber(request.getPhoneNumber());
 
         SupportStaff saved = staffRepository.save(staff);
 
@@ -32,6 +35,9 @@ public class SupportStaffService implements SupportStaffServ {
         response.setFirstName(saved.getFirstName());
         response.setLastName(saved.getLastName());
         response.setWorkDone(saved.getWorkDone());
+        response.setAge(saved.getAge());
+        response.setGender(saved.getGender());
+        response.setPhoneNumber(saved.getPhoneNumber());
 
         return response;
     }
@@ -68,6 +74,17 @@ public class SupportStaffService implements SupportStaffServ {
             staffDB.setWorkDone(request.getWorkDone());
         }
 
+        if(Objects.nonNull(request.getAge())){//Add the and part
+            staffDB.setAge(request.getAge());
+        }
+
+        if (Objects.nonNull(request.getGender())){// add the and part
+            staffDB.setGender(request.getGender());
+        }
+        if (Objects.nonNull(request.getPhoneNumber())&& !"".equalsIgnoreCase(request.getPhoneNumber())){
+            staffDB.setPhoneNumber(request.getPhoneNumber());
+        }
+
         SupportStaff saved = staffRepository.save(staffDB);
         return mappings(saved);
     }
@@ -85,6 +102,9 @@ public class SupportStaffService implements SupportStaffServ {
         resp.setFirstName(staff.getFirstName());
         resp.setLastName(staff.getLastName());
         resp.setWorkDone(staff.getWorkDone());
+        resp.setAge(staff.getAge());
+        resp.setGender(staff.getGender());
+        resp.setPhoneNumber(staff.getPhoneNumber());
 
         return resp;
     }

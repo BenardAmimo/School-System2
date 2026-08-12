@@ -58,7 +58,7 @@ public class SchoolClassesService implements SchoolClassesServ {
                 classes.getStudent() == null ? Collections.emptyList() :
                         classes.getStudent().stream()
                                 .map(s -> new ClassStudentSummary(
-                                        s.getStudentId(), s.getFirstName(), s.getLastName()))
+                                                                        s.getStudentId(), s.getFirstName(), s.getLastName(), s.getGender(), s.getAge()))
                                 .toList()
         );
 
@@ -76,7 +76,10 @@ public class SchoolClassesService implements SchoolClassesServ {
                                 .map(t -> new ClassTeacherSummary(
                                         t.getTeacherId(),
                                         t.getUserReg() != null ? t.getUserReg().getFirstName() : null,
-                                        t.getUserReg() != null ? t.getUserReg().getLastName() : null))
+                                        t.getUserReg() != null ? t.getUserReg().getLastName() : null,
+                                        t.getGender(),
+                                        t.getPhoneNumber(),
+                                        t.getAge()))//look into later to confirm further
                                 .toList()
         );
 

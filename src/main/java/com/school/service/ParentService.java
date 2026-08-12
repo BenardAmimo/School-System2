@@ -38,6 +38,9 @@ public class ParentService implements ParentServe {
         parenting.setParentId(parent.getParentId());
         parenting.setFirstName(parent.getUserReg().getLastName());
         parenting.setLastName(parent.getUserReg().getFirstName());
+        parenting.setAge(parent.getAge());
+        parenting.setGender(parent.getGender());
+        parenting.setPhoneNumber(parent.getPhoneNumber());
         parenting.setEmail(parent.getUserReg().getEmail());
 
         return parenting;
@@ -52,6 +55,9 @@ public class ParentService implements ParentServe {
         parentResponse.setParentId(parent.getParentId());
         parentResponse.setFirstName(parent.getUserReg().getFirstName());
         parentResponse.setLastName(parent.getUserReg().getLastName());
+        parentResponse.setGender(parent.getGender());
+        parentResponse.setAge(parent.getAge());
+        parentResponse.setPhoneNumber(parent.getPhoneNumber());
         parentResponse.setEmail(parent.getUserReg().getEmail());
 
         return parentResponse;
@@ -77,6 +83,9 @@ public class ParentService implements ParentServe {
                 respo.setParentId(parent.getParentId());
                 respo.setFirstName(parent.getUserReg().getFirstName());
                 respo.setLastName(parent.getUserReg().getLastName());
+                respo.setPhoneNumber(parent.getPhoneNumber());
+                respo.setGender(parent.getGender());
+                respo.setAge(parent.getAge());
                 respo.setEmail(parent.getUserReg().getEmail());
 
         return respo;
@@ -102,6 +111,7 @@ public class ParentService implements ParentServe {
                         .studentId(s.getStudentId())
                         .firstName(s.getFirstName())
                         .lastName(s.getLastName())
+                        .age(s.getAge())
                         .className(s.getClasses() != null ? s.getClasses().getName() : "Unassigned")
                         .build())
                 .toList();

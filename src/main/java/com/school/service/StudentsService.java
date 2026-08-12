@@ -3,7 +3,6 @@ package com.school.service;
 import com.school.entity.Parent;
 import com.school.entity.SchoolClasses;
 import com.school.entity.Student;
-import com.school.entity.Teacher;
 import com.school.repo.ParentRepo;
 import com.school.repo.SchoolClassesRepository;
 import com.school.repo.StudentRepository;
@@ -38,6 +37,8 @@ public class StudentsService implements StudentsServ {
         Student student = new Student();
         student.setFirstName(studentRequest.getFirstName());
         student.setLastName(studentRequest.getLastName());
+        student.setAge(studentRequest.getAge());
+        student.setGender(studentRequest.getGender());
         student.setParent(parent);
         student.setClasses(classes);
 
@@ -86,6 +87,8 @@ public class StudentsService implements StudentsServ {
                 .studentId(student.getStudentId())
                 .firstName(student.getFirstName())
                 .lastName(student.getLastName())
+                .gender(student.getGender())
+                .age(student.getAge())
                 .className(schoolClass != null ? schoolClass.getName() : "Unassigned")
                 .classLocation(schoolClass != null ? schoolClass.getLocation() : null)
                 .subjects(subjects)
@@ -96,6 +99,8 @@ public class StudentsService implements StudentsServ {
         respond.setStudentId(student.getStudentId());
         respond.setFirstName(student.getFirstName());
         respond.setLastName(student.getLastName());
+        respond.setAge(student.getAge());
+        respond.setGender(student.getGender());
         respond.setParentFirstName(student.getParent().getUserReg().getFirstName());
         respond.setParentLastName(student.getParent().getUserReg().getLastName());
         respond.setClassName(student.getClasses().getName());
