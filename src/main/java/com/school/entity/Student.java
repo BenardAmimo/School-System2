@@ -50,4 +50,10 @@ public class Student {
             mappedBy = "students"
     )
     private List<Funds> funds = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(
+            name = "attendance_id",
+            referencedColumnName = "attendanceId"
+    )
+    private Attendance attendance;
 }

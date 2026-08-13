@@ -40,6 +40,12 @@ public class Subject {
          referencedColumnName = "classesId"
  )
  private SchoolClasses schoolClasses;
+ @OneToOne
+ @JoinColumn(
+         name = "attendance_id",
+         referencedColumnName = "attendanceId"
+ )
+ private Attendance attendance;
 
 
 }

@@ -17,7 +17,7 @@ public class SchoolClasses {
     @SequenceGenerator(
             name = "class_gen",
             sequenceName = "class_gen"
-            ,allocationSize = 1
+            , allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
@@ -39,6 +39,8 @@ public class SchoolClasses {
 
     @OneToMany(mappedBy = "classes")
     private List<Teacher> teachers = new ArrayList<>();
-
-
+    @OneToMany(
+            mappedBy = "classes"
+    )
+    private List<Attendance> yuyrd4attendance;
 }
