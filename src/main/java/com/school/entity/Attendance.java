@@ -27,6 +27,8 @@ public class Attendance {
     private Long attendanceId;
     private LocalDateTime attendingTime;
     private LocalDateTime checkoutTime;
+
+    //Handle the mapping the issue with the Students and Subjects
     @OneToMany(
             mappedBy = "attendance"
     )

@@ -14,8 +14,7 @@ import java.time.LocalDateTime;
 public class AttendanceRequest {
     private LocalDateTime attendingTime;
     private LocalDateTime checkoutTime;
-    private String studentsFirstName;
-    private String StudentsLastName;
-    private String className;
-    private String subject;
+    //private Long studentId;
+    private Long classId;
+   // private Long subjectId;
 }
