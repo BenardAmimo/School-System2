@@ -11,6 +11,8 @@ import com.school.request.AttendanceRequest;
 import com.school.response.AttendanceResponse;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class AttendanceService implements AttendanceServing {
@@ -55,5 +57,29 @@ public class AttendanceService implements AttendanceServing {
 
 
         return response;
+    }
+
+    @Override
+    public List<AttendanceResponse> getAllAttendance() {
+        return attendanceRepository
+                .findAll()
+                .stream()
+                .map(this::toMapping)
+                .toList();
+    }
+
+    private AttendanceResponse toMapping(Attendance attendance){
+
+        AttendanceResponse attending = AttendanceResponse
+                .builder()
+                .attendanceId(attendance.getAttendanceId())
+                .attendingTime(attendance.getAttendingTime())
+                .checkoutTime(attendance.getCheckoutTime())
+                //.subject(attendance.getSubjects().getName())
+                .className(attendance.getClasses().getName())
+                .build();
+
+        return attending;
+
     }
 }
