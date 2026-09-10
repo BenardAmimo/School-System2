@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class
 
 UserController {
@@ -34,6 +33,8 @@ UserController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> loginUser(@RequestBody LoginRequest loginRequest){
+        System.out.println("LOGIN CONTROLLER");
+        System.out.println("Email" + loginRequest.getEmail());
         LoginResponse login = userService.loginUser(loginRequest);
         return ResponseEntity.ok(login);
     }

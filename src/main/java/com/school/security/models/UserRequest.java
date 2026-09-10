@@ -1,11 +1,13 @@
 package com.school.security.models;
 
+import com.school.entity.Gender;
 import com.school.security.entity.Role;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 @Data
 @AllArgsConstructor
@@ -25,5 +27,9 @@ public class UserRequest{
     private String teacherNo;
     @NotBlank
     private String phoneNumber;
+    @NotBlank
+    private Gender gender;
+    @NonNull
+    private Long age;
 
 }

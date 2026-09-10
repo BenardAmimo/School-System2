@@ -13,7 +13,6 @@ import java.util.Collections;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*")
 public class TermController {
     private final TermService termService;
 

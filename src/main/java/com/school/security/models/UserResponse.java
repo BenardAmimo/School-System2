@@ -1,5 +1,6 @@
 package com.school.security.models;
 
+import com.school.entity.Gender;
 import com.school.security.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,4 +17,6 @@ public class UserResponse {
     private String username;
     private String studentsName;
     private Role role;
+    private Gender gender;
+    private Long age;
 }

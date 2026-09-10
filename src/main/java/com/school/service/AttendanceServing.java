@@ -9,4 +9,6 @@ public interface AttendanceServing {
     AttendanceResponse markAttendance(AttendanceRequest request);
 
     List<AttendanceResponse> getAllAttendance();
+
+    AttendanceResponse getAttendanceById(Long attendanceId);
 }

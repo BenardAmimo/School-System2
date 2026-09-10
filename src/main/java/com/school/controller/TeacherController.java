@@ -14,7 +14,6 @@ import com.school.request.TeacherRequest;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*")
 public class TeacherController {
 
  private final TeacherService service;

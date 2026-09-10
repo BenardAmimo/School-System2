@@ -100,13 +100,17 @@ public class UserService implements UserServiceInterface , UserDetailsService {
                 teacher.setUserReg(userReg);
                 teacher.setTeacherNo(request.getTeacherNo());
                 teacher.setPhoneNumber(request.getPhoneNumber());
-
+                teacher.setAge(request.getAge());
+                teacher.setGender(request.getGender());
                 teacherRepo.save(teacher);
 
             } else if (request.getRole() == Role.PARENT) {
                 Parent parent = new Parent();
                 parent.setPhoneNumber(request.getPhoneNumber());
+                parent.setAge(request.getAge());
+                parent.setGender(request.getGender());
                 parent.setUserReg(userReg);
+
 
                 parentRepo.save(parent);
 
@@ -210,6 +214,8 @@ public class UserService implements UserServiceInterface , UserDetailsService {
         userResponse.setUserId(userReg.getUserId());
         userResponse.setEmail(userReg.getEmail());
         userResponse.setRole(userReg.getRole());
+        userResponse.setAge(userReg.getAge());
+        userResponse.setGender(userReg.getGender());
         userResponse.setFirstName(userReg.getFirstName());
         userResponse.setLastName(userReg.getLastName());
 

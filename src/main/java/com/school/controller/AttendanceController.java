@@ -5,10 +5,7 @@ import com.school.response.AttendanceResponse;
 import com.school.service.AttendanceService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,5 +29,12 @@ public class AttendanceController {
     public ResponseEntity <List<AttendanceResponse>> getAllAttendance(){
         List<AttendanceResponse> attendings = attendanceService.getAllAttendance();
         return ResponseEntity.ok(attendings);
+    }
+
+    @GetMapping("/id/{attendanceId}")
+    public ResponseEntity <AttendanceResponse> getByAttendanceId(@PathVariable Long attendanceId){
+        AttendanceResponse attendRespo = attendanceService.getAttendanceById(attendanceId);
+
+        return ResponseEntity.ok(attendRespo);
     }
 }

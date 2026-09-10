@@ -51,6 +51,11 @@ public class UserReg implements UserDetails {
 
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
+    private Long age;
+
     @Column(nullable = false)
     private Boolean enabled;
 

@@ -47,16 +47,14 @@ public class AttendanceService implements AttendanceServing {
 
         Attendance saving = attendanceRepository.save(attend);
 
-        AttendanceResponse response = AttendanceResponse
+
+        return AttendanceResponse
                 .builder()
                 .attendanceId(saving.getAttendanceId())
                 .attendingTime(saving.getAttendingTime())
                 .checkoutTime(saving.getCheckoutTime())
                 .className(saving.getClasses().getName())
                 .build();
-
-
-        return response;
     }
 
     @Override
@@ -68,9 +66,14 @@ public class AttendanceService implements AttendanceServing {
                 .toList();
     }
 
+    @Override
+    public AttendanceResponse getAttendanceById(Long attendanceId) {
+        return null;
+    }
+
     private AttendanceResponse toMapping(Attendance attendance){
 
-        AttendanceResponse attending = AttendanceResponse
+        return AttendanceResponse
                 .builder()
                 .attendanceId(attendance.getAttendanceId())
                 .attendingTime(attendance.getAttendingTime())
@@ -78,8 +81,6 @@ public class AttendanceService implements AttendanceServing {
                 //.subject(attendance.getSubjects().getName())
                 .className(attendance.getClasses().getName())
                 .build();
-
-        return attending;
 
     }
 }
