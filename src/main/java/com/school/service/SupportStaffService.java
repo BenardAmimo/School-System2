@@ -74,11 +74,11 @@ public class SupportStaffService implements SupportStaffServ {
             staffDB.setWorkDone(request.getWorkDone());
         }
 
-        if(Objects.nonNull(request.getAge())){//Add the and part
+        if(Objects.nonNull(request.getAge()) && !"".equalsIgnoreCase(String.valueOf(request.getAge()))){//Add the and part
             staffDB.setAge(request.getAge());
         }
 
-        if (Objects.nonNull(request.getGender())){// add the and part
+        if (Objects.nonNull(request.getGender()) &&!"".equalsIgnoreCase(String.valueOf(request.getGender()))){// add the and part
             staffDB.setGender(request.getGender());
         }
         if (Objects.nonNull(request.getPhoneNumber())&& !"".equalsIgnoreCase(request.getPhoneNumber())){

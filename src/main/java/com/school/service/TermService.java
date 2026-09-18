@@ -7,6 +7,7 @@ import com.school.response.TermResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class TermService implements TermServe{
@@ -45,6 +46,41 @@ public class TermService implements TermServe{
                 .map(this::toTermRespo)
                 .toList();
     }
+
+    @Override
+    public TermResponse updateTerm(TermRequest request, Long termId) {
+
+        Term termDB = termRepository.findById(termId)
+                .orElseThrow(()->new RuntimeException("Term not found!"));
+
+        if(Objects.nonNull(request.getName()) && !request.getName().isBlank()){
+            termDB.setName(request.getName());
+        }
+
+        if (Objects.nonNull(request.getStartDate())){//add the && part
+            termDB.setStartDate(request.getStartDate());
+        }
+
+        if (Objects.nonNull(request.getEndDate())){//add the && part
+            termDB.setEndDate(request.getEndDate());
+        }
+
+        if (Objects.nonNull(request.getYear()) && !request.getYear().isBlank()){
+            termDB.setYear(request.getYear());
+        }
+
+        Term term = termRepository.save(termDB);
+
+        return toTermRespo(term);
+    }
+
+    @Override
+    public void deleteTerm(Long termId) {
+        Term term = termRepository.findById(termId)
+                .orElseThrow(()-> new RuntimeException("Term not found!"));
+        termRepository.delete(term);
+    }
+
     private TermResponse toTermRespo(Term term){
         TermResponse response = new TermResponse();
         response.setTermId(term.getTermId());

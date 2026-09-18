@@ -31,4 +31,21 @@ public class TermController {
         return ResponseEntity.ok(termService.getAllTerms());
     }
 
+    @PutMapping("/term/{termId}")
+    public ResponseEntity<TermResponse> updateTerm(@RequestBody TermRequest request,
+                                                   @PathVariable ("termId") Long termId){
+        TermResponse respo = termService.updateTerm(request,termId);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(respo);
+
+    }
+
+    @DeleteMapping("/term/{termId}")
+    public ResponseEntity<String> deleteTerm(@PathVariable ("termId")Long termId){
+        termService.deleteTerm(termId);
+
+        return ResponseEntity.ok("Successfully deleted!");
+    }
+
+
 }

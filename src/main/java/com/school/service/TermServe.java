@@ -9,4 +9,8 @@ public interface TermServe{
     TermResponse createNewTerm(TermRequest termRequest);
 
     List<TermResponse> getAllTerms();
+
+    TermResponse updateTerm(TermRequest request, Long termId);
+
+    void deleteTerm(Long termId);
 }
