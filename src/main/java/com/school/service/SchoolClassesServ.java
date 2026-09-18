@@ -10,4 +10,6 @@ public interface SchoolClassesServ {
     SchoolClassesResponse createClasses(SchoolClassesRequest schoolClassesRequest);
 
     List<SchoolClassesResponse> getAllClasses();
+
+    void deleteClasses(Long classesId);
 }

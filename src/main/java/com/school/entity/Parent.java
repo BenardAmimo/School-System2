@@ -34,8 +34,6 @@ public class Parent {
  private Gender gender;
 
  @OneToOne(
-         cascade = CascadeType.ALL,
-         fetch = FetchType.EAGER,
          orphanRemoval = true
  )
  @JoinColumn(
@@ -45,7 +43,8 @@ public class Parent {
  private UserReg userReg;
 
  @OneToMany(
-         mappedBy = "parent"
+         mappedBy = "parent",
+         orphanRemoval = true
  )
  private List<Student> student = new ArrayList<>();
 

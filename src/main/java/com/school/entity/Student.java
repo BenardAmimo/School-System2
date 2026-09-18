@@ -32,7 +32,9 @@ public class Student {
     @Enumerated(EnumType.STRING)
     private Gender gender;
     private Long age;
-    @ManyToOne()
+    @ManyToOne(
+
+    )
     @JoinColumn(
             name = "parent_id",
             referencedColumnName = "parentId"
@@ -47,7 +49,8 @@ public class Student {
     private SchoolClasses classes;
 
     @OneToMany(
-            mappedBy = "students"
+            mappedBy = "students",
+            orphanRemoval = true
     )
     private List<Funds> funds = new ArrayList<>();
     @ManyToOne

@@ -14,7 +14,7 @@ public interface ParentServe {
 
     ParentResponse getParentByName(String name);
 
-    ParentResponse deleteParent(Long parentId);
+    void deleteParent(Long parentId);
 
     List<ChildSummary> getMyChildren(String name);
 }

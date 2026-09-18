@@ -33,14 +33,17 @@ public class SchoolClasses {
     private List<Student> student = new ArrayList<>();
 
     @OneToMany(
-            mappedBy = "schoolClasses"
+            mappedBy = "schoolClasses",
+            orphanRemoval = true
     )
     private List<Subject> subjects = new ArrayList<>();
 
-    @OneToMany(mappedBy = "classes")
+    @OneToMany(mappedBy = "classes",
+    orphanRemoval = true)
     private List<Teacher> teachers = new ArrayList<>();
     @OneToMany(
-            mappedBy = "classes"
+            mappedBy = "classes",
+            orphanRemoval = true
     )
     private List<Attendance> attendance;
 }

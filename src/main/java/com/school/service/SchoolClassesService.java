@@ -46,6 +46,13 @@ public class SchoolClassesService implements SchoolClassesServ {
                 .toList();
     }
 
+    @Override
+    public void deleteClasses(Long classesId) {
+        SchoolClasses classes = classesRepository.findById(classesId)
+                .orElseThrow(()->new RuntimeException("Class not in the System"));
+        classesRepository.delete(classes);
+    }
+
     private SchoolClassesResponse tomapping(SchoolClasses classes) {
         SchoolClassesResponse response = new SchoolClassesResponse();
         response.setName(classes.getName());

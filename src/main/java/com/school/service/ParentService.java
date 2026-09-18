@@ -13,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -97,8 +96,11 @@ public class ParentService implements ParentServe {
     }
 
     @Override
-    public ParentResponse deleteParent(Long studentId) {
-        return null;
+    public void deleteParent(Long studentId) {
+        Parent parent = parentRepo.findById(studentId)
+                .orElseThrow(()->new RuntimeException("The parent is not in the System"));
+
+        parentRepo.delete(parent);
     }
 
     @Override

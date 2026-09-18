@@ -57,11 +57,11 @@ public class ParentController {
 
 
     @DeleteMapping("/parent/id/{parentId}")
-    public ResponseEntity<String> deleteParent(@PathVariable("parentId")Long parentId){
+    public ResponseEntity<String> deleteParent(@PathVariable("parentId") Long parentId){
         log.info("Delete Request for parent id {} ",parentId);
-            ParentResponse parent = parentService.deleteParent(parentId);
-            log.info("parent {} successfully deleted",parent.getParentId());
-        return ResponseEntity.ok("Successfully deleted");
+            parentService.deleteParent(parentId);
+
+        return ResponseEntity.ok("Deleted");
     }
 
     @GetMapping("/me/children")

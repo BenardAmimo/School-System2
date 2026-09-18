@@ -71,6 +71,13 @@ public class AttendanceService implements AttendanceServing {
         return null;
     }
 
+    @Override
+    public void deleteAttendance(Long attendanceId) {
+        Attendance attendance = attendanceRepository.findById(attendanceId)
+                .orElseThrow(()->new RuntimeException("Attendance not in the System"));
+         attendanceRepository.delete(attendance);
+    }
+
     private AttendanceResponse toMapping(Attendance attendance){
 
         return AttendanceResponse

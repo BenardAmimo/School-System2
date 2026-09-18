@@ -37,4 +37,11 @@ public class AttendanceController {
 
         return ResponseEntity.ok(attendRespo);
     }
+
+    @DeleteMapping("/id/{attendanceId}")
+    public ResponseEntity<String> deleteAttendance(@PathVariable Long attendanceId){
+         attendanceService.deleteAttendance(attendanceId);
+        return ResponseEntity.ok("Deleted");
+
+    }
 }

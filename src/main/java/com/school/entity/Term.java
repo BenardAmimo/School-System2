@@ -30,7 +30,8 @@ public class Term {
     private LocalDate startDate;
     private LocalDate endDate;
     @OneToMany(
-            mappedBy = "term"
+            mappedBy = "term",
+            orphanRemoval = true
     )
     private List<Funds> fundings = new ArrayList<>();
 }

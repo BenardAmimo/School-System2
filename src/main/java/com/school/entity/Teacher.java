@@ -43,8 +43,6 @@ public class Teacher {
  )
  private List<Assignment> assignments;
  @OneToOne(
-         cascade = CascadeType.ALL,
-         fetch = FetchType.EAGER,
          orphanRemoval = true
  )
  @JoinColumn(

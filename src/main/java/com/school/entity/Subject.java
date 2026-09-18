@@ -40,7 +40,9 @@ public class Subject {
          referencedColumnName = "classesId"
  )
  private SchoolClasses schoolClasses;
- @OneToOne
+ @OneToOne(
+         orphanRemoval = true
+ )
  @JoinColumn(
          name = "attendance_id",
          referencedColumnName = "attendanceId"

@@ -30,4 +30,11 @@ public class SchoolClassesController {
     public ResponseEntity <List<SchoolClassesResponse>> getAllCLasses(){
         return ResponseEntity.ok(schoolClassesService.getAllClasses());
     }
+
+    @DeleteMapping("/classes/{classesId}")
+    public ResponseEntity<String> deleteClasses(@PathVariable("classesId")Long classesId){
+        schoolClassesService.deleteClasses(classesId);
+
+        return ResponseEntity.ok("Deleted");
+    }
 }

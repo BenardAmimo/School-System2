@@ -11,4 +11,6 @@ public interface AttendanceServing {
     List<AttendanceResponse> getAllAttendance();
 
     AttendanceResponse getAttendanceById(Long attendanceId);
+
+    void deleteAttendance(Long attendanceId);
 }
