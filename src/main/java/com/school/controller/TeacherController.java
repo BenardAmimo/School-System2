@@ -16,33 +16,33 @@ import java.util.List;
 @RestController
 public class TeacherController {
 
- private final TeacherService service;
+ private final TeacherService teacherservice;
  private final TeacherRepo teacherRepo;
 
- public TeacherController(TeacherService s, TeacherRepo teacherRepo){this.service=s;
+ public TeacherController(TeacherService s, TeacherRepo teacherRepo){this.teacherservice=s;
      this.teacherRepo = teacherRepo;
  }
 
  @GetMapping("/teacher/{name}")
  public ResponseEntity<TeacherResponse> getTeacherByName(@PathVariable("name")String name){
-     return ResponseEntity.ok(service.getTeacherByName(name));
+     return ResponseEntity.ok(teacherservice.getTeacherByName(name));
  }
 
  @GetMapping("/teacher/id/{teacherId}")
  public ResponseEntity<TeacherResponse>getTeacherById(@PathVariable("teacherId") Long teacherId){
-     TeacherResponse teach =  service.getTeacherByid(teacherId);
+     TeacherResponse teach =  teacherservice.getTeacherByid(teacherId);
      return ResponseEntity.ok(teach);
  }
  @GetMapping("/teachers")
  public ResponseEntity<List<TeacherResponse>> getAllTeachers(){
-     List<TeacherResponse> teachers = service.getAllTeachers();
+     List<TeacherResponse> teachers = teacherservice.getAllTeachers();
      return ResponseEntity.ok(teachers);
  }
 
  @PutMapping("/teacher/id/{teacherId}")
     public ResponseEntity<TeacherResponse> updateTeachers(@PathVariable("teacherId")Long teacherId
          ,@RequestBody TeacherRequest teacherRequest){
-     TeacherResponse repond = service.updateTeacher(teacherId,teacherRequest);
+     TeacherResponse repond = teacherservice.updateTeacher(teacherId,teacherRequest);
      return ResponseEntity.status(202).body(repond);
 
  }
@@ -55,7 +55,13 @@ public class TeacherController {
         Teacher teacher = teacherRepo.findByUserReg_Email(email)
                 .orElseThrow(() -> new RuntimeException("This account is not linked to a teacher record"));
 
-        return ResponseEntity.ok(service.getMyClasses(teacher.getTeacherId()));
+        return ResponseEntity.ok(teacherservice.getMyClasses(teacher.getTeacherId()));
+    }
+
+    @DeleteMapping("/teacher/{teacherId}")
+    public ResponseEntity<String> deleteTeacher(@PathVariable("teacherId") Long teacherId){
+       teacherservice.deleteTeacher(teacherId);
+       return ResponseEntity.ok("Teacher deleted!");
     }
  
 

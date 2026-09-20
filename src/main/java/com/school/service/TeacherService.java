@@ -92,6 +92,14 @@ public class TeacherService implements TeacherServe {
           .toList();
  }
 
+ @Override
+ public void deleteTeacher(Long teacherId) {
+  Teacher teach = teacherRepo.findById(teacherId)
+          .orElseThrow(()->new RuntimeException("Teacher not found!"));
+
+   teacherRepo.delete(teach);
+ }
+
  private TeacherClassSummary toSummary(Assignment assignment) {
   Subject subject = assignment.getSubject();
   SchoolClasses schoolClass = subject.getSchoolClasses();

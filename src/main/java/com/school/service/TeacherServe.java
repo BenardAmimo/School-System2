@@ -18,4 +18,6 @@ public interface TeacherServe {
     TeacherResponse updateTeacher(Long teacherId, TeacherRequest teacherRequest);
 
     List<TeacherClassSummary> getMyClasses(Long teacherId);
+
+    void deleteTeacher(Long teacherId);
 }
