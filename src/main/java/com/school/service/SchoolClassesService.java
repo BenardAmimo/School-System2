@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class SchoolClassesService implements SchoolClassesServ {
@@ -51,6 +52,27 @@ public class SchoolClassesService implements SchoolClassesServ {
         SchoolClasses classes = classesRepository.findById(classesId)
                 .orElseThrow(()->new RuntimeException("Class not in the System"));
         classesRepository.delete(classes);
+    }
+
+    @Override
+    public SchoolClassesResponse updateClasses(Long classesId, SchoolClassesRequest classesRequest) {
+        SchoolClasses classDB = classesRepository.findById(classesId)
+                .orElseThrow(()->new RuntimeException("Classes not found in the System"));
+
+        if (Objects.nonNull(classesRequest.getLocation())&& !classesRequest.getLocation().isBlank()){
+            classDB.setLocation(classesRequest.getLocation());
+        }
+
+        if (Objects.nonNull(classesRequest.getName())&& !classesRequest.getName().isBlank()){
+            classDB.setName(classesRequest.getName());
+        }
+
+        if (Objects.nonNull(classesRequest.getYear())&& !classesRequest.getYear().isBlank()){
+            classDB.setYear(classesRequest.getYear());
+        }
+
+        SchoolClasses saving = classesRepository.save(classDB);
+        return tomapping(saving);
     }
 
     private SchoolClassesResponse tomapping(SchoolClasses classes) {

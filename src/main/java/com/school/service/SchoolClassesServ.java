@@ -12,4 +12,6 @@ public interface SchoolClassesServ {
     List<SchoolClassesResponse> getAllClasses();
 
     void deleteClasses(Long classesId);
+
+    SchoolClassesResponse updateClasses(Long classesId, SchoolClassesRequest classesRequest);
 }

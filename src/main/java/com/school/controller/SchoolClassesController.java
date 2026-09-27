@@ -37,4 +37,12 @@ public class SchoolClassesController {
 
         return ResponseEntity.ok("Deleted");
     }
+
+    @PutMapping("/classes/{classesId}")
+    public ResponseEntity<SchoolClassesResponse> updateClasses(@PathVariable("classesId") Long classesId,
+                                                               @RequestBody SchoolClassesRequest classesRequest){
+        SchoolClassesResponse respo = schoolClassesService.updateClasses(classesId,classesRequest);
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(respo);
+    }
 }
