@@ -1,5 +1,6 @@
 package com.school.controller;
 
+import com.school.entity.Student;
 import com.school.request.StudentRequest;
 import com.school.response.MychildResponse;
 import com.school.response.StudentResponse;
@@ -31,6 +32,21 @@ public class StudentController {
     public ResponseEntity<List<StudentResponse>> getAllStudents(){
         List<StudentResponse> responses = studentsService.getAllStudents();
         return ResponseEntity.ok(responses);
+    }
+
+    @PutMapping("/student/{studentId}")
+    public ResponseEntity<StudentResponse> updateStudent(@PathVariable("studentId")Long studentId,
+                                                         @RequestBody StudentRequest request){
+
+        StudentResponse respo = studentsService.updateStudent(studentId,request);
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(respo);
+    }
+
+    @DeleteMapping("/student/{studentId}")
+    public ResponseEntity<String> deleteStudent(@PathVariable("studentId") Long studentId){
+        studentsService.deleteStudent(studentId);
+        return ResponseEntity.ok("Deleted successfully");
     }
 
 

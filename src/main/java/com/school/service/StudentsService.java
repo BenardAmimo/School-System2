@@ -13,6 +13,7 @@ import com.school.response.StudentSubjectSummary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class StudentsService implements StudentsServ {
@@ -61,6 +62,50 @@ public class StudentsService implements StudentsServ {
         return parent.getStudent().stream()
                 .map(this::toChildResponse)
                 .toList();
+    }
+
+    @Override
+    public void deleteStudent(Long studentId) {
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(()->new RuntimeException("Student not found"));
+        studentRepository.delete(student);
+    }
+
+    @Override
+    public StudentResponse updateStudent(Long studentId, StudentRequest request) {
+        Student studentDB = studentRepository.findById(studentId)
+                .orElseThrow(() -> new RuntimeException("Student not found"));
+
+        if (Objects.nonNull(request.getFirstName()) && !request.getFirstName().isBlank()) {
+            studentDB.setFirstName(request.getFirstName());
+        }
+
+        if (Objects.nonNull(request.getLastName()) && !request.getLastName().isBlank()) {
+            studentDB.setLastName(request.getLastName());
+        }
+
+        if (Objects.nonNull(request.getGender())) {
+            studentDB.setGender(request.getGender());
+        }
+
+        if (Objects.nonNull(request.getAge())) {
+            studentDB.setAge(request.getAge());
+        }
+
+        if (Objects.nonNull(request.getParentId())) {
+            Parent parent = parentRepo.findById(request.getParentId())
+                    .orElseThrow(() -> new RuntimeException("No Parent Found"));
+            studentDB.setParent(parent);
+        }
+
+        if (Objects.nonNull(request.getClassesId())) {
+            SchoolClasses classes = schoolClassesRepository.findById(request.getClassesId())
+                    .orElseThrow(() -> new RuntimeException("No classes"));
+            studentDB.setClasses(classes);
+        }
+        Student stud = studentRepository.save(studentDB);
+
+        return toResponse(stud);
     }
 
     private MychildResponse toChildResponse(Student student) {

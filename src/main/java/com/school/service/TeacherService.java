@@ -60,11 +60,11 @@ public class TeacherService implements TeacherServe {
   if (Objects.nonNull(teacherRequest.getPhoneNumber()) && !teacherRequest.getPhoneNumber().isBlank()) {
    teacherDB.setPhoneNumber(teacherRequest.getPhoneNumber());
   }
-  if (Objects.nonNull(teacherRequest.getAge())){//add the and part
+  if (Objects.nonNull(teacherRequest.getAge())){
    teacherDB.setAge(teacherRequest.getAge());
   }
 
-  if (Objects.nonNull(teacherRequest.getGender())){//add the and part if applicable
+  if (Objects.nonNull(teacherRequest.getGender())){
    teacherDB.setGender(teacherRequest.getGender());
   }
 

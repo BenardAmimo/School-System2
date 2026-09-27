@@ -12,4 +12,8 @@ public interface StudentsServ {
     List<StudentResponse> getAllStudents();
 
     List<MychildResponse> getMyChildren(String email);
+
+    void deleteStudent(Long studentId);
+
+    StudentResponse updateStudent(Long studentId, StudentRequest request);
 }
