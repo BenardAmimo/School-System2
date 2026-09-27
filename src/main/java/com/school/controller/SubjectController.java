@@ -60,8 +60,8 @@ public class SubjectController {
 
 
     @PutMapping("/subject/{subjectId}")
-    public ResponseEntity<SubjectResponse> updateSubject(@PathVariable("courseId")Long subjectId ,
-                                                         @RequestBody com.school.request.SubjectRequest subjectRequest){
+    public ResponseEntity<SubjectResponse> updateSubject(@PathVariable("subjectId")Long subjectId ,
+                                                         @RequestBody SubjectRequest subjectRequest){
         log.info("Updating subjectName {} ",subjectRequest.getName());
 
         SubjectResponse updating = subjectService.updateSubject(subjectId,subjectRequest);

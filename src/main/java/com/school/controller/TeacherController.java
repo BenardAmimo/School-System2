@@ -63,6 +63,8 @@ public class TeacherController {
        teacherservice.deleteTeacher(teacherId);
        return ResponseEntity.ok("Teacher deleted!");
     }
+
+    
  
 
 }
