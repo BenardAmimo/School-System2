@@ -83,7 +83,7 @@ public class SubjectController {
     }
 
     @DeleteMapping("/subject/{subjectId}")
-    public ResponseEntity<String>deleteSubjectById(@PathVariable("SubjectId")Long subjectId){
+    public ResponseEntity<String>deleteSubjectById(@PathVariable("subjectId")Long subjectId){
         log.info("Delete request for subject with id {} ",subjectId);
 
         subjectService.deleteSubjectById(subjectId);
