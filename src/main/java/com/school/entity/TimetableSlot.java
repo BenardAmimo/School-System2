@@ -31,6 +31,7 @@ public class TimetableSlot {
     private Long timeTableSlotId;
 
     @ManyToOne(fetch = FetchType.LAZY)
+
     @JoinColumn(name = "classes_id", nullable = false)
     private SchoolClasses classes;
 

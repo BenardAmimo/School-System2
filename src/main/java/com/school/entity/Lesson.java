@@ -29,7 +29,7 @@ public class Lesson {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long LessonId;
+    private Long lessonId;
 
     // Nullable: a Lesson can exist without a template (ad-hoc/manual lesson).
     @ManyToOne(fetch = FetchType.LAZY)
