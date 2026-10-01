@@ -5,11 +5,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.engine.internal.Cascade;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.prefs.PreferencesFactory;
+
 
 @Entity
 @Data
@@ -36,27 +35,37 @@ public class Teacher {
  private Gender gender;
  private Long age;
 
- @OneToMany(
-         mappedBy = "teacher",
-         cascade = CascadeType.ALL,
-         orphanRemoval = true
- )
- private List<Assignment> assignments;
- @OneToOne(
-         orphanRemoval = true
- )
- @JoinColumn(
-         name = "user_id",
-         referencedColumnName = "userId"
- )
+ // Reference info: subjects this teacher is qualified/allowed to teach.
+ // Used to validate TimetableSlot creation ("is this teacher allowed to teach this subject?").
+
+ @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+ @JoinColumn(name = "user_id", referencedColumnName = "userId")
  private UserReg userReg;
 
- @ManyToOne()
- @JoinColumn(
-         name = "classes_id",
-         referencedColumnName = "classesId"
+ @ManyToMany
+ @JoinTable(
+         name = "teacher_subjects",
+         joinColumns = @JoinColumn(name = "teacher_id"),
+         inverseJoinColumns = @JoinColumn(name = "subject_id")
  )
- private SchoolClasses classes;
+ private List<Subject> subjects = new ArrayList<>();
 
+ // Classes this teacher teaches into (many-to-many: a class has several
+// subject teachers, a teacher can teach into several classes).
+ @ManyToMany
+ @JoinTable(
+         name = "teacher_classes",
+         joinColumns = @JoinColumn(name = "teacher_id"),
+         inverseJoinColumns = @JoinColumn(name = "classes_id")
+ )
+ private List<SchoolClasses> classes = new ArrayList<>();
+
+ @OneToMany(mappedBy = "teacher")
+ private List<TimetableSlot> timetableSlots = new ArrayList<>();
+
+ @OneToMany(mappedBy = "teacher")
+ private List<Lesson> lessons = new ArrayList<>();
 
 }
+
+

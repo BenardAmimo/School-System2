@@ -68,10 +68,14 @@ public class TeacherService implements TeacherServe {
    teacherDB.setGender(teacherRequest.getGender());
   }
 
+
   if (Objects.nonNull(teacherRequest.getClassesId())) {
-   SchoolClasses classes = schoolClassesRepository.findById(teacherRequest.getClassesId())
-           .orElseThrow(() -> new RuntimeException("Class not found"));
-   teacherDB.setClasses(classes);
+   List<SchoolClasses> classes = schoolClassesRepository.findAllById(teacherRequest.getClassesId());
+   if (classes.size() != teacherRequest.getClassesId().size()) {
+    throw new RuntimeException("One or more selected classes were not found");
+   }
+   teacherDB.getClasses().clear();
+   teacherDB.getClasses().addAll(classes);
   }
 
   if (Objects.nonNull(teacherRequest.getUserId())) {
@@ -135,8 +139,12 @@ public class TeacherService implements TeacherServe {
   resp.setAge(teacher.getAge());
   resp.setGender(teacher.getGender());
   resp.setPhoneNumber(teacher.getPhoneNumber());
-  if (teacher.getClasses() != null) {
-   resp.setClassName(teacher.getClasses().getName());
+
+  if (teacher.getClasses() != null && !teacher.getClasses().isEmpty()) {
+   List<String> classNames = teacher.getClasses().stream()
+           .map(SchoolClasses::getName)
+           .toList();
+   resp.setClassNames(classNames);
   }
   return resp;
  }

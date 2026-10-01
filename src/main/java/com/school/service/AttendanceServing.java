@@ -1,16 +1,18 @@
 package com.school.service;
 
 import com.school.request.AttendanceRequest;
+import com.school.request.MarkAttendanceRequest;
 import com.school.response.AttendanceResponse;
 
 import java.util.List;
 
 public interface AttendanceServing {
-    AttendanceResponse markAttendance(AttendanceRequest request);
 
-    List<AttendanceResponse> getAllAttendance();
+    List<AttendanceResponse> markAttendanceForLesson(Long lessonId, List<MarkAttendanceRequest> marks);
 
-    AttendanceResponse getAttendanceById(Long attendanceId);
+    List<AttendanceResponse> getAttendanceForLesson(Long lessonId);
 
-    void deleteAttendance(Long attendanceId);
+    List<AttendanceResponse> getAttendanceForStudent(Long studentId);
+
+    List<AttendanceResponse> getAttendanceForStudentInSubject(Long studentId, Long subjectId);
 }

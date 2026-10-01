@@ -1,47 +1,40 @@
+
 package com.school.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import lombok.Setter;
 
+/**
+ * "For this Lesson, this Student was PRESENT/ABSENT/LATE/EXCUSED."
+ * All the "which class, which teacher, which subject" context comes
+ * transitively through lesson.getClasses() / .getTeacher() / .getSubject() -
+ * Attendance itself only needs Student + Lesson.
+ */
 @Entity
-@AllArgsConstructor
+@Table(name = "attendance", uniqueConstraints = {
+        // one attendance mark per student per lesson - no double-marking
+        @UniqueConstraint(name = "uk_student_lesson", columnNames = {"student_id", "lesson_id"})
+})
+@Getter
+@Setter
 @NoArgsConstructor
-@Data
-@Builder
 public class Attendance {
+
     @Id
-    @SequenceGenerator(
-            name = "attend_gen",
-            sequenceName = "attend_gen",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long attendanceId;
-    private LocalDateTime attendingTime;
-    private LocalDateTime checkoutTime;
 
-    //Handle the mapping the issue with the Students and Subjects
-    @OneToMany(
-            mappedBy = "attendance"
-    )
-    private List<Student> student = new ArrayList<>();
-    @OneToOne(
-            mappedBy = "attendance"
-    )
-    private Subject subjects;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_id", nullable = false)
+    private Student student;
 
-    @ManyToOne
-    @JoinColumn(
-            name = "classes_id",
-            referencedColumnName = "classesId"
-    )
-    private SchoolClasses classes;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lesson_id", nullable = false)
+    private Lesson lesson;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private AttendanceStatus status;
 }

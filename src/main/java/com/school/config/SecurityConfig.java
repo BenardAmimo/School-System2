@@ -45,14 +45,14 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers( "/login","/complete-registration","/stk/callback","/stkPush").permitAll()
 
-                        .requestMatchers(HttpMethod.POST, "/assigns","/funds","/classes","/students","/subjects","/term","/funds/bulk","/staff").hasAnyRole("ADMIN","SUPER_ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/assigns","/funds","/classes","/students","/subjects","/term","/funds/bulk","/staff","/lessons/{lessonId}/attendance","/lessons/ad-hoc","/generate-lessons","/timetable-slots").hasAnyRole("ADMIN","SUPER_ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/assign/{assignmentId}","/parent/id/{parentId}","/parent/update/{parentId}","/staff/{staffId}").hasAnyRole("ADMIN","SUPER_ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/parent/id/{parentId}","/staff/{staffId}").hasAnyRole("ADMIN","SUPER_ADMIN")
                         //.requestMatchers(HttpMethod.GET,"/assignments","/assign/id/{assignmentId}","/{studentId}/funds","/parents","/parent/id/{parentId}","/parent/name/{name}","/classes","/students","/subjects","/teachers","/teacher/id/{teacherId}","/teacher/{name}","/terms").hasAnyRole("SUPER_ADMIN","ADMIN")
                         .requestMatchers(HttpMethod.GET,"/api/finance/summary","/staff/{staffId}","/staffs").hasAnyRole("SUPER_ADMIN","ADMIN")
 
                         .requestMatchers(HttpMethod.GET,"/assignments","/assign/id/{assignmentId}","/{studentId}/funds",
-                                "/parents","/parent/id/{parentId}","/parent/name/{name}").hasAnyRole("SUPER_ADMIN","ADMIN","PARENT","TEACHER")
+                                "/parents","/parent/id/{parentId}","/parent/name/{name}","/lessons/{lessonId}/attendance","/students/{studentId}/attendance","/students/{studentId}/attendance","/lessons").hasAnyRole("SUPER_ADMIN","ADMIN","PARENT","TEACHER")
                         .requestMatchers(HttpMethod.GET,"/classes","/students","/subjects","/teachers",
                                 "/teacher/id/{teacherId}","/teacher/{name}").hasAnyRole("SUPER_ADMIN","ADMIN","TEACHER","PARENT")
 

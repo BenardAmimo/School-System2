@@ -27,23 +27,30 @@ public class SchoolClasses {
     private String location;
     private String name;
     private String year;
-    @OneToMany(
-            mappedBy = "classes"
-    )
-    private List<Student> student = new ArrayList<>();
 
-    @OneToMany(
-            mappedBy = "schoolClasses",
-            orphanRemoval = true
+    // The homeroom / class teacher responsible for this class overall.
+   // @ManyToOne(fetch = FetchType.LAZY)
+   // @JoinColumn(name = "class_teacher_id")
+  //  private Teacher teacher;
+
+    @ManyToMany(mappedBy = "classes")
+    private List<Teacher> teachers = new ArrayList<>();
+
+    @OneToMany(mappedBy = "classes")
+    private List<Student> students = new ArrayList<>();
+
+    // Reference info: which subjects this class studies in its curriculum.
+    @ManyToMany
+    @JoinTable(
+            name = "class_subjects",
+            joinColumns = @JoinColumn(name = "class_id"),
+            inverseJoinColumns = @JoinColumn(name = "subject_id")
     )
     private List<Subject> subjects = new ArrayList<>();
 
-    @OneToMany(mappedBy = "classes",
-    orphanRemoval = true)
-    private List<Teacher> teachers = new ArrayList<>();
-    @OneToMany(
-            mappedBy = "classes",
-            orphanRemoval = true
-    )
-    private List<Attendance> attendance;
+    @OneToMany(mappedBy = "classes")
+    private List<TimetableSlot> timetableSlots = new ArrayList<>();
+
+    @OneToMany(mappedBy = "classes")
+    private List<Lesson> lessons = new ArrayList<>();
 }

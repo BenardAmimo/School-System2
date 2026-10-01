@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -40,14 +41,9 @@ public class Subject {
          referencedColumnName = "classesId"
  )
  private SchoolClasses schoolClasses;
- @OneToOne(
-         orphanRemoval = true
- )
- @JoinColumn(
-         name = "attendance_id",
-         referencedColumnName = "attendanceId"
- )
- private Attendance attendance;
+
+ @ManyToMany(mappedBy = "subjects")
+ private List<Teacher> teachers = new ArrayList<>();
 
 
 }

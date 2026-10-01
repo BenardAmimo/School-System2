@@ -1,6 +1,7 @@
 package com.school.service;
 
 import com.school.entity.SchoolClasses;
+import com.school.entity.TimetableSlot;
 import com.school.repo.SchoolClassesRepository;
 import com.school.request.SchoolClassesRequest;
 import com.school.response.ClassStudentSummary;
@@ -81,11 +82,11 @@ public class SchoolClassesService implements SchoolClassesServ {
         response.setClassesId(classes.getClassesId());
         response.setYear(classes.getYear());
         response.setLocation(classes.getLocation());
-        response.setStudentsCount(classes.getStudent() != null ? classes.getStudent().size() : 0);
+        response.setStudentsCount(classes.getStudents() != null ? classes.getStudents().size() : 0);
 
         response.setStudent(
-                classes.getStudent() == null ? Collections.emptyList() :
-                        classes.getStudent().stream()
+                classes.getStudents() == null ? Collections.emptyList() :
+                        classes.getStudents().stream()
                                 .map(s -> new ClassStudentSummary(
                                                                         s.getStudentId(), s.getFirstName(), s.getLastName(), s.getGender(), s.getAge()))
                                 .toList()
@@ -100,15 +101,17 @@ public class SchoolClassesService implements SchoolClassesServ {
         );
 
         response.setTeachers(
-                classes.getTeachers() == null ? Collections.emptyList() :
-                        classes.getTeachers().stream()
+                classes.getTimetableSlots() == null ? Collections.emptyList() :
+                        classes.getTimetableSlots().stream()
+                                .map(TimetableSlot::getTeacher)
+                                .distinct()                              // same teacher may have several slots
                                 .map(t -> new ClassTeacherSummary(
                                         t.getTeacherId(),
                                         t.getUserReg() != null ? t.getUserReg().getFirstName() : null,
                                         t.getUserReg() != null ? t.getUserReg().getLastName() : null,
                                         t.getGender(),
                                         t.getPhoneNumber(),
-                                        t.getAge()))//look into later to confirm further
+                                        t.getAge()))
                                 .toList()
         );
 

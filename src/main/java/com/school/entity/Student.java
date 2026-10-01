@@ -53,10 +53,8 @@ public class Student {
             orphanRemoval = true
     )
     private List<Funds> funds = new ArrayList<>();
-    @ManyToOne
-    @JoinColumn(
-            name = "attendance_id",
-            referencedColumnName = "attendanceId"
-    )
-    private Attendance attendance;
+
+    @OneToMany(mappedBy = "student")
+    private List<Attendance> attendance = new ArrayList<>();
+
 }

@@ -3,6 +3,7 @@ package com.school.service;
 import com.school.entity.Parent;
 import com.school.entity.SchoolClasses;
 import com.school.entity.Student;
+import com.school.entity.TimetableSlot;
 import com.school.repo.ParentRepo;
 import com.school.repo.SchoolClassesRepository;
 import com.school.repo.StudentRepository;
@@ -67,7 +68,7 @@ public class StudentsService implements StudentsServ {
     @Override
     public void deleteStudent(Long studentId) {
         Student student = studentRepository.findById(studentId)
-                .orElseThrow(()->new RuntimeException("Student not found"));
+                .orElseThrow(() -> new RuntimeException("Student not found"));
         studentRepository.delete(student);
     }
 
@@ -139,6 +140,7 @@ public class StudentsService implements StudentsServ {
                 .subjects(subjects)
                 .build();
     }
+
     private StudentResponse toResponse(Student student) {
         StudentResponse respond = new StudentResponse();
         respond.setStudentId(student.getStudentId());
@@ -149,12 +151,14 @@ public class StudentsService implements StudentsServ {
         respond.setParentFirstName(student.getParent().getUserReg().getFirstName());
         respond.setParentLastName(student.getParent().getUserReg().getLastName());
         respond.setClassName(student.getClasses().getName());
-
-        List<String> teacherNames = student.getClasses().getTeachers().stream()
+        List<String> teacherNames = student.getClasses().getTimetableSlots().stream()
+                .map(TimetableSlot::getTeacher)
+                .distinct()
                 .map(t -> t.getUserReg().getFirstName() + " " + t.getUserReg().getLastName())
                 .toList();
         respond.setTeacherNames(teacherNames.isEmpty() ? List.of("Unassigned") : teacherNames);
 
         return respond;
     }
+
 }

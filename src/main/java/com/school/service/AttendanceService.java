@@ -1,93 +1,112 @@
+
 package com.school.service;
 
-import com.school.entity.Attendance;
-import com.school.entity.SchoolClasses;
 
+import com.school.entity.*;
 import com.school.repo.AttendanceRepository;
-import com.school.repo.SchoolClassesRepository;
+import com.school.repo.LessonRepository;
 import com.school.repo.StudentRepository;
-import com.school.repo.SubjectRepository;
-import com.school.request.AttendanceRequest;
+import com.school.request.MarkAttendanceRequest;
 import com.school.response.AttendanceResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
-
 @Service
-public class AttendanceService implements AttendanceServing {
+@RequiredArgsConstructor
+public class AttendanceService {
+
     private final AttendanceRepository attendanceRepository;
-    private final StudentRepository studentRepo;
-    private final SubjectRepository subjectRepository;
-    private final SchoolClassesRepository classesRepository;
+    private final LessonRepository lessonRepository;
+    private final StudentRepository studentRepository;
 
-    public AttendanceService(AttendanceRepository attendanceRepository, StudentRepository studentRepo, SubjectRepository subjectRepository, SchoolClassesRepository classesRepository) {
-        this.attendanceRepository = attendanceRepository;
-        this.studentRepo = studentRepo;
-        this.subjectRepository = subjectRepository;
-        this.classesRepository = classesRepository;
-    }
+    /**
+     * The main teacher-facing action: "for this lesson, here's the status
+     * of every student in the class." One call, one lesson, whole register.
+     */
+    @Transactional
+    public List<AttendanceResponse> markAttendanceForLesson(Long lessonId, List<MarkAttendanceRequest> marks) {
+        Lesson lesson = lessonRepository.findById(lessonId)
+                .orElseThrow(() -> new IllegalArgumentException("Lesson not found"));
 
-    @Override
-    public AttendanceResponse markAttendance(AttendanceRequest request) {
+        List<Attendance> saved = new ArrayList<>();
 
-    // Student students = studentRepo.findById(request.getStudentId()).orElseThrow(()->new RuntimeException("Student Not Found"));
-     //   Subject subjects = subjectRepository.findById(request.getSubjectId()).orElseThrow(()->new RuntimeException("No subject Found"));
+        for (MarkAttendanceRequest mark : marks) {
+            if (attendanceRepository.existsByStudent_StudentIdAndLesson_LessonId(mark.getStudentId(), lessonId)) {
+                // already marked - skip rather than throw, so re-submitting a
+                // partially-saved register doesn't blow up the whole request
+                continue;
+            }
 
-        SchoolClasses classes = classesRepository.findById(request.getClassId())
-                .orElseThrow(()->new RuntimeException("No Class found"));
+            Student student = studentRepository.findById(mark.getStudentId())
+                    .orElseThrow(() -> new IllegalArgumentException(
+                            "Student not found: " + mark.getStudentId()));
 
+            Attendance attendance = new Attendance();
+            attendance.setStudent(student);
+            attendance.setLesson(lesson);
+            attendance.setStatus(mark.getStatus());
 
-        Attendance attend = new Attendance();
-        attend.setAttendingTime(request.getAttendingTime());
-        attend.setCheckoutTime(request.getCheckoutTime());
-      //  attend.setStudent((List<Student>) students);
-      //  attend.setSubjects(subjects);
-        attend.setClasses(classes);
+            saved.add(attendanceRepository.save(attendance));
+        }
 
-        Attendance saving = attendanceRepository.save(attend);
-
-
-        return AttendanceResponse
-                .builder()
-                .attendanceId(saving.getAttendanceId())
-                .attendingTime(saving.getAttendingTime())
-                .checkoutTime(saving.getCheckoutTime())
-                .className(saving.getClasses().getName())
-                .build();
-    }
-
-    @Override
-    public List<AttendanceResponse> getAllAttendance() {
-        return attendanceRepository
-                .findAll()
-                .stream()
-                .map(this::toMapping)
+        return saved.stream()
+                .map(this::toResponse)
                 .toList();
     }
 
-    @Override
-    public AttendanceResponse getAttendanceById(Long attendanceId) {
-        return null;
+    /** Admin: "show today's Math attendance for Class 4B" -> find the Lesson, then this. */
+    public List<AttendanceResponse> getAttendanceForLesson(Long lessonId) {
+        return attendanceRepository.findByLesson_LessonId(lessonId).stream()
+                .map(this::toResponse)
+                .toList();
     }
 
-    @Override
-    public void deleteAttendance(Long attendanceId) {
-        Attendance attendance = attendanceRepository.findById(attendanceId)
-                .orElseThrow(()->new RuntimeException("Attendance not in the System"));
-         attendanceRepository.delete(attendance);
+    /** Admin: "show Jane's attendance across all subjects/lessons." */
+    public List<AttendanceResponse> getAttendanceForStudent(Long studentId) {
+        return attendanceRepository.findByStudent_StudentId(studentId).stream()
+                .map(this::toResponse)
+                .toList();
     }
 
-    private AttendanceResponse toMapping(Attendance attendance){
+    /** Admin: "show Jane's attendance in Science specifically." */
+    public List<AttendanceResponse> getAttendanceForStudentInSubject(Long studentId, Long subjectId) {
+        return attendanceRepository.findByStudent_StudentIdAndLesson_Subject_SubjectId(studentId, subjectId).stream()
+                .map(this::toResponse)
+                .toList();
+    }
 
-        return AttendanceResponse
-                .builder()
-                .attendanceId(attendance.getAttendanceId())
-                .attendingTime(attendance.getAttendingTime())
-                .checkoutTime(attendance.getCheckoutTime())
-                //.subject(attendance.getSubjects().getName())
-                .className(attendance.getClasses().getName())
-                .build();
+    /**
+     * Single mapping point: every method above funnels through here, so if
+     * AttendanceResponse's shape ever changes, this is the only place to edit.
+     */
+    private AttendanceResponse toResponse(Attendance attendance) {
+        AttendanceResponse response = new AttendanceResponse();
 
+        response.setAttendanceId(attendance.getAttendanceId());
+        response.setStatus(attendance.getStatus());
+
+        Student student = attendance.getStudent();
+        if (student != null) {
+            response.setStudentId(student.getStudentId());   // was student.getId()
+            response.setStudentName(student.getFirstName() + " " + student.getLastName());
+        }
+
+        Lesson lesson = attendance.getLesson();
+        if (lesson != null) {
+            response.setLessonId(lesson.getLessonId());
+            response.setLessonDate(lesson.getDate());
+            if (lesson.getSubject() != null) {
+                response.setSubjectName(lesson.getSubject().getName());
+            }
+            if (lesson.getClasses() != null) {
+                response.setClassName(lesson.getClasses().getName());
+            }
+        }
+
+        return response;
     }
 }
