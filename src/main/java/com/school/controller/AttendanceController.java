@@ -7,6 +7,7 @@ import com.school.service.AttendanceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,33 +24,34 @@ public class AttendanceController {
 
     private final AttendanceService attendanceService;
 
-    // POST /api/lessons/{lessonId}/attendance
-    // Body: [ { "studentId": 1, "status": "PRESENT" }, { "studentId": 2, "status": "ABSENT" } ]
+
     @PostMapping("/lessons/{lessonId}/attendance")
     public ResponseEntity<List<AttendanceResponse>> markAttendance(
             @PathVariable Long lessonId,
-            @RequestBody List<MarkAttendanceRequest> marks) {
-        List<AttendanceResponse> saved = attendanceService.markAttendanceForLesson(lessonId, marks);
-        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+            @RequestBody List<MarkAttendanceRequest> marks,
+            Authentication authentication) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(attendanceService.markAttendanceForLesson(lessonId, marks, authentication));
     }
 
-    // GET /api/lessons/{lessonId}/attendance  -> "today's Math register for Class 4B"
     @GetMapping("/lessons/{lessonId}/attendance")
-    public ResponseEntity<List<AttendanceResponse>> getAttendanceForLesson(@PathVariable Long lessonId) {
-        return ResponseEntity.ok(attendanceService.getAttendanceForLesson(lessonId));
+    public ResponseEntity<List<AttendanceResponse>> getAttendanceForLesson(
+            @PathVariable Long lessonId, Authentication authentication) {
+        return ResponseEntity.ok(attendanceService.getAttendanceForLesson(lessonId, authentication));
     }
 
-    // GET /api/students/{studentId}/attendance  -> "Jane's attendance across everything"
     @GetMapping("/students/{studentId}/attendance")
-    public ResponseEntity<List<AttendanceResponse>> getAttendanceForStudent(@PathVariable Long studentId) {
-        return ResponseEntity.ok(attendanceService.getAttendanceForStudent(studentId));
+    public ResponseEntity<List<AttendanceResponse>> getAttendanceForStudent(
+            @PathVariable Long studentId, Authentication authentication) {
+        return ResponseEntity.ok(attendanceService.getAttendanceForStudent(studentId, authentication));
     }
 
-    // GET /api/students/{studentId}/attendance?subjectId=4 -> "Jane's Science attendance only"
     @GetMapping(value = "/students/{studentId}/attendance", params = "subjectId")
     public ResponseEntity<List<AttendanceResponse>> getAttendanceForStudentInSubject(
             @PathVariable Long studentId,
-            @RequestParam Long subjectId) {
-        return ResponseEntity.ok(attendanceService.getAttendanceForStudentInSubject(studentId, subjectId));
+            @RequestParam Long subjectId,
+            Authentication authentication) {
+        return ResponseEntity.ok(
+                attendanceService.getAttendanceForStudentInSubject(studentId, subjectId, authentication));
     }
 }

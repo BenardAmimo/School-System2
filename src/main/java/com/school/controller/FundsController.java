@@ -8,6 +8,7 @@ import com.school.service.FundsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,9 +30,12 @@ public class FundsController {
 
     }
 
+    // FundsServe: getStudentFunds(Long studentId, Authentication authentication)
+    // FundsController:
     @GetMapping("/{studentId}/funds")
-    public ResponseEntity <List<FundsResponse>> getStudentFunds(@PathVariable Long studentId) {
-        return ResponseEntity.ok(fundsService.getStudentFunds(studentId));
+    public ResponseEntity<List<FundsResponse>> getStudentFunds(
+            @PathVariable Long studentId, Authentication authentication) {
+        return ResponseEntity.ok(fundsService.getStudentFunds(studentId, authentication));
     }
 
     @PostMapping("/funds/bulk")

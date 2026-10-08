@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class TimetableGenerationService {
+public class TimetableGenerationService implements TimeTableGenerateServe{
 
     private final TimetableSlotRepository timetableSlotRepository;
     private final LessonRepository lessonRepository;
@@ -31,6 +31,7 @@ public class TimetableGenerationService {
      * that already exist for that slot+date.
      */
     @Transactional
+    @Override
     public int generateLessons(LocalDate startDate, LocalDate endDate) {
         List<TimetableSlot> allSlots = timetableSlotRepository.findAll();
         int created = 0;

@@ -14,7 +14,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 @Service
-public class TimetableSlotService {
+public class TimetableSlotService implements TimetableSlotServe{
 
     private final TimetableSlotRepository timetableSlotRepository;
     private final SchoolClassesRepository schoolClassesRepository;
@@ -32,6 +32,7 @@ public class TimetableSlotService {
     }
 
     @Transactional
+    @Override
     public TimetableSlot createSlot(Long classesId, Long subjectId, Long teacherId,
                                     DayOfWeek day, LocalTime start, LocalTime end) {
 

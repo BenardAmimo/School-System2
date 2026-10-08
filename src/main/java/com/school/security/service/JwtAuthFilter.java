@@ -4,7 +4,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+
+@Slf4j
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
 
@@ -28,57 +30,35 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
-                                    FilterChain filterChain)
-            throws ServletException, IOException {
-
+                                    FilterChain filterChain) throws ServletException, IOException {
 
         String authHeader = request.getHeader("Authorization");
 
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            System.out.println("JWT DEBUG: No Authorization header for " + request.getRequestURI());
-            filterChain.doFilter(request, response);
-            return;
-        }
+        if (authHeader != null && authHeader.startsWith("Bearer ")
+                && SecurityContextHolder.getContext().getAuthentication() == null) {
+            try {
+                String token = authHeader.substring(7);
+                String username = jwtService.extractUsername(token);
 
-        String token = authHeader.substring(7);
-        System.out.println("JWT DEBUG: Token received for " + request.getRequestURI());
+                if (username != null) {
+                    UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-        try {
-            String username = jwtService.extractUsername(token);
-            System.out.println("JWT DEBUG: Extracted username = " + username);
-
-            if (username != null &&
-                    SecurityContextHolder.getContext().getAuthentication() == null) {
-
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-                System.out.println("JWT DEBUG: Loaded user = " + userDetails.getUsername()
-                        + ", authorities = " + userDetails.getAuthorities());
-
-                boolean valid = jwtService.isTokenValid(token, userDetails);
-                System.out.println("JWT DEBUG: Token valid = " + valid);
-
-                if (valid) {
-                    UsernamePasswordAuthenticationToken authToken =
-                            new UsernamePasswordAuthenticationToken(
-                                    userDetails,
-                                    null,
-                                    userDetails.getAuthorities()
-                            );
-                    authToken.setDetails(
-                            new WebAuthenticationDetailsSource().buildDetails(request)
-                    );
-                    SecurityContextHolder.getContext().setAuthentication(authToken);
-                    System.out.println("JWT DEBUG: Authentication set successfully. Authorities = "
-                            + authToken.getAuthorities());
+                    // isEnabled(): a deactivated user stops working immediately, not when the token expires.
+                    if (userDetails.isEnabled() && jwtService.isTokenValid(token, userDetails)) {
+                        UsernamePasswordAuthenticationToken authToken =
+                                new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                        authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                        SecurityContextHolder.getContext().setAuthentication(authToken);
+                    }
                 }
+            } catch (Exception ex) {
+                // A bad, expired or tampered token just means "not authenticated". The request carries on and
+                // is rejected with 401 by the security chain if the route needs a login (public routes still work).
+                // Never log the token, and keep the detail out of the default log level.
+                log.debug("JWT rejected for {}: {}", request.getRequestURI(), ex.getClass().getSimpleName());
             }
-        } catch (Exception ex) {
-            System.out.println("JWT DEBUG: Exception during token processing: " + ex.getClass().getSimpleName()
-                    + " - " + ex.getMessage());
-            ex.printStackTrace();
         }
 
         filterChain.doFilter(request, response);
     }
-
 }

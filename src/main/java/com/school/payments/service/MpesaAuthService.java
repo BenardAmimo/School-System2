@@ -30,37 +30,37 @@ public class MpesaAuthService {
     private volatile String cachedToken;
     private volatile Instant expiryTime = Instant.EPOCH;
 
-    synchronized String generateAccessToken(){
-        if(cachedToken !=null && Instant.now().isBefore(expiryTime)){
+    /** synchronized: concurrent callers wait for one token request instead of each making their own. */
+    synchronized String generateAccessToken() {
+        if (cachedToken != null && Instant.now().isBefore(expiryTime)) {
             return cachedToken;
         }
-        String credentials = mpesaConfig.getConsumerKey()+ ":" +mpesaConfig
-                .getConsumerSecret();
 
+        String credentials = mpesaConfig.getConsumerKey() + ":" + mpesaConfig.getConsumerSecret();
         String encodedCredentials = Base64.getEncoder()
                 .encodeToString(credentials.getBytes(StandardCharsets.UTF_8));
 
-        Map<String,Object> body= mpesaWebclient.get()
+        Map<String, Object> body = mpesaWebclient.get()
                 .uri(mpesaConfig.getAuthUrl())
-                .header(HttpHeaders.AUTHORIZATION ,"Basic " +encodedCredentials)
+                .header(HttpHeaders.AUTHORIZATION, "Basic " + encodedCredentials)
                 .retrieve()
-                .onStatus(HttpStatusCode::isError,response->
+                .onStatus(HttpStatusCode::isError, response ->
                         response.bodyToMono(String.class)
-                                .flatMap(errorBody->{
-                                    log.error("Access token could not be granted {}",errorBody);
+                                .flatMap(errorBody -> {
+                                    log.error("Access token could not be granted: {}", errorBody);
                                     return Mono.error(new MpesaException("Mpesa Authentication failed"));
                                 }))
                 .bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {})
                 .block(Duration.ofSeconds(10));
-        if(body == null && body.get("access_token") == null){
+
+        // Was `body == null && body.get(...)`, which throws a NullPointerException exactly when body is null.
+        if (body == null || body.get("access_token") == null || body.get("expires_in") == null) {
             throw new MpesaException("No token response from Safaricom");
         }
+
+        long expiresIn = Long.parseLong(body.get("expires_in").toString());
         cachedToken = body.get("access_token").toString();
-
-        int expiresIn = Integer.parseInt(body.get("expires_in").toString());
-
-        expiryTime =Instant.now().plusSeconds(expiresIn-60);
-
+        expiryTime = Instant.now().plusSeconds(Math.max(expiresIn - 60, 0));
         return cachedToken;
     }
 }

@@ -10,14 +10,19 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Base64;
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
 @Service
 public class MpesaStkPushQuery {
+    private static final ZoneId NAIROBI = ZoneId.of("Africa/Nairobi");
+    private static final DateTimeFormatter DARAJA_TS = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+
     private final MpesaConfig config;
     private final MpesaAuthService authService;
     private final WebClient mpesaWebClient;
@@ -28,12 +33,17 @@ public class MpesaStkPushQuery {
         this.mpesaWebClient = mpesaWebClient;
     }
 
+    /**
+     * Asks Safaricom what happened to a push. Throws MpesaException when Daraja answers with an HTTP error;
+     * Daraja does this while a payment is still being processed, so callers must treat an exception as
+     * "no answer yet", never as "failed".
+     */
     public Map<String, Object> queryStatus(String checkoutRequestId) {
         String token = authService.generateAccessToken();
-        String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        // Same timezone as the STK push, so the timestamp and password agree.
+        String timestamp = ZonedDateTime.now(NAIROBI).format(DARAJA_TS);
         String password = Base64.getEncoder().encodeToString(
-                (config.getShortCode() + config.getPasskey() + timestamp).getBytes(StandardCharsets.UTF_8)
-        );
+                (config.getShortCode() + config.getPasskey() + timestamp).getBytes(StandardCharsets.UTF_8));
 
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("BusinessShortCode", config.getShortCode());

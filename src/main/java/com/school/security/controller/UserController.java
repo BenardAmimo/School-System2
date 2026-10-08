@@ -1,9 +1,11 @@
 package com.school.security.controller;
 
+import com.school.security.entity.UserReg;
 import com.school.security.models.*;
 import com.school.security.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,5 +45,19 @@ UserController {
     public ResponseEntity<List<UserResponse>> findAllUsers(){
         List<UserResponse> allUsers = userService.findAllUsers();
         return ResponseEntity.ok(allUsers);
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserResponse> me(Authentication authentication) {
+        return ResponseEntity.ok(userService.getCurrentUser(authentication.getName()));
+    }
+
+    public record ResendInviteRequest(String email) {}
+
+    @PostMapping("/admin/resend-invite")
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    public ResponseEntity<String> resendInvite(@RequestBody ResendInviteRequest request) {
+        userService.resendInvite(request.email());
+        return ResponseEntity.ok("Invite resent");
     }
 }
