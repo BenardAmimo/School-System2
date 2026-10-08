@@ -1,17 +1,18 @@
 package com.school.config;
+
 import com.school.security.service.JwtAuthFilter;
 import com.school.security.service.UserService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -33,41 +34,57 @@ public class SecurityConfig {
         this.userService = userService;
         this.jwtAuthFilter = jwtAuthFilter;
     }
-
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http   .cors(Customizer.withDefaults())
-                .csrf(csrf -> csrf.disable())
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
-
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers( "/login","/complete-registration","/stk/callback","/stkPush").permitAll()
+                        // public endpoints
+                        .requestMatchers(
+                                "/login",
+                                "/complete-registration",
+                                "/stk/callback/**"
+                        ).permitAll()
 
-                        .requestMatchers(HttpMethod.POST, "/assigns","/funds","/classes","/students","/subjects","/term","/funds/bulk","/staff","/lessons/{lessonId}/attendance","/lessons/ad-hoc","/generate-lessons","/timetable-slots").hasAnyRole("ADMIN","SUPER_ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/assign/{assignmentId}","/parent/id/{parentId}","/parent/update/{parentId}","/staff/{staffId}").hasAnyRole("ADMIN","SUPER_ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/parent/id/{parentId}","/staff/{staffId}").hasAnyRole("ADMIN","SUPER_ADMIN")
-                        //.requestMatchers(HttpMethod.GET,"/assignments","/assign/id/{assignmentId}","/{studentId}/funds","/parents","/parent/id/{parentId}","/parent/name/{name}","/classes","/students","/subjects","/teachers","/teacher/id/{teacherId}","/teacher/{name}","/terms").hasAnyRole("SUPER_ADMIN","ADMIN")
-                        .requestMatchers(HttpMethod.GET,"/api/finance/summary","/staff/{staffId}","/staffs").hasAnyRole("SUPER_ADMIN","ADMIN")
+                        // admin-only
+                        .requestMatchers("/admin/**").hasRole("SUPER_ADMIN")
 
-                        .requestMatchers(HttpMethod.GET,"/assignments","/assign/id/{assignmentId}","/{studentId}/funds",
-                                "/parents","/parent/id/{parentId}","/parent/name/{name}","/lessons/{lessonId}/attendance","/students/{studentId}/attendance","/students/{studentId}/attendance","/lessons").hasAnyRole("SUPER_ADMIN","ADMIN","PARENT","TEACHER")
-                        .requestMatchers(HttpMethod.GET,"/classes","/students","/subjects","/teachers",
-                                "/teacher/id/{teacherId}","/teacher/{name}").hasAnyRole("SUPER_ADMIN","ADMIN","TEACHER","PARENT")
+                        // authenticated user profile
+                        .requestMatchers("/me", "/auth/me").authenticated()
 
-                        .requestMatchers("/admin/invite-user").hasRole("SUPER_ADMIN")
-                        .requestMatchers("/teacher/**").hasAnyRole("TEACHER", "ADMIN")
+                        // shared school data
+                        .requestMatchers(
+                                "/classes/**",
+                                "/subjects/**",
+                                "/terms/**",
+                                "/assignments/**",
+                                "/teachers/**",
+                                "/students/**",
+                                "/parents/**"
+                        ).hasAnyRole("SUPER_ADMIN", "ADMIN", "STAFF", "TEACHER", "PARENT")
 
+                        // academic and timetable access
+                        .requestMatchers(
+                                "/attendance/**",
+                                "/lessons/**",
+                                "/timetable/**",
+                                "/timetable-slots/**"
+                        ).hasAnyRole("SUPER_ADMIN", "ADMIN", "STAFF", "TEACHER")
 
+                        // everything else must be authenticated
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-
-                .authenticationProvider(authenticationProvider());
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint((request, response, authException) -> {
+                            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+                        })
+                );
 
         return http.build();
     }
+
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
@@ -77,8 +94,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(
-            AuthenticationConfiguration config) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 }
