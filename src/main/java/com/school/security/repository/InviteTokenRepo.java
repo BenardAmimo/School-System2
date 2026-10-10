@@ -18,5 +18,9 @@ public interface InviteTokenRepo extends JpaRepository<InviteCode,Long> {
     @Query("update InviteCode i set i.used = true where i.code = :code and i.used = false and i.expiresAt > :now")
     int claim(@Param("code") String code, @Param("now") LocalDateTime now);
 
-    void deleteByUserReg(UserReg userReg);
+    @Modifying(flushAutomatically = true)
+    @Query("delete from InviteCode i where i.userReg = :user")
+    void deleteByUserReg(@Param("user") UserReg user);
+
+    boolean existsByCodeAndUsedFalseAndExpiresAtAfter(String code, LocalDateTime now);
 }

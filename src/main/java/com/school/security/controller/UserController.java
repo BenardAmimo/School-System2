@@ -1,6 +1,4 @@
 package com.school.security.controller;
-
-import com.school.security.entity.UserReg;
 import com.school.security.models.*;
 import com.school.security.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +29,11 @@ UserController {
     @PostMapping("/complete-registration")
     public ResponseEntity<RegistrationResponse> completeRegistration(@RequestBody CompleteRegistrationRequest request) {
         return ResponseEntity.ok(userService.completeRegistration(request));
+    }
+
+    @PostMapping("/invite-valid")
+    public ResponseEntity<java.util.Map<String, Boolean>> inviteValid(@RequestBody InviteCheckRequest request) {
+        return ResponseEntity.ok(java.util.Map.of("valid", userService.isInviteValid(request.code())));
     }
 
     @PostMapping("/login")

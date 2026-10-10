@@ -43,6 +43,7 @@ public class SecurityConfig {
                         // public endpoints
                         .requestMatchers(
                                 "/login",
+                                "/invite-valid",
                                 "/complete-registration",
                                 "/stk/callback/**"
                         ).permitAll()

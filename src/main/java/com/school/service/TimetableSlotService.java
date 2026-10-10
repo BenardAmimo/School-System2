@@ -6,6 +6,7 @@ import com.school.repo.SchoolClassesRepository;
 import com.school.repo.SubjectRepository;
 import com.school.repo.TeacherRepo;
 import com.school.repo.TimetableSlotRepository;
+import com.school.response.TimetableSlotResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,10 +50,10 @@ public class TimetableSlotService implements TimetableSlotServe{
 
         // Optional but recommended: only allow teachers to be slotted for
         // subjects they're actually assigned to teach (Teacher<->Subject many-to-many).
-        if (!teacher.getSubjects().contains(subject)) {
-            throw new IllegalStateException(
-                    teacher.getTeacherNo() + " is not assigned to teach " + subject.getName());//name
-        }
+       if (!teacher.getSubjects().contains(subject)) {
+         throw new IllegalStateException(
+        teacher.getTeacherNo() + " is not assigned to teach " + subject.getName());//name
+       }
 
         // DB unique constraints catch exact-match clashes; this catches
         // OVERLAPPING ranges too, e.g. 8:00-8:45 clashing with 8:30-9:15.
@@ -94,5 +95,22 @@ public class TimetableSlotService implements TimetableSlotServe{
 
     private boolean overlaps(LocalTime aStart, LocalTime aEnd, LocalTime bStart, LocalTime bEnd) {
         return aStart.isBefore(bEnd) && bStart.isBefore(aEnd);
+    }
+
+    @Transactional(readOnly = true)
+    public List<TimetableSlotResponse> getAllSlots() {
+        return timetableSlotRepository
+                .findAll()
+                .stream()
+                .map(TimetableSlotResponse::from)
+                .toList();
+    }
+
+    @Transactional
+    public void deleteSlot(Long slotId) {
+        if (!timetableSlotRepository.existsById(slotId)) {
+            throw new IllegalArgumentException("Timetable slot not found");
+        }
+        timetableSlotRepository.deleteById(slotId);
     }
 }

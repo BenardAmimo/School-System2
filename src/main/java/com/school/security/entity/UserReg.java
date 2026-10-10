@@ -3,10 +3,7 @@ package com.school.security.entity;
 import com.school.entity.*;
 import io.netty.util.NetUtil;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -66,10 +63,12 @@ public class UserReg implements UserDetails {
     @OneToOne(
             mappedBy = "userReg"
     )
-    private Parent student;
+    private Parent parent;
     @OneToOne(
             mappedBy = "userReg"
     )
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Teacher teacher;
 
 

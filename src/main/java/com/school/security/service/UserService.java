@@ -114,6 +114,7 @@ public class UserService implements UserServiceInterface, UserDetailsService {
             teacher.setAge(request.getAge());
             teacher.setGender(request.getGender());
             teacherRepo.save(teacher);
+
         } else if (request.getRole() == Role.PARENT) {
             Parent parent = new Parent();
             parent.setPhoneNumber(request.getPhoneNumber());
@@ -145,7 +146,7 @@ public class UserService implements UserServiceInterface, UserDetailsService {
 
         // Only a hash is stored: a leaked database cannot be used to activate accounts.
         InviteCode invite = InviteCode.builder()
-                .code(token)//encryption
+                .code(sha256(token))//encryption
                 .userReg(user)
                 .used(false)
                 .expiresAt(LocalDateTime.now().plusDays(INVITE_DAYS))
@@ -173,9 +174,9 @@ public class UserService implements UserServiceInterface, UserDetailsService {
 
         // Validate first so a typo does not burn the invite.
         if (code.isEmpty()) throw new IllegalArgumentException(INVALID_INVITE);
-        if (!USERNAME.matcher(username).matches()) {
-            throw new IllegalArgumentException("Username must be 3-30 letters, digits, dots, dashes or underscores");
-        }
+        //if (!USERNAME.matcher(username).matches()) {
+        //    throw new IllegalArgumentException("Username must be 3-30 letters, digits, dots, dashes or underscores");
+      //  }
         if (password.length() < PASSWORD_MIN || password.getBytes(StandardCharsets.UTF_8).length > PASSWORD_MAX) {
             throw new IllegalArgumentException("Password must be " + PASSWORD_MIN + "-" + PASSWORD_MAX + " characters");
         }
@@ -289,5 +290,12 @@ public class UserService implements UserServiceInterface, UserDetailsService {
         } catch (NoSuchAlgorithmException e) {
             throw new IllegalStateException(e);
         }
+    }
+
+    @Transactional(readOnly = true)
+    public boolean isInviteValid(String rawCode) {
+        if (rawCode == null || rawCode.isBlank()) return false;
+        return inviteTokenRepo.existsByCodeAndUsedFalseAndExpiresAtAfter(
+                sha256(rawCode.trim()), LocalDateTime.now());
     }
 }
