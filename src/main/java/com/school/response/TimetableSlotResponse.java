@@ -13,7 +13,7 @@ import java.time.LocalTime;
  * Types and getter names are assumed: adjust DayOfWeek/LocalTime and getId() to match your entity.
  */
 public record TimetableSlotResponse(
-        Long id,
+        Long timeTableSlotId,
         Long classesId,
         String className,
         Long subjectId,
@@ -24,7 +24,7 @@ public record TimetableSlotResponse(
         LocalTime startTime,
         LocalTime endTime) {
 
-    public static TimetableSlotResponse from(TimetableSlot s) {
+    public static TimetableSlotResponse from( TimetableSlot s) {
         var classes = s.getClasses();
         var subject = s.getSubject();
         var teacher = s.getTeacher();

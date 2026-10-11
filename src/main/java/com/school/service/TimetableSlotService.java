@@ -6,6 +6,7 @@ import com.school.repo.SchoolClassesRepository;
 import com.school.repo.SubjectRepository;
 import com.school.repo.TeacherRepo;
 import com.school.repo.TimetableSlotRepository;
+import com.school.request.CreateTimetableSlotRequest;
 import com.school.response.TimetableSlotResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,18 +35,19 @@ public class TimetableSlotService implements TimetableSlotServe{
 
     @Transactional
     @Override
-    public TimetableSlot createSlot(Long classesId, Long subjectId, Long teacherId,
-                                    DayOfWeek day, LocalTime start, LocalTime end) {
+    public TimetableSlotResponse createSlot(CreateTimetableSlotRequest request) {
 
-        if (!end.isAfter(start)) {
+        if (!request.getEndTime().isAfter(request.getStartTime())) {
             throw new IllegalArgumentException("End time must be after start time");
         }
 
-        SchoolClasses classes = schoolClassesRepository.findById(classesId)
+        SchoolClasses classes = schoolClassesRepository.findById(request.getClassesId())
                 .orElseThrow(() -> new IllegalArgumentException("Class not found"));
-        Teacher teacher = teacherRepository.findById(teacherId)
+
+        Teacher teacher = teacherRepository.findById(request.getTeacherId())
                 .orElseThrow(() -> new IllegalArgumentException("Teacher not found"));
-        Subject subject = subjectRepository.findById(subjectId)
+
+        Subject subject = subjectRepository.findById(request.getSubjectId())
                 .orElseThrow(() -> new IllegalArgumentException("Subject not found"));
 
         // Optional but recommended: only allow teachers to be slotted for
@@ -57,18 +59,21 @@ public class TimetableSlotService implements TimetableSlotServe{
 
         // DB unique constraints catch exact-match clashes; this catches
         // OVERLAPPING ranges too, e.g. 8:00-8:45 clashing with 8:30-9:15.
-        assertNoClassOverlap(classesId, day, start, end);
-        assertNoTeacherOverlap(teacherId, day, start, end);
+        assertNoClassOverlap(request.getClassesId(), request.getDayOfWeek(), request.getStartTime(), request.getEndTime());
+        assertNoTeacherOverlap(request.getTeacherId(), request.getDayOfWeek(), request.getStartTime(), request.getEndTime());
 
         TimetableSlot slot = new TimetableSlot();
         slot.setClasses(classes);
         slot.setTeacher(teacher);
         slot.setSubject(subject);
-        slot.setDayOfWeek(day);
-        slot.setStartTime(start);
-        slot.setEndTime(end);
+        slot.setDayOfWeek(request.getDayOfWeek());
+        slot.setStartTime(request.getStartTime());
+        slot.setEndTime(request.getEndTime());
 
-        return timetableSlotRepository.save(slot);
+         TimetableSlot savedWell = timetableSlotRepository.save(slot);
+
+         return TimetableSlotResponse.from(savedWell);
+
     }
 
     private void assertNoClassOverlap(Long classesId, DayOfWeek day, LocalTime start, LocalTime end) {
@@ -113,4 +118,5 @@ public class TimetableSlotService implements TimetableSlotServe{
         }
         timetableSlotRepository.deleteById(slotId);
     }
+
 }

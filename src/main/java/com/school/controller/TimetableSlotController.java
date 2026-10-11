@@ -30,20 +30,14 @@ public class TimetableSlotController {
 
     @PostMapping
     public ResponseEntity<TimetableSlotResponse> createSlot(@RequestBody CreateTimetableSlotRequest request) {
-        TimetableSlot slot = timetableSlotService.createSlot(
-                request.getClassesId(),
-                request.getSubjectId(),
-                request.getTeacherId(),
-                request.getDayOfWeek(),
-                request.getStartTime(),
-                request.getEndTime());
-        return ResponseEntity.status(HttpStatus.CREATED).body(TimetableSlotResponse.from(slot));
+        TimetableSlotResponse slot = timetableSlotService.createSlot(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(slot);
     }
 
     // Was missing: api.js deleteTimetableSlot calls this.
     @DeleteMapping("/{timeTableSlotId}")
-    public ResponseEntity<Void> deleteSlot(@PathVariable Long slotId) {
-        timetableSlotService.deleteSlot(slotId);
+    public ResponseEntity<Void> deleteSlot(@PathVariable Long timeTableSlotId) {
+        timetableSlotService.deleteSlot(timeTableSlotId);
         return ResponseEntity.noContent().build();
     }
 }
