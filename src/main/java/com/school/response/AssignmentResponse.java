@@ -7,4 +7,5 @@ public class AssignmentResponse {
     private Long assignmentId;
     private String subjectName;
     private String teacherName;
+    private String classesName;
 }

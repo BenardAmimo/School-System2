@@ -1,6 +1,7 @@
 package com.school.service;
 
 import com.school.entity.Parent;
+import com.school.error.ParentNotFoundtException;
 import com.school.repo.ParentRepo;
 import com.school.repo.StudentRepository;
 import com.school.request.ParentRequest;
@@ -8,6 +9,7 @@ import com.school.response.ChildSummary;
 import com.school.response.ParentResponse;
 import com.school.security.entity.UserReg;
 import com.school.security.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -63,33 +65,35 @@ public class ParentService implements ParentServe {
     }
 
     @Override
-    public ParentResponse updateParent(Long parentId, ParentRequest parentRequest) {
-        Parent parentDB = parentRepo.findById(parentId).
-                orElseThrow(()->new RuntimeException("parent Not available!"));
+    @Transactional
+    public ParentResponse updateParent(Long parentId, ParentRequest req) {
+        Parent parent = parentRepo.findById(parentId)
+                .orElseThrow(() -> new ParentNotFoundtException("Parent " + parentId + " not found"));
+        UserReg user = parent.getUserReg();
 
-        UserReg user = userRepository.findById((parentRequest.getUserId()))
-                .orElseThrow(()->new RuntimeException("User not found"));
+        String email = req.getEmail().trim().toLowerCase();
+        if (!email.equalsIgnoreCase(user.getEmail())) {
+            userRepository.findByEmail(email).ifPresent(other -> {
+                throw new IllegalStateException("That email is already in use.");
+            });
+            user.setEmail(email);
+        }
+        user.setFirstName(req.getFirstName().trim());
+        user.setLastName(req.getLastName().trim());
+        parent.setPhoneNumber(req.getPhoneNumber().trim());
+        parent.setGender(req.getGender());
+        parent.setAge(req.getAge());
 
-/*
-        if(Objects.nonNull(parentRequest.getEmail())&&!"".equalsIgnoreCase(parentRequest.getEmail())){
-            parentDB.setEmail(parentRequest.user().getEmail());
-        }*/
-        parentDB.setUserReg(user);
-        Parent parent = parentRepo.save(parentDB);
-
-        ParentResponse respo = new ParentResponse();
-
-                respo.setParentId(parent.getParentId());
-                respo.setFirstName(parent.getUserReg().getFirstName());
-                respo.setLastName(parent.getUserReg().getLastName());
-                respo.setPhoneNumber(parent.getPhoneNumber());
-                respo.setGender(parent.getGender());
-                respo.setAge(parent.getAge());
-                respo.setEmail(parent.getUserReg().getEmail());
-
-        return respo;
+        ParentResponse resp = new ParentResponse();
+        resp.setParentId(parent.getParentId());
+        resp.setFirstName(user.getFirstName());
+        resp.setLastName(user.getLastName());
+        resp.setPhoneNumber(parent.getPhoneNumber());
+        resp.setGender(parent.getGender());
+        resp.setAge(parent.getAge());
+        resp.setEmail(user.getEmail());
+        return resp;
     }
-
     @Override
     public ParentResponse getParentByName(String name) {
         return null;

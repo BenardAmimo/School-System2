@@ -1,9 +1,6 @@
 package com.school.service;
 
-import com.school.entity.Parent;
-import com.school.entity.SchoolClasses;
-import com.school.entity.Student;
-import com.school.entity.TimetableSlot;
+import com.school.entity.*;
 import com.school.repo.ParentRepo;
 import com.school.repo.SchoolClassesRepository;
 import com.school.repo.StudentRepository;
@@ -108,26 +105,20 @@ public class StudentsService implements StudentsServ {
 
         return toResponse(stud);
     }
-
     private MychildResponse toChildResponse(Student student) {
         SchoolClasses schoolClass = student.getClasses();
 
-        List<StudentSubjectSummary> subjects = schoolClass == null
-                ? List.of()
-                : schoolClass.getSubjects().stream()
-                .map(subject -> {
-                    String teacherName = subject.getAssignment().isEmpty()
-                            ? "Unassigned"
-                            : subject.getAssignment().get(0).getTeacher().getUserReg().getFirstName()
-                            + " " + subject.getAssignment().get(0).getTeacher().getUserReg().getLastName();
-
-                    return StudentSubjectSummary.builder()
-                            .subjectId(subject.getSubjectId())
-                            .subjectName(subject.getName())
-                            .teacherName(teacherName)
-                            .build();
-                })
-                .toList();
+        List<StudentSubjectSummary> subjects =
+                (schoolClass == null || schoolClass.getAssignments() == null)
+                        ? List.of()
+                        : schoolClass.getAssignments().stream()
+                        .filter(a -> a.getSubject() != null)
+                        .map(a -> StudentSubjectSummary.builder()
+                                .subjectId(a.getSubject().getSubjectId())
+                                .subjectName(a.getSubject().getName())
+                                .teacherName(teacherName(a.getTeacher()))
+                                .build())
+                        .toList();
 
         return MychildResponse.builder()
                 .studentId(student.getStudentId())
@@ -159,6 +150,11 @@ public class StudentsService implements StudentsServ {
         respond.setTeacherNames(teacherNames.isEmpty() ? List.of("Unassigned") : teacherNames);
 
         return respond;
+    }
+
+    private String teacherName(Teacher teacher) {
+        if (teacher == null || teacher.getUserReg() == null) return "Unassigned";
+        return teacher.getUserReg().getFirstName() + " " + teacher.getUserReg().getLastName();
     }
 
 }

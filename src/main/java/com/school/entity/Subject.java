@@ -35,6 +35,7 @@ public class Subject {
          orphanRemoval = true
  )
  private List<Assignment> assignment;
+ /*
  @ManyToOne()
  @JoinColumn(
         name = "classes_id",
@@ -43,7 +44,7 @@ public class Subject {
  private SchoolClasses schoolClasses;
 
  @ManyToMany(mappedBy = "subjects")
- private List<Teacher> teachers = new ArrayList<>();
+ private List<Teacher> teachers = new ArrayList<>();*/
 
 
 }

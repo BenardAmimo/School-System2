@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class AssignmentRequest {
     private Long teacherId;
     private Long subjectId;
+    private Long classesId;
 }

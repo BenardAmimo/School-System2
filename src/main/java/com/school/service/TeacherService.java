@@ -18,15 +18,16 @@ import com.school.repo.*;
 import java.util.List;
 import java.util.Objects;
 
+import static com.school.response.TeacherResponse.from;
+
 @Service
 @RequiredArgsConstructor
 public class TeacherService implements TeacherServe {
 
  private final TeacherRepo teacherRepo;
- private final UserRepository userRepository;
- private final SchoolClassesRepository schoolClassesRepository;
  private final AssignmentRepository assignmentRepository;
  private final StudentRepository studentRepo;
+ private final UserRepository userRepository;
 
  @Override
  public TeacherResponse getTeacherByName(String name) {
@@ -37,14 +38,14 @@ public class TeacherService implements TeacherServe {
  public TeacherResponse getTeacherByid(Long teacherId) {
   Teacher teacher = teacherRepo.findById(teacherId)
           .orElseThrow(() -> new RuntimeException("Teacher not found!"));
-  return mapToDto(teacher);
+  return from(teacher);
  }
 
  @Override
  public List<TeacherResponse> getAllTeachers() {
   return teacherRepo.findAll()
           .stream()
-          .map(this::mapToDto)
+          .map(TeacherResponse::from)
           .toList();
  }
 
@@ -53,39 +54,39 @@ public class TeacherService implements TeacherServe {
   Teacher teacherDB = teacherRepo.findById(teacherId)
           .orElseThrow(() -> new RuntimeException("Teacher not found"));
 
-  if (Objects.nonNull(teacherRequest.getTeacherNo()) && !teacherRequest.getTeacherNo().isBlank()) {
-   teacherDB.setTeacherNo(teacherRequest.getTeacherNo());
+  if (Objects.nonNull(teacherRequest.teacherNo()) && !teacherRequest.teacherNo().isBlank()) {
+   teacherDB.setTeacherNo(teacherRequest.teacherNo());
   }
 
-  if (Objects.nonNull(teacherRequest.getPhoneNumber()) && !teacherRequest.getPhoneNumber().isBlank()) {
-   teacherDB.setPhoneNumber(teacherRequest.getPhoneNumber());
+  if (Objects.nonNull(teacherRequest.phoneNumber()) && !teacherRequest.phoneNumber().isBlank()) {
+   teacherDB.setPhoneNumber(teacherRequest.phoneNumber());
   }
-  if (Objects.nonNull(teacherRequest.getAge())){
-   teacherDB.setAge(teacherRequest.getAge());
-  }
-
-  if (Objects.nonNull(teacherRequest.getGender())){
-   teacherDB.setGender(teacherRequest.getGender());
+  if (Objects.nonNull(teacherRequest.age())){
+   teacherDB.setAge(teacherRequest.age());
   }
 
+  if (Objects.nonNull(teacherRequest.gender())){
+   teacherDB.setGender(teacherRequest.gender());
+  }
 
-  if (Objects.nonNull(teacherRequest.getClassesId())) {
+
+  /*if (Objects.nonNull(teacherRequest.classesId())) {
    List<SchoolClasses> classes = schoolClassesRepository.findAllById(teacherRequest.getClassesId());
    if (classes.size() != teacherRequest.getClassesId().size()) {
     throw new RuntimeException("One or more selected classes were not found");
    }
    teacherDB.getClasses().clear();
    teacherDB.getClasses().addAll(classes);
-  }
+  }*/
 
-  if (Objects.nonNull(teacherRequest.getUserId())) {
-   UserReg user = userRepository.findById(teacherRequest.getUserId())
+  if (Objects.nonNull(teacherRequest.userId())) {
+   UserReg user = userRepository.findById(teacherRequest.userId())
            .orElseThrow(() -> new RuntimeException("User not found!"));
    teacherDB.setUserReg(user);
   }
 
   Teacher saved = teacherRepo.save(teacherDB);
-  return mapToDto(saved);
+  return from(saved);
  }
 
  @Override
@@ -103,10 +104,10 @@ public class TeacherService implements TeacherServe {
 
    teacherRepo.delete(teach);
  }
-
+//issue
  private TeacherClassSummary toSummary(Assignment assignment) {
   Subject subject = assignment.getSubject();
-  SchoolClasses schoolClass = subject.getSchoolClasses();
+  SchoolClasses schoolClass = assignment.getClasses();
 
   List<Student> students = schoolClass == null
           ? List.of()
@@ -129,23 +130,4 @@ public class TeacherService implements TeacherServe {
           .build();
  }
 
- private TeacherResponse mapToDto(Teacher teacher) {
-  TeacherResponse resp = new TeacherResponse();
-  resp.setTeacherId(teacher.getTeacherId());
-  resp.setTeacherNo(teacher.getTeacherNo());
-  resp.setFirstName(teacher.getUserReg().getFirstName());
-  resp.setLastName(teacher.getUserReg().getLastName());
-  resp.setEmail(teacher.getUserReg().getEmail());
-  resp.setAge(teacher.getAge());
-  resp.setGender(teacher.getGender());
-  resp.setPhoneNumber(teacher.getPhoneNumber());
-
-  if (teacher.getClasses() != null && !teacher.getClasses().isEmpty()) {
-   List<String> classNames = teacher.getClasses().stream()
-           .map(SchoolClasses::getName)
-           .toList();
-   resp.setClassNames(classNames);
-  }
-  return resp;
- }
 }

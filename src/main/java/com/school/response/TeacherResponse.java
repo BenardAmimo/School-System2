@@ -1,23 +1,35 @@
 package com.school.response;
 
 import com.school.entity.Gender;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.school.entity.Teacher;
+import com.school.security.entity.UserReg;
 
-import java.util.List;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class TeacherResponse {
-    private Long teacherId;
-    private String teacherNo;
-    private String firstName;
-    private Gender gender;
-    private Long age;
-    private String lastName;
-    private String email;
-    private String phoneNumber;
-    private List<String> classNames;
+
+public record TeacherResponse(
+        Long teacherId,
+        String teacherNo,
+        String firstName,
+        String lastName,
+        String email,
+        String phoneNumber,
+        Gender gender,
+        Long age,
+        boolean enabled
+       /* List<String> classNames*/) {
+
+    public static TeacherResponse from(Teacher teacher) {
+        UserReg user = teacher.getUserReg();
+        return new TeacherResponse(
+                teacher.getTeacherId(),
+                teacher.getTeacherNo(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getEmail(),
+                teacher.getPhoneNumber(),
+                teacher.getGender(),
+                teacher.getAge(),
+                user.isEnabled());
+                //classNames == null ? List.of() : classNames);
+    }
 }

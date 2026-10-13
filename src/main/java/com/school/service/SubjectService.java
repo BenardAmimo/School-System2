@@ -22,12 +22,9 @@ public class SubjectService implements SubjectServe {
 
     @Override
     public SubjectResponse createSubject(SubjectRequest subjectRequest) {
-        SchoolClasses classes = schoolClassesRepository.findById(subjectRequest.getClassesId())
-                .orElseThrow(() -> new RuntimeException("No classes Available"));
 
         Subject subject = new Subject();
         subject.setName(subjectRequest.getName());
-        subject.setSchoolClasses(classes);
         subject.setDescription(subjectRequest.getDescription());
 
         Subject saved = subjectRepository.save(subject);
@@ -47,7 +44,6 @@ public class SubjectService implements SubjectServe {
         res.setSubjectId(subject.getSubjectId());
         res.setName(subject.getName());
         res.setDescription(subject.getDescription());
-        res.setClassesName(subject.getSchoolClasses() != null ? subject.getSchoolClasses().getName() : "Unassigned");
         res.setAssignmentCount(subject.getAssignment() != null ? subject.getAssignment().size() : 0);
         return res;
     }
@@ -90,11 +86,6 @@ public class SubjectService implements SubjectServe {
             subjectDB.setDescription(subjectRequest.getDescription());
         }
 
-        if (Objects.nonNull(subjectRequest.getClassesId())) {
-            SchoolClasses classes = schoolClassesRepository.findById(subjectRequest.getClassesId())
-                    .orElseThrow(() -> new RuntimeException("No classes Available"));
-            subjectDB.setSchoolClasses(classes);
-        }
 
         Subject saved = subjectRepository.save(subjectDB);
         return mapToDto(saved);

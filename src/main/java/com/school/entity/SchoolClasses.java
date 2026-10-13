@@ -1,5 +1,6 @@
 package com.school.entity;
 
+import io.micrometer.common.KeyValues;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,13 +34,14 @@ public class SchoolClasses {
    // @JoinColumn(name = "class_teacher_id")
   //  private Teacher teacher;
 
-    @ManyToMany(mappedBy = "classes")
+    /*@ManyToMany(mappedBy = "classes")
     private List<Teacher> teachers = new ArrayList<>();
-
+*/
     @OneToMany(mappedBy = "classes")
     private List<Student> students = new ArrayList<>();
 
     // Reference info: which subjects this class studies in its curriculum.
+    /*
     @ManyToMany
     @JoinTable(
             name = "class_subjects",
@@ -47,10 +49,16 @@ public class SchoolClasses {
             inverseJoinColumns = @JoinColumn(name = "subject_id")
     )
     private List<Subject> subjects = new ArrayList<>();
+    */
 
     @OneToMany(mappedBy = "classes")
     private List<TimetableSlot> timetableSlots = new ArrayList<>();
 
     @OneToMany(mappedBy = "classes")
     private List<Lesson> lessons = new ArrayList<>();
+
+    @OneToMany(mappedBy = "classes")
+    private List<Assignment> assignments = new ArrayList<>();
+
+
 }

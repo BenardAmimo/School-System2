@@ -2,12 +2,10 @@
 package com.school.service;
 
 import com.school.entity.*;
-import com.school.repo.SchoolClassesRepository;
-import com.school.repo.SubjectRepository;
-import com.school.repo.TeacherRepo;
-import com.school.repo.TimetableSlotRepository;
+import com.school.repo.*;
 import com.school.request.CreateTimetableSlotRequest;
 import com.school.response.TimetableSlotResponse;
+import com.school.security.entity.UserReg;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,53 +20,62 @@ public class TimetableSlotService implements TimetableSlotServe{
     private final SchoolClassesRepository schoolClassesRepository;
     private final TeacherRepo teacherRepository;
     private final SubjectRepository subjectRepository;
+    private final AssignmentRepository assignmentRepository;
 
     public TimetableSlotService(TimetableSlotRepository timetableSlotRepository,
                                 SchoolClassesRepository schoolClassesRepository,
                                 TeacherRepo teacherRepository,
-                                SubjectRepository subjectRepository) {
+                                SubjectRepository subjectRepository, AssignmentRepository assignmentRepository) {
         this.timetableSlotRepository = timetableSlotRepository;
         this.schoolClassesRepository = schoolClassesRepository;
         this.teacherRepository = teacherRepository;
         this.subjectRepository = subjectRepository;
+        this.assignmentRepository = assignmentRepository;
     }
 
     @Transactional
     @Override
     public TimetableSlotResponse createSlot(CreateTimetableSlotRequest request) {
 
-        if (!request.getEndTime().isAfter(request.getStartTime())) {
+        if (!request.endTime().isAfter(request.startTime())) {
             throw new IllegalArgumentException("End time must be after start time");
         }
 
-        SchoolClasses classes = schoolClassesRepository.findById(request.getClassesId())
+        SchoolClasses classes = schoolClassesRepository.findById(request.classesId())
                 .orElseThrow(() -> new IllegalArgumentException("Class not found"));
 
-        Teacher teacher = teacherRepository.findById(request.getTeacherId())
+        Teacher teacher = teacherRepository.findById(request.teacherId())
                 .orElseThrow(() -> new IllegalArgumentException("Teacher not found"));
 
-        Subject subject = subjectRepository.findById(request.getSubjectId())
+        Subject subject = subjectRepository.findById(request.subjectId())
                 .orElseThrow(() -> new IllegalArgumentException("Subject not found"));
 
         // Optional but recommended: only allow teachers to be slotted for
         // subjects they're actually assigned to teach (Teacher<->Subject many-to-many).
-       if (!teacher.getSubjects().contains(subject)) {
-         throw new IllegalStateException(
-        teacher.getTeacherNo() + " is not assigned to teach " + subject.getName());//name
-       }
+        boolean assigned = assignmentRepository
+                .existsByTeacher_TeacherIdAndSubject_SubjectIdAndClasses_ClassesId(request.teacherId(), request.subjectId(), request.classesId());
 
+        if (!assigned) {
+
+            UserReg user = teacher.getUserReg();
+            throw new IllegalStateException(
+                    user.getFirstName() + " " + user.getLastName()
+                            + " is not assigned to teach " + subject.getName()
+            );
+
+        }
         // DB unique constraints catch exact-match clashes; this catches
         // OVERLAPPING ranges too, e.g. 8:00-8:45 clashing with 8:30-9:15.
-        assertNoClassOverlap(request.getClassesId(), request.getDayOfWeek(), request.getStartTime(), request.getEndTime());
-        assertNoTeacherOverlap(request.getTeacherId(), request.getDayOfWeek(), request.getStartTime(), request.getEndTime());
+        assertNoClassOverlap(request.classesId(), request.dayOfWeek(), request.startTime(), request.endTime());
+        assertNoTeacherOverlap(request.teacherId(), request.dayOfWeek(), request.startTime(), request.endTime());
 
         TimetableSlot slot = new TimetableSlot();
         slot.setClasses(classes);
         slot.setTeacher(teacher);
         slot.setSubject(subject);
-        slot.setDayOfWeek(request.getDayOfWeek());
-        slot.setStartTime(request.getStartTime());
-        slot.setEndTime(request.getEndTime());
+        slot.setDayOfWeek(request.dayOfWeek());
+        slot.setStartTime(request.startTime());
+        slot.setEndTime(request.endTime());
 
          TimetableSlot savedWell = timetableSlotRepository.save(slot);
 

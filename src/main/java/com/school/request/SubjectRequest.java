@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class SubjectRequest {
     private String name;
     private String description;
-    private Long classesId;
+    //private Long classesId;
 }

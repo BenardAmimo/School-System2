@@ -2,18 +2,30 @@
 package com.school.request;
 
 import com.school.entity.Gender;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.*;
+import lombok.*;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor @AllArgsConstructor
 public class ParentRequest {
- private Long userId;
+ @NotBlank
+ @Size(max = 60)
+ private String firstName;
+
+ @NotBlank @Size(max = 60)
+ private String lastName;
+
+ @NotBlank @Email
+ private String email;
+
+ @NotBlank
  private String phoneNumber;
+
+ @NotNull
  private Gender gender;
- private Long age;
 
-
+ @NotNull
+ @Positive
+ @Max(120) private Long age;
 }

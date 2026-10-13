@@ -54,7 +54,7 @@ public class UserReg implements UserDetails {
     private Long age;
 
     @Column(nullable = false)
-    private Boolean enabled;
+    private boolean enabled;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

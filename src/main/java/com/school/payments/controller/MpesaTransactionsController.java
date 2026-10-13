@@ -1,6 +1,5 @@
 package com.school.payments.controller;
-
-import com.fasterxml.jackson.databind.JsonNode;
+import tools.jackson.databind.JsonNode;              // Jackson 3
 import com.school.payments.entity.MpesaTransactions;
 import com.school.payments.entity.Status;
 import com.school.payments.model.MpesaTransactionRequest;

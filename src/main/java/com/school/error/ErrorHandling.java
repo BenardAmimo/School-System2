@@ -50,4 +50,14 @@ public class ErrorHandling{
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
+    @ExceptionHandler(SchoolClassesNotFoundException.class)
+    public ResponseEntity<ErrorMessage> SchoolClassesNotFoundException(
+            SchoolClassesNotFoundException schoolClassesNotFoundException,
+            WebRequest request){
+
+        ErrorMessage message = new ErrorMessage(HttpStatus.NOT_FOUND,
+                schoolClassesNotFoundException.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+    }
+
 }
