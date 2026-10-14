@@ -15,8 +15,7 @@ public record TeacherResponse(
         String phoneNumber,
         Gender gender,
         Long age,
-        boolean enabled
-       /* List<String> classNames*/) {
+        boolean enabled) {
 
     public static TeacherResponse from(Teacher teacher) {
         UserReg user = teacher.getUserReg();
@@ -30,6 +29,5 @@ public record TeacherResponse(
                 teacher.getGender(),
                 teacher.getAge(),
                 user.isEnabled());
-                //classNames == null ? List.of() : classNames);
     }
 }

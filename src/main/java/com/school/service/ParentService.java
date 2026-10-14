@@ -71,18 +71,18 @@ public class ParentService implements ParentServe {
                 .orElseThrow(() -> new ParentNotFoundtException("Parent " + parentId + " not found"));
         UserReg user = parent.getUserReg();
 
-        String email = req.getEmail().trim().toLowerCase();
+        String email = req.email().trim().toLowerCase();
         if (!email.equalsIgnoreCase(user.getEmail())) {
             userRepository.findByEmail(email).ifPresent(other -> {
                 throw new IllegalStateException("That email is already in use.");
             });
             user.setEmail(email);
         }
-        user.setFirstName(req.getFirstName().trim());
-        user.setLastName(req.getLastName().trim());
-        parent.setPhoneNumber(req.getPhoneNumber().trim());
-        parent.setGender(req.getGender());
-        parent.setAge(req.getAge());
+        user.setFirstName(req.firstName().trim());
+        user.setLastName(req.lastName().trim());
+        parent.setPhoneNumber(req.phoneNumber().trim());
+        parent.setGender(req.gender());
+        parent.setAge(req.age());
 
         ParentResponse resp = new ParentResponse();
         resp.setParentId(parent.getParentId());

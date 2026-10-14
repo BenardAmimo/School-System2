@@ -4,7 +4,9 @@ import com.school.request.ParentRequest;
 import com.school.response.ChildSummary;
 import com.school.response.ParentResponse;
 import com.school.service.ParentService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -39,7 +41,7 @@ public class ParentController {
     }
 
     @PutMapping("/parent/update/{parentId}")
-    public ResponseEntity<ParentResponse> updateParent(@PathVariable("parentId")Long parentId,
+    public ResponseEntity<ParentResponse> updateParent(@Valid @PathVariable("parentId")Long parentId,
                                                         @RequestBody ParentRequest parentRequest){
         ParentResponse updating = parentService.updateParent(parentId,parentRequest);
 

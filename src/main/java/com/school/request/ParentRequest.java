@@ -5,27 +5,28 @@ import com.school.entity.Gender;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
-@Getter
-@Setter
-@NoArgsConstructor @AllArgsConstructor
-public class ParentRequest {
- @NotBlank
- @Size(max = 60)
- private String firstName;
+public record ParentRequest(
 
- @NotBlank @Size(max = 60)
- private String lastName;
+        @NotBlank
+        @Size(max = 60)
+        String firstName,
 
- @NotBlank @Email
- private String email;
+        @NotBlank @Size(max = 60)
+        String lastName,
 
- @NotBlank
- private String phoneNumber;
+        @NotBlank
+        @Email
+        String email,
 
- @NotNull
- private Gender gender;
+        @NotBlank
+        String phoneNumber,
 
- @NotNull
- @Positive
- @Max(120) private Long age;
+        @NotNull
+        Gender gender,
+
+        @NotNull
+        @Positive
+        @Max(120) Long age
+) {
+
 }
