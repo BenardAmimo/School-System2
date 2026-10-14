@@ -39,7 +39,7 @@ UserController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> loginUser(@RequestBody LoginRequest loginRequest){
         System.out.println("LOGIN CONTROLLER");
-        System.out.println("Email" + loginRequest.getEmail());
+        System.out.println("Email" + loginRequest.email());
         LoginResponse login = userService.loginUser(loginRequest);
         return ResponseEntity.ok(login);
     }

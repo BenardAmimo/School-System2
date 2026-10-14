@@ -3,33 +3,36 @@ package com.school.security.models;
 import com.school.entity.Gender;
 import com.school.security.entity.Role;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class UserRequest{
-    @NotBlank
-    private String firstName;
-    @NotBlank
-    private String lastName;
-    @NotBlank
-    private String email;
-    @NotBlank
-    private Boolean enabled;
-    @NotBlank
-    private Role role;
-    @NotBlank
-    private String teacherNo;
-    @NotBlank
-    private String phoneNumber;
-    @NotBlank
-    private Gender gender;
-    @NonNull
-    private Long age;
+public record UserRequest(
+        @NotBlank
+        String firstName,
+
+        @NotBlank
+        String lastName,
+
+        @NotBlank
+        String email,
+
+        @NotBlank
+        Boolean enabled,
+
+        @NotBlank
+        Role role,
+
+        @NotBlank
+        String teacherNo,
+
+        @NotBlank
+        String phoneNumber,
+
+        @NotBlank
+        Gender gender,
+
+        @NonNull
+        Long age
+
+){
 
 }

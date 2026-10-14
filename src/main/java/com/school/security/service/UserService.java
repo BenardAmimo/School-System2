@@ -85,41 +85,41 @@ public class UserService implements UserServiceInterface, UserDetailsService {
     @Transactional
     @Override
     public String inviteUser(UserRequest request) {
-        String email = normalizeEmail(request.getEmail());
+        String email = normalizeEmail(request.email());
         if (email.isEmpty()) throw new IllegalArgumentException("Email is required");
-        if (request.getRole() == null) throw new IllegalArgumentException("Role is required");
+        if (request.role() == null) throw new IllegalArgumentException("Role is required");
 
         if (userRepo.existsByEmail(email)) {
             throw new IllegalStateException("Email already registered!");
         }
-        if (request.getRole() == Role.TEACHER && request.getTeacherNo() == null) {
+        if (request.role() == Role.TEACHER && request.teacherNo() == null) {
             throw new IllegalArgumentException("Teacher number is required for TEACHER role");
         }
         // Consider rejecting Role.SUPER_ADMIN here unless you really want invites to create super admins.
 
         UserReg userReg = UserReg.builder()
                 .email(email)
-                .firstName(request.getFirstName())
-                .lastName(request.getLastName())
-                .role(request.getRole())
+                .firstName(request.firstName())
+                .lastName(request.lastName())
+                .role(request.role())
                 .enabled(false)
                 .build();
         UserReg saved = userRepo.save(userReg);
 
-        if (request.getRole() == Role.TEACHER) {
+        if (request.role() == Role.TEACHER) {
             Teacher teacher = new Teacher();
             teacher.setUserReg(saved);
-            teacher.setTeacherNo(request.getTeacherNo());
-            teacher.setPhoneNumber(request.getPhoneNumber());
-            teacher.setAge(request.getAge());
-            teacher.setGender(request.getGender());
+            teacher.setTeacherNo(request.teacherNo());
+            teacher.setPhoneNumber(request.phoneNumber());
+            teacher.setAge(request.age());
+            teacher.setGender(request.gender());
             teacherRepo.save(teacher);
 
-        } else if (request.getRole() == Role.PARENT) {
+        } else if (request.role() == Role.PARENT) {
             Parent parent = new Parent();
-            parent.setPhoneNumber(request.getPhoneNumber());
-            parent.setAge(request.getAge());
-            parent.setGender(request.getGender());
+            parent.setPhoneNumber(request.phoneNumber());
+            parent.setAge(request.age());
+            parent.setGender(request.gender());
             parent.setUserReg(saved);
             parentRepo.save(parent);
         }
@@ -168,9 +168,9 @@ public class UserService implements UserServiceInterface, UserDetailsService {
     @Transactional
     @Override
     public RegistrationResponse completeRegistration(CompleteRegistrationRequest request) {
-        String code = request.getCode() == null ? "" : request.getCode().trim();
-        String username = request.getUsername() == null ? "" : request.getUsername().trim();
-        String password = request.getPassword() == null ? "" : request.getPassword();
+        String code = request.code() == null ? "" : request.code().trim();
+        String username = request.username() == null ? "" : request.username().trim();
+        String password = request.password() == null ? "" : request.password();
 
         // Validate first so a typo does not burn the invite.
         if (code.isEmpty()) throw new IllegalArgumentException(INVALID_INVITE);
@@ -211,13 +211,13 @@ public class UserService implements UserServiceInterface, UserDetailsService {
 
     @Override
     public LoginResponse loginUser(LoginRequest loginRequest) {
-        String email = normalizeEmail(loginRequest.getEmail());
+        String email = normalizeEmail(loginRequest.email());
 
         // No separate "does this email exist" lookup: that would reveal which emails are registered.
         // Wrong email, wrong password and not-yet-activated all surface as AuthenticationException.
         // Map AuthenticationException to 401 "Invalid email or password" in your @ControllerAdvice.
         Authentication auth = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(email, loginRequest.getPassword()));
+                new UsernamePasswordAuthenticationToken(email, loginRequest.password()));
 
         UserReg user = (UserReg) auth.getPrincipal();
         String token = jwtService.generateToken(user);
