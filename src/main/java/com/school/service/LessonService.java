@@ -5,15 +5,17 @@ import com.school.repo.LessonRepository;
 import com.school.repo.SchoolClassesRepository;
 import com.school.repo.SubjectRepository;
 import com.school.repo.TeacherRepo;
-import org.springframework.stereotype.Service;
+import com.school.response.LessonResponse;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
+
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
 @Service
-public class LessonService {
+public class LessonService implements LessonServe {
 
     private final LessonRepository lessonRepository;
     private final SchoolClassesRepository schoolClassesRepository;
@@ -30,13 +32,23 @@ public class LessonService {
         this.subjectRepository = subjectRepository;
     }
 
-    /** Normal flow: lessons already exist because generateLessons() ran for the term. */
-    public List<Lesson> getLessonsForClassOnDate(Long classesId, LocalDate date) {
-        return lessonRepository.findByClasses_ClassesIdAndDate(classesId, date);
+    /**
+     * Normal flow: lessons already exist because generateLessons() ran for the term.
+     */
+    @Transactional(readOnly = true)
+    public List<LessonResponse> getLessonsForClassOnDate(Long classesId, LocalDate date) {
+        return lessonRepository.findByClassAndDate(classesId, date)
+                .stream()
+                .map(LessonResponse::from)
+                .toList();
     }
 
-    public List<Lesson> getLessonsForTeacherOnDate(Long teacherId, LocalDate date) {
-        return lessonRepository.findByTeacher_TeacherIdAndDate(teacherId, date);
+    @Transactional(readOnly = true)
+    public List<LessonResponse> getLessonsForTeacherOnDate(Long teacherId, LocalDate date) {
+        return lessonRepository.findByTeacherAndDate(teacherId, date)
+                .stream()
+                .map(LessonResponse::from)
+                .toList();
     }
 
     /**
@@ -44,8 +56,8 @@ public class LessonService {
      * part of the standing weekly timetable. timetableSlot is left null.
      */
     @Transactional
-    public Lesson createAdHocLesson(Long classesId, Long teacherId, Long subjectId,
-                                    LocalDate date, LocalTime start, LocalTime end) {
+    public LessonResponse createAdHocLesson(Long classesId, Long teacherId, Long subjectId,
+                                            LocalDate date, LocalTime start, LocalTime end) {
 
         SchoolClasses classes = schoolClassesRepository.findById(classesId)
                 .orElseThrow(() -> new IllegalArgumentException("Class not found"));
@@ -62,7 +74,8 @@ public class LessonService {
         lesson.setStartTime(start);
         lesson.setEndTime(end);
         // timetableSlot stays null - this lesson has no recurring template behind it
+        Lesson lesson1 = lessonRepository.save(lesson);
 
-        return lessonRepository.save(lesson);
+        return LessonResponse.from(lesson1);
     }
 }

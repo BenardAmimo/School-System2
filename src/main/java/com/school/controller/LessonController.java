@@ -2,6 +2,7 @@ package com.school.controller;
 
 import com.school.entity.Lesson;
 import com.school.request.CreateAdHocLessonRequest;
+import com.school.response.LessonResponse;
 import com.school.service.LessonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -26,7 +27,7 @@ public class LessonController {
 
     // GET /api/lessons?classesId=3&date=2026-09-29
     @GetMapping(params = "classesId")
-    public ResponseEntity<List<Lesson>> getLessonsForClass(
+    public ResponseEntity<List<LessonResponse>> getLessonsForClass(
             @RequestParam Long classesId,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return ResponseEntity.ok(lessonService.getLessonsForClassOnDate(classesId, date));
@@ -34,7 +35,7 @@ public class LessonController {
 
     // GET /api/lessons?teacherId=7&date=2026-09-29
     @GetMapping(params = "teacherId")
-    public ResponseEntity<List<Lesson>> getLessonsForTeacher(
+    public ResponseEntity<List<LessonResponse>> getLessonsForTeacher(
             @RequestParam Long teacherId,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return ResponseEntity.ok(lessonService.getLessonsForTeacherOnDate(teacherId, date));
@@ -42,8 +43,8 @@ public class LessonController {
 
     // For a substitution / makeup lesson that isn't on the standing timetable.
     @PostMapping("/ad-hoc")
-    public ResponseEntity<Lesson> createAdHocLesson(@RequestBody CreateAdHocLessonRequest request) {
-        Lesson lesson = lessonService.createAdHocLesson(
+    public ResponseEntity<LessonResponse> createAdHocLesson(@RequestBody CreateAdHocLessonRequest request) {
+        LessonResponse lesson = lessonService.createAdHocLesson(
                 request.getClassesId(),
                 request.getTeacherId(),
                 request.getSubjectId(),

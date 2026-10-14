@@ -119,11 +119,11 @@ public class TimetableSlotService implements TimetableSlotServe{
     }
 
     @Transactional
-    public void deleteSlot(Long slotId) {
-        if (!timetableSlotRepository.existsById(slotId)) {
+    public void deleteSlot(Long timeTableSlotId) {
+        if (!timetableSlotRepository.existsById(timeTableSlotId)) {
             throw new IllegalArgumentException("Timetable slot not found");
         }
-        timetableSlotRepository.deleteById(slotId);
+        timetableSlotRepository.deleteById(timeTableSlotId);
     }
 
 }

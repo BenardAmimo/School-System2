@@ -7,4 +7,5 @@ import com.school.response.TimetableSlotResponse;
 public interface TimetableSlotServe {
 
     TimetableSlotResponse createSlot(CreateTimetableSlotRequest request);
+    void deleteSlot(Long timeTableSlotId);
 }

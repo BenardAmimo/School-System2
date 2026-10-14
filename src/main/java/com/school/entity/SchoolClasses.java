@@ -1,6 +1,5 @@
 package com.school.entity;
 
-import io.micrometer.common.KeyValues;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
