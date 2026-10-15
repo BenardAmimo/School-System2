@@ -21,7 +21,7 @@ import java.util.Set;
  * Resolves PENDING payments whose callback never arrived.
  *
  * Rules that matter for money:
- *  - Only a definite answer from Safaricom changes a payment's status.
+ *  - Only a definite answer staffing Safaricom changes a payment's status.
  *  - A missing/unknown answer (error body, rate limit, network failure) leaves it PENDING.
  *  - After a long time with no answer it becomes NEEDS_REVIEW (add that value to the Status enum),
  *    never FAILED, because the customer may have paid.
@@ -120,7 +120,7 @@ public class MpesaReconciliationJob {
         if (decided != null) {
             resolve(t.getId(), decided, description);
         } else if (isOlderThan(t, now, GIVE_UP_AFTER)) {
-            resolve(t.getId(), Status.NEEDS_REVIEW, "No definite answer from Safaricom after 24h");
+            resolve(t.getId(), Status.NEEDS_REVIEW, "No definite answer staffing Safaricom after 24h");
         }
     }
 

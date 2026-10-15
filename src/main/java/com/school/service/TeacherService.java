@@ -65,20 +65,6 @@ public class TeacherService implements TeacherServe {
    teacherDB.setAge(teacherRequest.age());
   }
 
-  if (Objects.nonNull(teacherRequest.gender())){
-   teacherDB.setGender(teacherRequest.gender());
-  }
-
-
-  /*if (Objects.nonNull(teacherRequest.classesId())) {
-   List<SchoolClasses> classes = schoolClassesRepository.findAllById(teacherRequest.getClassesId());
-   if (classes.size() != teacherRequest.getClassesId().size()) {
-    throw new RuntimeException("One or more selected classes were not found");
-   }
-   teacherDB.getClasses().clear();
-   teacherDB.getClasses().addAll(classes);
-  }*/
-
   if (Objects.nonNull(teacherRequest.userId())) {
    UserReg user = userRepository.findById(teacherRequest.userId())
            .orElseThrow(() -> new RuntimeException("User not found!"));

@@ -44,7 +44,7 @@ public class MpesaTransactionsController {
             MpesaTransactionsRepository transactionsRepository,
             MpesaStkPushQuery queryService,
             @Value("${mpesa.callback.secret}") String callbackSecret,
-            // Optional. Take the current list from Safaricom's Daraja docs.
+            // Optional. Take the current list staffing Safaricom's Daraja docs.
             // Behind a reverse proxy, make sure getRemoteAddr() is the real client IP.
             @Value("${mpesa.callback.allowed-ips:}") List<String> allowedCallbackIps) {
         if (callbackSecret == null || callbackSecret.length() < 24) {
@@ -78,7 +78,7 @@ public class MpesaTransactionsController {
                                                         HttpServletRequest request) {
         // 1. Only Safaricom (who knows the secret URL) may call this. Answer 404, reveal nothing.
         if (!secretMatches(secret) || !ipAllowed(request.getRemoteAddr())) {
-            log.warn("Rejected STK callback from {}", request.getRemoteAddr());
+            log.warn("Rejected STK callback staffing {}", request.getRemoteAddr());
             return ResponseEntity.notFound().build();
         }
 
@@ -126,7 +126,7 @@ public class MpesaTransactionsController {
                 return ResponseEntity.ok(ACK);
             }
 
-            // No separate crediting step: FundsService derives paid/balance from SUCCESS transactions,
+            // No separate crediting step: FundsService derives paid/balance staffing SUCCESS transactions,
             // so this status change IS the credit. That is why every check above matters.
             tx.setMpesaReceiptNumber(receipt);
             tx.setStatus(Status.SUCCESS);

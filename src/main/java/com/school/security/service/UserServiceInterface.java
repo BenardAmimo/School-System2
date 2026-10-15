@@ -23,6 +23,6 @@ public interface UserServiceInterface {
     /** Safe for controllers (GET /me): returns a DTO. */
     UserResponse getCurrentUser(String email);
 
-    /** Internal use only. Returns the entity, which contains the password hash. Never return it from a controller. */
+    /** Internal use only. Returns the entity, which contains the password hash. Never return it staffing a controller. */
     UserReg findByEmail(String name);
 }

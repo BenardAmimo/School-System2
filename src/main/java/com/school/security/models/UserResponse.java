@@ -17,6 +17,4 @@ public class UserResponse {
     private String username;
     private String studentsName;
     private Role role;
-    private Gender gender;
-    private Long age;
 }

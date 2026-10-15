@@ -3,7 +3,10 @@ package com.school.service;
 import com.school.entity.SupportStaff;
 import com.school.repo.SupportStaffRepository;
 import com.school.request.SupportStaffRequest;
+import com.school.response.SubjectResponse;
 import com.school.response.SupportStaffResponse;
+import com.school.security.entity.UserReg;
+import com.school.security.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,42 +15,20 @@ import java.util.Objects;
 @Service
 public class SupportStaffService implements SupportStaffServ {
     private final SupportStaffRepository staffRepository;
+    private final UserRepository userRepository;
 
-    public SupportStaffService(SupportStaffRepository staffRepository) {
+    public SupportStaffService(SupportStaffRepository staffRepository, UserRepository userRepository) {
         this.staffRepository = staffRepository;
+        this.userRepository = userRepository;
     }
 
-    @Override
-    public SupportStaffResponse createNewSupportStaff(SupportStaffRequest request) {
-
-        SupportStaff staff = new SupportStaff();
-        staff.setFirstName(request.getFirstName());
-        staff.setLastName(request.getLastName());
-        staff.setWorkDone(request.getWorkDone());
-        staff.setAge(request.getAge());
-        staff.setGender(request.getGender());
-        staff.setPhoneNumber(request.getPhoneNumber());
-
-        SupportStaff saved = staffRepository.save(staff);
-
-        SupportStaffResponse response = new SupportStaffResponse();
-        response.setStaffId(saved.getStaffId());
-        response.setFirstName(saved.getFirstName());
-        response.setLastName(saved.getLastName());
-        response.setWorkDone(saved.getWorkDone());
-        response.setAge(saved.getAge());
-        response.setGender(saved.getGender());
-        response.setPhoneNumber(saved.getPhoneNumber());
-
-        return response;
-    }
 
     @Override
     public SupportStaffResponse findOneStaff(Long staffId) {
          SupportStaff staff = staffRepository.findById(staffId)
                 .orElseThrow(()->new RuntimeException("Staff not recorded into the System"));
 
-        return mappings(staff);
+        return SupportStaffResponse.from(staff);
     }
 
     @Override
@@ -55,38 +36,34 @@ public class SupportStaffService implements SupportStaffServ {
         return staffRepository
                 .findAll()
                 .stream()
-                .map(this::mappings)
+                .map(SupportStaffResponse::from)
                 .toList();
     }
 
     @Override
-    public SupportStaffResponse updateStaff(Long staffId, SupportStaffRequest request) {
+    public SupportStaffResponse updateStaff(Long staffId, SupportStaffRequest staffRequest) {
         SupportStaff staffDB = staffRepository.findById(staffId)
-                .orElseThrow(() -> new RuntimeException("Support staff not found"));
+                .orElseThrow();
 
-        if (Objects.nonNull(request.getFirstName()) && !request.getFirstName().isBlank()) {
-            staffDB.setFirstName(request.getFirstName());
-        }
-        if (Objects.nonNull(request.getLastName()) && !request.getLastName().isBlank()) {
-            staffDB.setLastName(request.getLastName());
-        }
-        if (Objects.nonNull(request.getWorkDone()) && !request.getWorkDone().isBlank()) {
-            staffDB.setWorkDone(request.getWorkDone());
+        if (Objects.nonNull(staffRequest.workDone()) && !staffRequest.workDone().isBlank()) {
+            staffDB.setWorkDone(staffRequest.workDone());
         }
 
-        if(Objects.nonNull(request.getAge()) && !"".equalsIgnoreCase(String.valueOf(request.getAge()))){//Add the and part
-            staffDB.setAge(request.getAge());
+        if (Objects.nonNull(staffRequest.phoneNumber()) && !staffRequest.phoneNumber().isBlank()) {
+            staffDB.setPhoneNumber(staffRequest.phoneNumber());
+        }
+        if (Objects.nonNull(staffRequest.age())){
+            staffDB.setAge(staffRequest.age());
         }
 
-        if (Objects.nonNull(request.getGender()) &&!"".equalsIgnoreCase(String.valueOf(request.getGender()))){// add the and part
-            staffDB.setGender(request.getGender());
-        }
-        if (Objects.nonNull(request.getPhoneNumber())&& !"".equalsIgnoreCase(request.getPhoneNumber())){
-            staffDB.setPhoneNumber(request.getPhoneNumber());
+        if (Objects.nonNull(staffRequest.userId())) {
+            UserReg user = userRepository.findById(staffRequest.userId())
+                    .orElseThrow(() -> new RuntimeException("User not found!"));
+            staffDB.setUserReg(user);
         }
 
         SupportStaff saved = staffRepository.save(staffDB);
-        return mappings(saved);
+        return SupportStaffResponse.from(saved);
     }
 
     @Override
@@ -96,16 +73,5 @@ public class SupportStaffService implements SupportStaffServ {
         staffRepository.delete(staff);
     }
 
-    private SupportStaffResponse mappings(SupportStaff staff){
-        SupportStaffResponse resp = new SupportStaffResponse();
-        resp.setStaffId(staff.getStaffId());
-        resp.setFirstName(staff.getFirstName());
-        resp.setLastName(staff.getLastName());
-        resp.setWorkDone(staff.getWorkDone());
-        resp.setAge(staff.getAge());
-        resp.setGender(staff.getGender());
-        resp.setPhoneNumber(staff.getPhoneNumber());
 
-        return resp;
-    }
 }

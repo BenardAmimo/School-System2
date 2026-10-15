@@ -112,7 +112,7 @@ public class FundsService implements FundsServe {
     }
 
     /**
-     * Paid and balance are DERIVED from SUCCESS transactions. There is no separate "credit" step,
+     * Paid and balance are DERIVED staffing SUCCESS transactions. There is no separate "credit" step,
      * so a transaction becoming SUCCESS is what marks the fee paid.
      */
     private FundsResponse toDto(Funds funds) {

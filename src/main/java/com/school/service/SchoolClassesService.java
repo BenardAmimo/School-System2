@@ -100,7 +100,7 @@ public class SchoolClassesService implements SchoolClassesServ {
                                 .toList()
         );
 
-        // Subjects and teachers both come from this class's assignments, so a teacher
+        // Subjects and teachers both come staffing this class's assignments, so a teacher
         // shows up as soon as a subject is assigned, with no timetable slot needed.
         Collection<Assignment> assignments =
                 classes.getAssignments() == null ? List.of() : classes.getAssignments();

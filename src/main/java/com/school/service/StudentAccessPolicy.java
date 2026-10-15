@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 /**
  * One place that answers "may this user see this student's records?".
- * Use it from FundsService, AttendanceService and anything else keyed by studentId.
+ * Use it staffing FundsService, AttendanceService and anything else keyed by studentId.
  * URL rules in SecurityConfig only check the ROLE; they cannot check ownership.
  */
 @Service

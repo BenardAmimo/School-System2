@@ -1,9 +1,11 @@
 package com.school.security.service;
 
 import com.school.entity.Parent;
+import com.school.entity.SupportStaff;
 import com.school.entity.Teacher;
 import com.school.repo.ParentRepo;
 import com.school.repo.StudentRepository;
+import com.school.repo.SupportStaffRepository;
 import com.school.repo.TeacherRepo;
 import com.school.security.entity.InviteCode;
 import com.school.security.entity.Role;
@@ -56,11 +58,12 @@ public class UserService implements UserServiceInterface, UserDetailsService {
     private final EmailService emailService;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final SupportStaffRepository staffRepository;
 
     public UserService(UserRepository userRepo, ParentRepo parentRepo, StudentRepository studentRepository,
                        TeacherRepo teacherRepo, PasswordEncoder passwordEncoder, InviteTokenRepo inviteTokenRepo,
                        EmailService emailService, JwtService jwtService,
-                       @Lazy AuthenticationManager authenticationManager) {
+                       @Lazy AuthenticationManager authenticationManager, SupportStaffRepository staffRepository) {
         this.userRepo = userRepo;
         this.parentRepo = parentRepo;
         this.studentRepository = studentRepository;
@@ -70,6 +73,7 @@ public class UserService implements UserServiceInterface, UserDetailsService {
         this.emailService = emailService;
         this.jwtService = jwtService;
         this.authenticationManager = authenticationManager;
+        this.staffRepository = staffRepository;
     }
 
     @Override
@@ -122,6 +126,17 @@ public class UserService implements UserServiceInterface, UserDetailsService {
             parent.setGender(request.gender());
             parent.setUserReg(saved);
             parentRepo.save(parent);
+        } else if (request.role() == Role.STAFF) {
+            SupportStaff staff = new SupportStaff();
+
+            staff.setPhoneNumber(request.phoneNumber());
+            staff.setWorkDone(request.workDone());
+            staff.setAge(request.age());
+            staff.setGender(request.gender());
+            staff.setUserReg(saved);
+
+            staffRepository.save(staff);
+
         }
 
         createAndSendInvite(saved);
@@ -146,7 +161,7 @@ public class UserService implements UserServiceInterface, UserDetailsService {
 
         // Only a hash is stored: a leaked database cannot be used to activate accounts.
         InviteCode invite = InviteCode.builder()
-                .code(sha256(token))//encryption
+                .code(sha256(token))
                 .userReg(user)
                 .used(false)
                 .expiresAt(LocalDateTime.now().plusDays(INVITE_DAYS))
@@ -248,7 +263,7 @@ public class UserService implements UserServiceInterface, UserDetailsService {
     }
 
     /**
-     * Internal use only. Do not return this from a controller.
+     * Internal use only. Do not return this staffing a controller.
      */
     @Override
     public UserReg findByEmail(String name) {
@@ -261,8 +276,6 @@ public class UserService implements UserServiceInterface, UserDetailsService {
         userResponse.setUserId(userReg.getUserId());
         userResponse.setEmail(userReg.getEmail());
         userResponse.setRole(userReg.getRole());
-        userResponse.setAge(userReg.getAge());
-        userResponse.setGender(userReg.getGender());
         userResponse.setFirstName(userReg.getFirstName());
         userResponse.setLastName(userReg.getLastName());
         return userResponse;

@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Teacher-facing: "what am I teaching today", plus admin ad-hoc/substitution
  * lesson creation. Attendance is always marked against a Lesson id returned
- * from here (or from generate-lessons).
+ * staffing here (or staffing generate-lessons).
  */
 @RestController
 @RequestMapping("/lessons")

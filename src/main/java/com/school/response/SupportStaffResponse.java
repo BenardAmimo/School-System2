@@ -1,20 +1,34 @@
 package com.school.response;
 
 import com.school.entity.Gender;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.school.entity.SupportStaff;
+import com.school.security.entity.UserReg;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class SupportStaffResponse {
-    private Long staffId;
-    private String firstName;
-    private String lastName;
-    private String workDone;
-    private Gender gender;
-    private Long age;
-    private String phoneNumber;
+public record SupportStaffResponse(
+        Long staffId,
+        String firstName,
+        String lastName,
+        String email,
+        String workDone,
+        Gender gender,
+        Long age,
+        String phoneNumber,
+        boolean enabled
+) {
+    public static SupportStaffResponse from(SupportStaff staffs) {
+        UserReg user = staffs.getUserReg();
+        return new SupportStaffResponse(
+                staffs.getStaffId(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getEmail(),
+                staffs.getWorkDone(),
+                staffs.getGender(),
+                staffs.getAge(),
+                staffs.getPhoneNumber(),
+                user.isEnabled()
+        );
+
+    }
 
 }

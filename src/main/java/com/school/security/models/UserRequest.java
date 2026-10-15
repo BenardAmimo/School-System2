@@ -16,7 +16,7 @@ public record UserRequest(
         String email,
 
         @NotBlank
-        Boolean enabled,
+        boolean enabled,
 
         @NotBlank
         Role role,
@@ -31,7 +31,10 @@ public record UserRequest(
         Gender gender,
 
         @NonNull
-        Long age
+        Long age,
+
+        @NotBlank
+        String workDone
 
 ){
 

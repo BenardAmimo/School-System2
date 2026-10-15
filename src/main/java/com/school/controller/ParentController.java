@@ -36,7 +36,7 @@ public class ParentController {
     public ResponseEntity<ParentResponse> getParentById(@PathVariable("parentId") Long parentId){
         log.info("Get request for parent with id {} ",parentId);
         ParentResponse parent = parentService.getParentById(parentId);
-        log.info("Parent found with id {} ",parent.getParentId());
+        log.info("Parent found with id {} ",parent.parentId());
         return ResponseEntity.ok(parent);
     }
 
@@ -53,7 +53,7 @@ public class ParentController {
     public ResponseEntity<ParentResponse>getParentByName(@PathVariable("name")String name){
         log.info("Get Request for parent: {} ",name);
         ParentResponse parentResponse = parentService.getParentByName(name);
-        log.info("Parent with id {} found",parentResponse.getParentId());
+        log.info("Parent with id {} found",parentResponse.parentId());
         return ResponseEntity.ok(parentResponse);
     }
 

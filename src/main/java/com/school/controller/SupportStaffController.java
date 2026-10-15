@@ -17,13 +17,6 @@ public class SupportStaffController {
         this.staffService = staffService;
     }
 
-    @PostMapping("/staff")
-    public ResponseEntity<SupportStaffResponse> createNewSupportStaff(@RequestBody SupportStaffRequest request){
-        SupportStaffResponse res = staffService.createNewSupportStaff(request);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(res);
-    }
-
     @GetMapping("/staff/{staffId}")
     public ResponseEntity<SupportStaffResponse> findOneStaff(@PathVariable("staffId") Long staffId){
         SupportStaffResponse staffResponse = staffService.findOneStaff(staffId);

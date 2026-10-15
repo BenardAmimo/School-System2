@@ -287,7 +287,7 @@ public class MpesaTransactionService implements MpesaTransServe {
                 .block(Duration.ofSeconds(15));
 
         if (response == null) {
-            throw new IllegalStateException("Empty response from Safaricom"); // outcome unknown, not a clean rejection
+            throw new IllegalStateException("Empty response staffing Safaricom"); // outcome unknown, not a clean rejection
         }
         return response;
     }

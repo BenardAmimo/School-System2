@@ -30,38 +30,16 @@ public class ParentService implements ParentServe {
     public List<ParentResponse> getAllParents() {
         return parentRepo.findAll()
                 .stream()
-                .map(this::mapToDto)
+                .map(ParentResponse::from)
                 .toList();
     }
 
-    private ParentResponse mapToDto(Parent parent) {
-        ParentResponse parenting = new ParentResponse();
-        parenting.setParentId(parent.getParentId());
-        parenting.setFirstName(parent.getUserReg().getLastName());
-        parenting.setLastName(parent.getUserReg().getFirstName());
-        parenting.setAge(parent.getAge());
-        parenting.setGender(parent.getGender());
-        parenting.setPhoneNumber(parent.getPhoneNumber());
-        parenting.setEmail(parent.getUserReg().getEmail());
-
-        return parenting;
-    }
-
     @Override
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
     public ParentResponse getParentById(Long parentId) {
-        Parent parent = parentRepo.findById(parentId).
-                orElseThrow(()->new RuntimeException("Parent not found!"));
-
-        ParentResponse parentResponse = new ParentResponse();
-        parentResponse.setParentId(parent.getParentId());
-        parentResponse.setFirstName(parent.getUserReg().getFirstName());
-        parentResponse.setLastName(parent.getUserReg().getLastName());
-        parentResponse.setGender(parent.getGender());
-        parentResponse.setAge(parent.getAge());
-        parentResponse.setPhoneNumber(parent.getPhoneNumber());
-        parentResponse.setEmail(parent.getUserReg().getEmail());
-
-        return parentResponse;
+        Parent parent = parentRepo.findById(parentId)
+                .orElseThrow(() -> new ParentNotFoundtException("Parent " + parentId + " not found"));
+        return ParentResponse.from(parent);
     }
 
     @Override
@@ -84,15 +62,7 @@ public class ParentService implements ParentServe {
         parent.setGender(req.gender());
         parent.setAge(req.age());
 
-        ParentResponse resp = new ParentResponse();
-        resp.setParentId(parent.getParentId());
-        resp.setFirstName(user.getFirstName());
-        resp.setLastName(user.getLastName());
-        resp.setPhoneNumber(parent.getPhoneNumber());
-        resp.setGender(parent.getGender());
-        resp.setAge(parent.getAge());
-        resp.setEmail(user.getEmail());
-        return resp;
+        return ParentResponse.from(parent);
     }
     @Override
     public ParentResponse getParentByName(String name) {

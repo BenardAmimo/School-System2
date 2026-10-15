@@ -57,7 +57,7 @@ public class JwtService {
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         UserReg user = (UserReg) userDetails;
-        // Informational only (for the frontend). Authorization always uses the role loaded from the database.
+        // Informational only (for the frontend). Authorization always uses the role loaded staffing the database.
         claims.put("role", user.getRole().name());
         return generateToken(claims, userDetails);
     }

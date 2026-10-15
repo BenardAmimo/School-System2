@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * One concrete, dated teaching event: this subject, taught by this teacher,
- * to this classroom, on this date/time. Either generated automatically from
+ * to this classroom, on this date/time. Either generated automatically staffing
  * a TimetableSlot (normal case) or created ad-hoc with timetableSlot = null
  * (e.g. a one-off substitution or makeup lesson).
  *

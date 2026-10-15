@@ -4,5 +4,6 @@ public enum Role {
     PARENT,
     TEACHER,
     ADMIN,
-    SUPER_ADMIN
+    SUPER_ADMIN,
+    STAFF
 }

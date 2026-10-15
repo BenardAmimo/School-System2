@@ -48,11 +48,6 @@ public class UserReg implements UserDetails {
 
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
-
-    private Long age;
-
     @Column(nullable = false)
     private boolean enabled;
 
@@ -70,6 +65,10 @@ public class UserReg implements UserDetails {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Teacher teacher;
+    @OneToOne(
+            mappedBy = "userReg"
+    )
+    private SupportStaff staff;
 
 
 

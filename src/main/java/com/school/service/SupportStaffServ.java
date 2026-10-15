@@ -6,13 +6,12 @@ import com.school.response.SupportStaffResponse;
 import java.util.List;
 
 public interface SupportStaffServ {
-    SupportStaffResponse createNewSupportStaff(SupportStaffRequest request);
 
     SupportStaffResponse findOneStaff(Long staffId);
 
     List<SupportStaffResponse> getAllStaffs();
 
-    SupportStaffResponse updateStaff(Long staffId, SupportStaffRequest request);
+    SupportStaffResponse updateStaff(Long staffId, SupportStaffRequest staffRequest);
 
     void deleteStaffById(Long staffId);
 }
