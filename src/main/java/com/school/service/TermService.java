@@ -20,10 +20,10 @@ public class TermService implements TermServe{
     @Override
     public TermResponse createNewTerm(TermRequest termRequest) {
         Term term = new Term();
-        term.setName(termRequest.getName());
-        term.setYear(termRequest.getYear());
-        term.setStartDate(termRequest.getStartDate());
-        term.setEndDate(termRequest.getEndDate());
+        term.setName(termRequest.name());
+        term.setYear(termRequest.year());
+        term.setStartDate(termRequest.startDate());
+        term.setEndDate(termRequest.endDate());
 
         Term saved = termRepository.save(term);
 
@@ -53,20 +53,20 @@ public class TermService implements TermServe{
         Term termDB = termRepository.findById(termId)
                 .orElseThrow(()->new RuntimeException("Term not found!"));
 
-        if(Objects.nonNull(request.getName()) && !request.getName().isBlank()){
-            termDB.setName(request.getName());
+        if(Objects.nonNull(request.name()) && !request.name().isBlank()){
+            termDB.setName(request.name());
         }
 
-        if (Objects.nonNull(request.getStartDate())){//add the && part
-            termDB.setStartDate(request.getStartDate());
+        if (Objects.nonNull(request.startDate())){//add the && part
+            termDB.setStartDate(request.startDate());
         }
 
-        if (Objects.nonNull(request.getEndDate())){//add the && part
-            termDB.setEndDate(request.getEndDate());
+        if (Objects.nonNull(request.endDate())){//add the && part
+            termDB.setEndDate(request.endDate());
         }
 
-        if (Objects.nonNull(request.getYear()) && !request.getYear().isBlank()){
-            termDB.setYear(request.getYear());
+        if (Objects.nonNull(request.year()) && !request.year().isBlank()){
+            termDB.setYear(request.year());
         }
 
         Term term = termRepository.save(termDB);

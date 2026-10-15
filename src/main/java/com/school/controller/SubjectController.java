@@ -62,7 +62,7 @@ public class SubjectController {
     @PutMapping("/subject/{subjectId}")
     public ResponseEntity<SubjectResponse> updateSubject(@PathVariable("subjectId")Long subjectId ,
                                                          @RequestBody SubjectRequest subjectRequest){
-        log.info("Updating subjectName {} ",subjectRequest.getName());
+        log.info("Updating subjectName {} ",subjectRequest.name());
 
         SubjectResponse updating = subjectService.updateSubject(subjectId,subjectRequest);
 

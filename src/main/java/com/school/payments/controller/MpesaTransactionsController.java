@@ -1,5 +1,5 @@
 package com.school.payments.controller;
-import tools.jackson.databind.JsonNode;              // Jackson 3
+import tools.jackson.databind.JsonNode;
 import com.school.payments.entity.MpesaTransactions;
 import com.school.payments.entity.Status;
 import com.school.payments.model.MpesaTransactionRequest;
@@ -24,9 +24,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
-/**
- * No @CrossOrigin here: CORS is configured once, globally, in SecurityConfig.
- */
+
 @RestController
 @Slf4j
 public class MpesaTransactionsController {
@@ -44,7 +42,7 @@ public class MpesaTransactionsController {
             MpesaTransactionsRepository transactionsRepository,
             MpesaStkPushQuery queryService,
             @Value("${mpesa.callback.secret}") String callbackSecret,
-            // Optional. Take the current list staffing Safaricom's Daraja docs.
+            // Optional. Take the current list from Safaricom's Daraja docs.
             // Behind a reverse proxy, make sure getRemoteAddr() is the real client IP.
             @Value("${mpesa.callback.allowed-ips:}") List<String> allowedCallbackIps) {
         if (callbackSecret == null || callbackSecret.length() < 24) {
@@ -78,7 +76,7 @@ public class MpesaTransactionsController {
                                                         HttpServletRequest request) {
         // 1. Only Safaricom (who knows the secret URL) may call this. Answer 404, reveal nothing.
         if (!secretMatches(secret) || !ipAllowed(request.getRemoteAddr())) {
-            log.warn("Rejected STK callback staffing {}", request.getRemoteAddr());
+            log.warn("Rejected STK callback from {}", request.getRemoteAddr());
             return ResponseEntity.notFound().build();
         }
 

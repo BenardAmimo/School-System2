@@ -24,8 +24,8 @@ public class SubjectService implements SubjectServe {
     public SubjectResponse createSubject(SubjectRequest subjectRequest) {
 
         Subject subject = new Subject();
-        subject.setName(subjectRequest.getName());
-        subject.setDescription(subjectRequest.getDescription());
+        subject.setName(subjectRequest.name());
+        subject.setDescription(subjectRequest.description());
 
         Subject saved = subjectRepository.save(subject);
         return mapToDto(saved);
@@ -78,12 +78,12 @@ public class SubjectService implements SubjectServe {
         Subject subjectDB = subjectRepository.findById(subjectId)
                 .orElseThrow(() -> new RuntimeException("Subject not found"));
 
-        if (Objects.nonNull(subjectRequest.getName()) && !subjectRequest.getName().isBlank()) {
-            subjectDB.setName(subjectRequest.getName());
+        if (Objects.nonNull(subjectRequest.name()) && !subjectRequest.name().isBlank()) {
+            subjectDB.setName(subjectRequest.name());
         }
 
-        if (Objects.nonNull(subjectRequest.getDescription()) && !subjectRequest.getDescription().isBlank()) {
-            subjectDB.setDescription(subjectRequest.getDescription());
+        if (Objects.nonNull(subjectRequest.description()) && !subjectRequest.description().isBlank()) {
+            subjectDB.setDescription(subjectRequest.description());
         }
 
 

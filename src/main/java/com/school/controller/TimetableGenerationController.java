@@ -25,13 +25,13 @@ public class TimetableGenerationController {
     @PostMapping("/generate-lessons")
     public ResponseEntity<Map<String, Object>> generateLessons(@RequestBody GenerateLessonsRequest request) {
         int created = timetableGenerationService.generateLessons(
-                request.getStartDate(),
-                request.getEndDate()
+                request.startDate(),
+                request.endDate()
         );
         return ResponseEntity.ok(Map.of(
                 "lessonsCreated", created,
-                "startDate", request.getStartDate(),
-                "endDate", request.getEndDate()
+                "startDate", request.startDate(),
+                "endDate", request.endDate()
         ));
     }
 }

@@ -50,8 +50,7 @@ public class TimetableSlotService implements TimetableSlotServe{
         Subject subject = subjectRepository.findById(request.subjectId())
                 .orElseThrow(() -> new IllegalArgumentException("Subject not found"));
 
-        // Optional but recommended: only allow teachers to be slotted for
-        // subjects they're actually assigned to teach (Teacher<->Subject many-to-many).
+
         boolean assigned = assignmentRepository
                 .existsByTeacher_TeacherIdAndSubject_SubjectIdAndClasses_ClassesId(request.teacherId(), request.subjectId(), request.classesId());
 

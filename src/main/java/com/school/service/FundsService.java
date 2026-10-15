@@ -39,26 +39,26 @@ public class FundsService implements FundsServe {
     @Override
     @Transactional
     public FundsResponse createFunds(FundsRequest fundsRequest) {
-        requirePositive(fundsRequest.getAmount());
+        requirePositive(fundsRequest.amount());
 
-        Student student = studentRepo.findById(fundsRequest.getStudentId())
+        Student student = studentRepo.findById(fundsRequest.studentId())
                 .orElseThrow(() -> new RuntimeException("Student is not found"));
 
-        Term term = termRepository.findById(fundsRequest.getTermId())
+        Term term = termRepository.findById(fundsRequest.termId())
                 .orElseThrow(() -> new RuntimeException("No term Found for those funds"));
 
         // Same duplicate rule the bulk endpoint already applies.
         if (fundsRepository.existsByStudents_StudentIdAndTerm_TermIdAndFundsType(
-                student.getStudentId(), term.getTermId(), fundsRequest.getFundsType())) {
+                student.getStudentId(), term.getTermId(), fundsRequest.fundsType())) {
             throw new IllegalStateException("This fee already exists for the student and term");
         }
 
         Funds funds = new Funds();
-        funds.setAmount(fundsRequest.getAmount());
+        funds.setAmount(fundsRequest.amount());
         funds.setStudents(student);
         funds.setCreatedAt(LocalDateTime.now());
         funds.setTerm(term);
-        funds.setFundsType(fundsRequest.getFundsType());
+        funds.setFundsType(fundsRequest.fundsType());
         fundsRepository.save(funds);
 
         return FundsResponse.builder()
@@ -74,22 +74,22 @@ public class FundsService implements FundsServe {
     @Override
     @Transactional
     public int createFundsForAllStudents(BulkFundsRequest request) {
-        requirePositive(request.getAmount());
+        requirePositive(request.amount());
 
-        Term term = termRepository.findById(request.getTermId())
+        Term term = termRepository.findById(request.termId())
                 .orElseThrow(() -> new RuntimeException("Term not found"));
 
-        List<Student> students = studentRepo.findByClasses_ClassesId(request.getClassesId());
+        List<Student> students = studentRepo.findByClasses_ClassesId(request.classesId());
 
         List<Funds> newFunds = students.stream()
                 .filter(student -> !fundsRepository.existsByStudents_StudentIdAndTerm_TermIdAndFundsType(
-                        student.getStudentId(), term.getTermId(), request.getFundsType()))
+                        student.getStudentId(), term.getTermId(), request.fundsType()))
                 .map(student -> {
                     Funds funds = new Funds();
                     funds.setStudents(student);
                     funds.setTerm(term);
-                    funds.setFundsType(request.getFundsType());
-                    funds.setAmount(request.getAmount());
+                    funds.setFundsType(request.fundsType());
+                    funds.setAmount(request.amount());
                     funds.setCreatedAt(LocalDateTime.now());
                     return funds;
                 })

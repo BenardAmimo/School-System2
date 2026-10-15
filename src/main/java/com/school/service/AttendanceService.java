@@ -50,30 +50,30 @@ public class AttendanceService {
         java.util.Set<Long> seen = new java.util.HashSet<>();
 
         for (MarkAttendanceRequest mark : marks) {
-            if (mark.getStudentId() == null || mark.getStatus() == null) {
+            if (mark.studentId() == null || mark.status() == null) {
                 throw new IllegalArgumentException("Each mark needs a studentId and a status");
             }
-            if (!seen.add(mark.getStudentId())) {
-                throw new IllegalArgumentException("Student listed twice: " + mark.getStudentId());
+            if (!seen.add(mark.studentId())) {
+                throw new IllegalArgumentException("Student listed twice: " + mark.studentId());
             }
-            if (attendanceRepository.existsByStudent_StudentIdAndLesson_LessonId(mark.getStudentId(), lessonId)) {
+            if (attendanceRepository.existsByStudent_StudentIdAndLesson_LessonId(mark.studentId(), lessonId)) {
                 continue; // already marked
             }
 
-            Student student = studentRepository.findById(mark.getStudentId())
-                    .orElseThrow(() -> new IllegalArgumentException("Student not found: " + mark.getStudentId()));
+            Student student = studentRepository.findById(mark.studentId())
+                    .orElseThrow(() -> new IllegalArgumentException("Student not found: " + mark.studentId()));
 
             // A student can only be marked in a lesson for their own class.
             // Adjust getClasses()/getClassesId() if your entity names differ.
             if (lesson.getClasses() == null || student.getClasses() == null
                     || !Objects.equals(lesson.getClasses().getClassesId(), student.getClasses().getClassesId())) {
-                throw new IllegalArgumentException("Student " + mark.getStudentId() + " is not in this lesson's class");
+                throw new IllegalArgumentException("Student " + mark.studentId() + " is not in this lesson's class");
             }
 
             Attendance attendance = new Attendance();
             attendance.setStudent(student);
             attendance.setLesson(lesson);
-            attendance.setStatus(mark.getStatus());
+            attendance.setStatus(mark.status());
             saved.add(attendanceRepository.save(attendance));
         }
 

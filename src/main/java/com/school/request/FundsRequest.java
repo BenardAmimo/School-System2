@@ -1,14 +1,14 @@
 package com.school.request;
 
 import com.school.entity.FundsType;
-import lombok.Data;
+
 
 import java.math.BigDecimal;
+public record FundsRequest(
+        Long studentId,
+        BigDecimal amount,
+        Long termId,
+        FundsType fundsType
+) {
 
-@Data
-public class FundsRequest {
-    private Long studentId;
-    private BigDecimal amount;
-    private Long termId;
-    private FundsType fundsType;
 }

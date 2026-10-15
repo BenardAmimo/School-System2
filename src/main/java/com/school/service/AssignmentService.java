@@ -30,13 +30,13 @@ public class AssignmentService implements AssignServe{
     @Override
     public AssignmentResponse assignSubject(AssignmentRequest request) throws SubjectNotFoundException {
 
-        Teacher teacher = teacherRepo.findById(request.getTeacherId()).
+        Teacher teacher = teacherRepo.findById(request.teacherId()).
                 orElseThrow(()->new TeacherNotFoundException("Teacher not found!"));
 
-        Subject subject = subjectRepository.findById(request.getSubjectId()).
+        Subject subject = subjectRepository.findById(request.subjectId()).
                 orElseThrow(()->new SubjectNotFoundException("Course not Found!"));
 
-        SchoolClasses classes = schoolClassesRepository.findById(request.getClassesId())
+        SchoolClasses classes = schoolClassesRepository.findById(request.classesId())
                 .orElseThrow(()->new SchoolClassesNotFoundException("Classes Not Found"));
 
         Assignment assignment = new Assignment();
@@ -97,22 +97,22 @@ public class AssignmentService implements AssignServe{
         Assignment assignDB = repository.findById(assignmentId).
                 orElseThrow(()->new RuntimeException("Assignment not found in the System"));
 
-        if(Objects.nonNull(assignmentRequest.getSubjectId())){
-            Subject subject = subjectRepository.findById(assignmentRequest.getSubjectId()).
+        if(Objects.nonNull(assignmentRequest.subjectId())){
+            Subject subject = subjectRepository.findById(assignmentRequest.subjectId()).
                     orElseThrow(()->new RuntimeException("Subject not found"));
 
             assignDB.setSubject(subject);
         }
 
-        if(Objects.nonNull(assignmentRequest.getTeacherId())){
-            Teacher teach = teacherRepo.findById(assignmentRequest.getSubjectId()).
+        if(Objects.nonNull(assignmentRequest.teacherId())){
+            Teacher teach = teacherRepo.findById(assignmentRequest.subjectId()).
                     orElseThrow(()->new RuntimeException("Teacher not found"));
 
             assignDB.setTeacher(teach);
         }
 
-        if(Objects.nonNull(assignmentRequest.getClassesId())){
-            SchoolClasses classes = schoolClassesRepository.findById(assignmentRequest.getClassesId()).
+        if(Objects.nonNull(assignmentRequest.classesId())){
+            SchoolClasses classes = schoolClassesRepository.findById(assignmentRequest.classesId()).
                     orElseThrow(()->new RuntimeException("Teacher not found"));
 
             assignDB.setClasses(classes);

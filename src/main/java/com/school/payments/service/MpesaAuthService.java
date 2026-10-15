@@ -55,7 +55,7 @@ public class MpesaAuthService {
 
         // Was `body == null && body.get(...)`, which throws a NullPointerException exactly when body is null.
         if (body == null || body.get("access_token") == null || body.get("expires_in") == null) {
-            throw new MpesaException("No token response staffing Safaricom");
+            throw new MpesaException("No token response from Safaricom");
         }
 
         long expiresIn = Long.parseLong(body.get("expires_in").toString());

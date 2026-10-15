@@ -45,12 +45,12 @@ public class LessonController {
     @PostMapping("/ad-hoc")
     public ResponseEntity<LessonResponse> createAdHocLesson(@RequestBody CreateAdHocLessonRequest request) {
         LessonResponse lesson = lessonService.createAdHocLesson(
-                request.getClassesId(),
-                request.getTeacherId(),
-                request.getSubjectId(),
-                request.getDate(),
-                request.getStartTime(),
-                request.getEndTime()
+                request.classesId(),
+                request.teacherId(),
+                request.subjectId(),
+                request.date(),
+                request.startTime(),
+                request.endTime()
         );
         return ResponseEntity.status(HttpStatus.CREATED).body(lesson);
     }

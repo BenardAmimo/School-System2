@@ -27,17 +27,17 @@ public class StudentsService implements StudentsServ {
 
     @Override
     public StudentResponse createStudents(StudentRequest studentRequest) {
-        Parent parent = parentRepo.findById(studentRequest.getParentId())
+        Parent parent = parentRepo.findById(studentRequest.parentId())
                 .orElseThrow(() -> new RuntimeException("Parent not found"));
 
-        SchoolClasses classes = schoolClassesRepository.findById(studentRequest.getClassesId())
+        SchoolClasses classes = schoolClassesRepository.findById(studentRequest.classesId())
                 .orElseThrow(() -> new RuntimeException("No class available"));
 
         Student student = new Student();
-        student.setFirstName(studentRequest.getFirstName());
-        student.setLastName(studentRequest.getLastName());
-        student.setAge(studentRequest.getAge());
-        student.setGender(studentRequest.getGender());
+        student.setFirstName(studentRequest.firstName());
+        student.setLastName(studentRequest.lastName());
+        student.setAge(studentRequest.age());
+        student.setGender(studentRequest.gender());
         student.setParent(parent);
         student.setClasses(classes);
 
@@ -74,30 +74,30 @@ public class StudentsService implements StudentsServ {
         Student studentDB = studentRepository.findById(studentId)
                 .orElseThrow(() -> new RuntimeException("Student not found"));
 
-        if (Objects.nonNull(request.getFirstName()) && !request.getFirstName().isBlank()) {
-            studentDB.setFirstName(request.getFirstName());
+        if (Objects.nonNull(request.firstName()) && !request.firstName().isBlank()) {
+            studentDB.setFirstName(request.firstName());
         }
 
-        if (Objects.nonNull(request.getLastName()) && !request.getLastName().isBlank()) {
-            studentDB.setLastName(request.getLastName());
+        if (Objects.nonNull(request.lastName()) && !request.lastName().isBlank()) {
+            studentDB.setLastName(request.lastName());
         }
 
-        if (Objects.nonNull(request.getGender())) {
-            studentDB.setGender(request.getGender());
+        if (Objects.nonNull(request.gender())) {
+            studentDB.setGender(request.gender());
         }
 
-        if (Objects.nonNull(request.getAge())) {
-            studentDB.setAge(request.getAge());
+        if (Objects.nonNull(request.age())) {
+            studentDB.setAge(request.age());
         }
 
-        if (Objects.nonNull(request.getParentId())) {
-            Parent parent = parentRepo.findById(request.getParentId())
+        if (Objects.nonNull(request.parentId())) {
+            Parent parent = parentRepo.findById(request.parentId())
                     .orElseThrow(() -> new RuntimeException("No Parent Found"));
             studentDB.setParent(parent);
         }
 
-        if (Objects.nonNull(request.getClassesId())) {
-            SchoolClasses classes = schoolClassesRepository.findById(request.getClassesId())
+        if (Objects.nonNull(request.classesId())) {
+            SchoolClasses classes = schoolClassesRepository.findById(request.classesId())
                     .orElseThrow(() -> new RuntimeException("No classes"));
             studentDB.setClasses(classes);
         }

@@ -33,9 +33,9 @@ public class SchoolClassesService implements SchoolClassesServ {
     public SchoolClassesResponse createClasses(SchoolClassesRequest schoolClassesRequest) {
         SchoolClasses classes = new SchoolClasses();
 
-        classes.setName(schoolClassesRequest.getName());
-        classes.setYear(schoolClassesRequest.getYear());
-        classes.setLocation(schoolClassesRequest.getLocation());
+        classes.setName(schoolClassesRequest.name());
+        classes.setYear(schoolClassesRequest.year());
+        classes.setLocation(schoolClassesRequest.location());
 
         SchoolClasses saved = classesRepository.save(classes);
         return tomapping(saved);
@@ -67,16 +67,16 @@ public class SchoolClassesService implements SchoolClassesServ {
         SchoolClasses classDB = classesRepository.findById(classesId)
                 .orElseThrow(() -> new IllegalArgumentException("Classes not found in the System"));
 
-        if (Objects.nonNull(classesRequest.getLocation()) && !classesRequest.getLocation().isBlank()) {
-            classDB.setLocation(classesRequest.getLocation());
+        if (Objects.nonNull(classesRequest.location()) && !classesRequest.location().isBlank()) {
+            classDB.setLocation(classesRequest.location());
         }
 
-        if (Objects.nonNull(classesRequest.getName()) && !classesRequest.getName().isBlank()) {
-            classDB.setName(classesRequest.getName());
+        if (Objects.nonNull(classesRequest.name()) && !classesRequest.name().isBlank()) {
+            classDB.setName(classesRequest.name());
         }
 
-        if (Objects.nonNull(classesRequest.getYear()) && !classesRequest.getYear().isBlank()) {
-            classDB.setYear(classesRequest.getYear());
+        if (Objects.nonNull(classesRequest.year()) && !classesRequest.year().isBlank()) {
+            classDB.setYear(classesRequest.year());
         }
 
         SchoolClasses saving = classesRepository.save(classDB);
