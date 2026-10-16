@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * "This teacher teaches this subject in this class."
  * A teacher can have many assignments (several subjects, several classes).
@@ -49,6 +52,12 @@ public class Assignment {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "classes_id", referencedColumnName = "classesId")
     private SchoolClasses classes;
+
+    @OneToMany(
+            mappedBy = "assignment"
+    )
+    private List<Exam> exams = new ArrayList<>();
+
 
     // Identity-based equality. Lombok's @Data would include teacher, subject and classes in
     // equals/hashCode/toString, and those point back to their assignments: a StackOverflowError.
