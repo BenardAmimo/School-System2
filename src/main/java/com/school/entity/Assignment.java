@@ -58,7 +58,6 @@ public class Assignment {
     )
     private List<Exam> exams = new ArrayList<>();
 
-
     // Identity-based equality. Lombok's @Data would include teacher, subject and classes in
     // equals/hashCode/toString, and those point back to their assignments: a StackOverflowError.
     @Override

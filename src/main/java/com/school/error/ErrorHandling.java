@@ -2,6 +2,7 @@ package com.school.error;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -59,5 +60,19 @@ public class ErrorHandling{
                 schoolClassesNotFoundException.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
     }
+//checked
+    record Err(String message) {}
+
+    @ExceptionHandler({IllegalStateException.class, IllegalArgumentException.class})
+    public ResponseEntity<Err> bad(RuntimeException ex) {
+        return ResponseEntity.badRequest().body(new Err(ex.getMessage()));
+    }
+
+    @ExceptionHandler(ObjectOptimisticLockingFailureException.class)
+    public ResponseEntity<Err> conflict() {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(new Err("This record was changed by someone else. Reload and try again."));
+    }
+
 
 }

@@ -31,7 +31,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="backend" options="-parameters" />
-      <module name="project" options="-parameters" />
+      <module name="project" options="-parameters --add-exports jdk.javadoc/jdk.javadoc.internal.html=ALL-UNNAMED" />
     </option>
   </component>
 </project>

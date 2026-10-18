@@ -18,7 +18,6 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class SubjectService implements SubjectServe {
     private final SubjectRepository subjectRepository;
-    private final SchoolClassesRepository schoolClassesRepository;
 
     @Override
     public SubjectResponse createSubject(SubjectRequest subjectRequest) {

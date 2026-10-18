@@ -35,16 +35,7 @@ public class Subject {
          orphanRemoval = true
  )
  private List<Assignment> assignment;
- /*
- @ManyToOne()
- @JoinColumn(
-        name = "classes_id",
-         referencedColumnName = "classesId"
- )
- private SchoolClasses schoolClasses;
 
- @ManyToMany(mappedBy = "subjects")
- private List<Teacher> teachers = new ArrayList<>();*/
-
+ private Integer examDurationMinutes;   // null = use the default in the generate request
 
 }

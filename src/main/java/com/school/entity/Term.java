@@ -35,8 +35,4 @@ public class Term {
     )
     private List<Funds> fundings = new ArrayList<>();
 
-    @OneToMany(
-            mappedBy = "term"
-    )
-    private List<Exam> examination = new ArrayList<>();
 }

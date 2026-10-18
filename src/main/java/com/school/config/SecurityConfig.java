@@ -70,6 +70,7 @@ public class SecurityConfig {
                                 "/attendance/**",
                                 "/lessons/**",
                                 "/timetable/**",
+                                "/exams/**",
                                 "/timetable-slots/**"
                         ).hasAnyRole("SUPER_ADMIN", "ADMIN", "STAFF", "TEACHER")
 
