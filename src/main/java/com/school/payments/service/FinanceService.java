@@ -26,7 +26,7 @@ public class FinanceService {
                 .findTop10ByOrderByCreatedAtDesc()
                 .stream()
                 .map(t -> new RecentTransactionResponse(
-                        t.getFunds().getStudents().getFirstName() + " " + t.getFunds().getStudents().getLastName(),
+                        t.getStudent().getFirstName() + " " + t.getStudent().getLastName(),
                         t.getAmount(),
                         t.getStatus().name(),
                         t.getCreatedAt()))

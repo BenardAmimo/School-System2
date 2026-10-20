@@ -13,20 +13,20 @@ public interface ExamResultRepository extends JpaRepository<ExamResult, Long> {
     boolean existsByExamExamId(Long examId);
 
     @Query("""
-        select r from ExamResult r
-        join fetch r.student s join fetch s.userReg
-        where r.exam.examId = :examId
-        """)
+    select r from ExamResult r
+    join fetch r.student s
+    where r.exam.examId = :examId
+    """)
     List<ExamResult> findByExamWithStudents(Long examId);
 
     @Query("""
-        select r from ExamResult r
-        join fetch r.student s join fetch s.userReg
-        join fetch r.exam e join fetch e.assignment a join fetch a.subject
-        join fetch e.examPeriod p
-        where a.schoolClass.classesId = :classId
-          and p.term.termId = :termId
-          and r.status = :status
-        """)
+    select r from ExamResult r
+    join fetch r.student s
+    join fetch r.exam e join fetch e.assignment a join fetch a.subject
+    join fetch e.examPeriod p
+    where a.classes.classesId = :classId
+      and p.term.termId = :termId
+      and r.status = :status
+    """)
     List<ExamResult> findByClassAndTermAndStatus(Long classId, Long termId, ResultStatus status);
 }

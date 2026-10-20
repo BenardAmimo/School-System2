@@ -62,7 +62,9 @@ public class SecurityConfig {
                                 "/assignments/**",
                                 "/teachers/**",
                                 "/students/**",
-                                "/parents/**"
+                                "/parents/**",
+                                "/exams/{examId}/results",
+                                "/reports/**"
                         ).hasAnyRole("SUPER_ADMIN", "ADMIN", "STAFF", "TEACHER", "PARENT")
 
                         // academic and timetable access
@@ -71,7 +73,8 @@ public class SecurityConfig {
                                 "/lessons/**",
                                 "/timetable/**",
                                 "/exams/**",
-                                "/timetable-slots/**"
+                                "/timetable-slots/**",
+                                "/exam-periods/**"
                         ).hasAnyRole("SUPER_ADMIN", "ADMIN", "STAFF", "TEACHER")
 
                         // everything else must be authenticated

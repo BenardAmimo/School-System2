@@ -47,14 +47,7 @@ public class AssignmentService implements AssignServe{
 
         Assignment saved = repository.save(assignment);
 
-        AssignmentResponse resp = new AssignmentResponse();
-        resp.setAssignmentId(saved.getAssignmentId());
-        resp.setSubjectName(saved.getSubject().getName());
-        resp.setTeacherName(saved.getTeacher().getUserReg().getFirstName());
-        resp.setTeacherName(saved.getTeacher().getUserReg().getLastName());
-        resp.setClassesName(saved.getClasses().getName());
-
-        return resp;
+       return AssignmentResponse.from(saved);
     }
 
     @Override
@@ -62,33 +55,14 @@ public class AssignmentService implements AssignServe{
         Assignment assignment = repository.findById(assignmentId).
                 orElseThrow(()->new RuntimeException("Assignment not Found"));
 
-        AssignmentResponse assignmentResponse = new AssignmentResponse();
-
-        assignmentResponse.setAssignmentId(assignment.getAssignmentId());
-        assignmentResponse.setTeacherName(assignment.getTeacher().getUserReg().getFirstName());
-        assignmentResponse.setTeacherName(assignment.getTeacher().getUserReg().getLastName());
-        assignmentResponse.setSubjectName(assignment.getSubject().getName());
-        assignmentResponse.setClassesName(assignment.getClasses().getName());
-
-        return assignmentResponse;
-    }
-//mapper
-    private AssignmentResponse toResponse(Assignment ca) {
-
-        AssignmentResponse res = new AssignmentResponse();
-        res.setAssignmentId(ca.getAssignmentId());
-        res.setTeacherName(ca.getTeacher().getUserReg().getFirstName());
-        res.setTeacherName(ca.getTeacher().getUserReg().getLastName());
-        res.setSubjectName(ca.getSubject().getName());
-        res.setClassesName(ca.getClasses().getName());
-        return res;
+       return AssignmentResponse.from(assignment);
     }
 
     @Override
     public List<AssignmentResponse> getAll() {
           return repository.findAll()
                 .stream()
-                .map(this::toResponse)
+                .map(AssignmentResponse::from)
                 .toList();
     }
 
@@ -119,14 +93,7 @@ public class AssignmentService implements AssignServe{
         }
         Assignment saved = repository.save(assignDB);
 
-        AssignmentResponse assRespo = new AssignmentResponse();
-
-        assRespo.setAssignmentId(saved.getAssignmentId());
-        assRespo.setSubjectName(saved.getSubject().getName());
-        assRespo.setTeacherName(saved.getTeacher().getUserReg().getFirstName());
-        assRespo.setTeacherName(saved.getTeacher().getUserReg().getLastName());
-        assRespo.setClassesName(saved.getClasses().getName());
-        return assRespo;
+        return AssignmentResponse.from(saved);
     }
 
     @Override

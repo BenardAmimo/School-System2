@@ -31,7 +31,7 @@ public class ExamPeriodService {
         this.termRepo = termRepo;
     }
 
-    @org.springframework.transaction.annotation.Transactional(readOnly = true)
+    @Transactional(readOnly = true)
     public List<ExamPeriodResponse> list() {
         return periodRepo.findAllWithTerm().stream().map(ExamPeriodResponse::from).toList();
     }

@@ -32,7 +32,7 @@ public interface ExamRepository extends JpaRepository<Exam,Long> {
     """)
     List<Exam> findByPeriodWithDetails(Long periodId);
 
-    /*@Query("""
+    @Query("""
     select e from Exam e
     join fetch e.assignment a
     join fetch a.teacher t join fetch t.userReg
@@ -41,7 +41,7 @@ public interface ExamRepository extends JpaRepository<Exam,Long> {
     join fetch e.examPeriod p join fetch p.term
     where e.examId = :id
     """)
-    Optional<Exam> findByIdWithDetails(Long id);*/
+    Optional<Exam> findByIdWithDetails(Long id);
 
     @Query("""
         select e from Exam e join fetch e.assignment a join fetch a.classes
@@ -65,5 +65,4 @@ public interface ExamRepository extends JpaRepository<Exam,Long> {
         """)
     boolean existsClash(Long classId, LocalDate date, LocalTime start, LocalTime end, Long excludeId);
 
-    Optional<Exam> findByIdWithDetails(Long id);
 }

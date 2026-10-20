@@ -1,6 +1,7 @@
 package com.school.payments.entity;
 
 import com.school.entity.Funds;
+import com.school.entity.Student;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -42,5 +43,9 @@ public class MpesaTransactions {
             referencedColumnName = "fundsId"
     )
     private Funds funds;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_id")
+    private Student student;
 
 }

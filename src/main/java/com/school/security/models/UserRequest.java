@@ -27,10 +27,10 @@ public record UserRequest(
         @NotBlank
         String phoneNumber,
 
-        @NotBlank
+       // @NotBlank
         Gender gender,
 
-        @NonNull
+        //@NonNull
         Long age,
 
         @NotBlank

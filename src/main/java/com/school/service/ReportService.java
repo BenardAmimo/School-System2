@@ -73,7 +73,7 @@ public class ReportService {
                 Grading.round2(total), average,
                 average == null ? null : Grading.grade(average),
                 average == null ? null : position(avg, average),
-                studentRepo.countBySchoolClassClassesId(cls.getClassesId()));
+                studentRepo.countByClasses_ClassesId(cls.getClassesId()));
     }
 
     @Transactional(readOnly = true)

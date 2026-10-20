@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface FundsRepository extends JpaRepository<Funds, Long> {
-    List<Funds> findByStudents_StudentId(Long studentId);
-    boolean existsByStudents_StudentIdAndTerm_TermIdAndFundsType(Long studentId, Long termId, FundsType fundsType);
+    boolean existsByClasses_ClassesIdAndTerm_TermIdAndFundsType(Long classesId, Long termId, FundsType type);
+    List<Funds> findByClasses_ClassesId(Long classesId);
 }

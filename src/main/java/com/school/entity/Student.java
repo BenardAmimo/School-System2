@@ -48,11 +48,11 @@ public class Student {
     )
     private SchoolClasses classes;
 
-    @OneToMany(
+   /* @OneToMany(
             mappedBy = "students",
             orphanRemoval = true
     )
-    private List<Funds> funds = new ArrayList<>();
+    private List<Funds> funds = new ArrayList<>();*/
 
     @OneToMany(mappedBy = "student")
     private List<Attendance> attendance = new ArrayList<>();

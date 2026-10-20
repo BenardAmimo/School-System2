@@ -20,7 +20,7 @@ public interface ExamPeriodRepository extends JpaRepository<ExamPeriod, Long> {
         select e from Exam e
         join fetch e.assignment a
         join fetch a.teacher t join fetch t.userReg
-        join fetch a.subject join fetch a.schoolClass
+        join fetch a.subject join fetch a.classes
         join fetch e.examPeriod p join fetch p.term
         """ + " where e.examId = :id")
     Optional<Exam> findByIdWithDetails(Long id);

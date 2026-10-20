@@ -11,8 +11,8 @@ import java.util.List;
 public interface StudentRepository extends JpaRepository<Student,Long> {
     List<Student> findByClasses_ClassesId(Long classesId);
     List<Student> findByParent_ParentId(Long parentId);
-    @Query("select s from Student s join fetch s.userReg where s.schoolClass.classesId = :classId")
+    @Query("select s from Student s where s.classes.classesId = :classId")
     List<Student> findByClassWithUser(Long classId);
 
-    long countBySchoolClassClassesId(Long classId);
+    long countByClasses_ClassesId(Long classesId);
 }

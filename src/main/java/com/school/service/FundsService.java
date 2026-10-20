@@ -1,11 +1,13 @@
 package com.school.service;
 
 import com.school.entity.Funds;
+import com.school.entity.SchoolClasses;
 import com.school.entity.Student;
 import com.school.entity.Term;
 import com.school.payments.entity.MpesaTransactions;
 import com.school.payments.entity.Status;
 import com.school.repo.FundsRepository;
+import com.school.repo.SchoolClassesRepository;   // check the name of your class repository
 import com.school.repo.StudentRepository;
 import com.school.repo.TermRepository;
 import com.school.request.BulkFundsRequest;
@@ -22,106 +24,97 @@ import java.util.List;
 @Service
 public class FundsService implements FundsServe {
     private final StudentRepository studentRepo;
+    private final SchoolClassesRepository classesRepo;
     private final FundsRepository fundsRepository;
     private final TermRepository termRepository;
     private final StudentAccessPolicy accessPolicy;
 
     public FundsService(StudentRepository studentRepo,
+                        SchoolClassesRepository classesRepo,
                         FundsRepository fundsRepository,
                         TermRepository termRepository,
                         StudentAccessPolicy accessPolicy) {
         this.studentRepo = studentRepo;
+        this.classesRepo = classesRepo;
         this.fundsRepository = fundsRepository;
         this.termRepository = termRepository;
         this.accessPolicy = accessPolicy;
     }
 
+    /** Sets a fee for a whole class. */
     @Override
     @Transactional
-    public FundsResponse createFunds(FundsRequest fundsRequest) {
-        requirePositive(fundsRequest.amount());
+    public FundsResponse createFunds(FundsRequest r) {
+        Funds funds = createClassFee(r.classesId(), r.termId(), r.fundsType(), r.amount());
+        return toDto(funds, null);
+    }
 
-        Student student = studentRepo.findById(fundsRequest.studentId())
-                .orElseThrow(() -> new RuntimeException("Student is not found"));
+    /**
+     * Same as createFunds, kept so the existing "Set Fee for Class" endpoint still compiles.
+     * Returns how many students are currently in the class, for the confirmation message.
+     */
+    @Override
+    @Transactional
+    public int createFundsForAllStudents(BulkFundsRequest r) {
+        createClassFee(r.classesId(), r.termId(), r.fundsType(), r.amount());
+        return studentRepo.findByClasses_ClassesId(r.classesId()).size();
+    }
 
-        Term term = termRepository.findById(fundsRequest.termId())
-                .orElseThrow(() -> new RuntimeException("No term Found for those funds"));
+    /**
+     * Fees come from the student's class, so a child added to the class later
+     * sees every existing fee straight away. Nothing needs copying per child.
+     */
+    @Transactional(readOnly = true)
+    @Override
+    public List<FundsResponse> getStudentFunds(Long studentId, Authentication authentication) {
+        accessPolicy.assertCanView(studentId, authentication, false);
+        Student student = studentRepo.findById(studentId)
+                .orElseThrow(() -> new IllegalArgumentException("Student is not found"));
+        if (student.getClasses() == null) {
+            return List.of();
+        }
+        return fundsRepository.findByClasses_ClassesId(student.getClasses().getClassesId())
+                .stream()
+                .map(f -> toDto(f, studentId))
+                .toList();
+    }
 
-        // Same duplicate rule the bulk endpoint already applies.
-        if (fundsRepository.existsByStudents_StudentIdAndTerm_TermIdAndFundsType(
-                student.getStudentId(), term.getTermId(), fundsRequest.fundsType())) {
-            throw new IllegalStateException("This fee already exists for the student and term");
+    // ---------- helpers ----------
+
+    private Funds createClassFee(Long classesId, Long termId, com.school.entity.FundsType type, BigDecimal amount) {
+        requirePositive(amount);
+
+        SchoolClasses cls = classesRepo.findById(classesId)
+                .orElseThrow(() -> new IllegalArgumentException("Class is not found"));
+        Term term = termRepository.findById(termId)
+                .orElseThrow(() -> new IllegalArgumentException("No term found for those funds"));
+
+        if (fundsRepository.existsByClasses_ClassesIdAndTerm_TermIdAndFundsType(
+                cls.getClassesId(), term.getTermId(), type)) {
+            throw new IllegalStateException("This fee already exists for the class and term");
         }
 
         Funds funds = new Funds();
-        funds.setAmount(fundsRequest.amount());
-        funds.setStudents(student);
-        funds.setCreatedAt(LocalDateTime.now());
+        funds.setClasses(cls);
         funds.setTerm(term);
-        funds.setFundsType(fundsRequest.fundsType());
-        fundsRepository.save(funds);
-
-        return FundsResponse.builder()
-                .fundsId(funds.getFundsId())
-                .fundsType(funds.getFundsType())
-                .amountDue(funds.getAmount())
-                .createdAt(funds.getCreatedAt())
-                .termName(funds.getTerm().getName())
-                .termYear(funds.getTerm().getYear())
-                .build();
-    }
-
-    @Override
-    @Transactional
-    public int createFundsForAllStudents(BulkFundsRequest request) {
-        requirePositive(request.amount());
-
-        Term term = termRepository.findById(request.termId())
-                .orElseThrow(() -> new RuntimeException("Term not found"));
-
-        List<Student> students = studentRepo.findByClasses_ClassesId(request.classesId());
-
-        List<Funds> newFunds = students.stream()
-                .filter(student -> !fundsRepository.existsByStudents_StudentIdAndTerm_TermIdAndFundsType(
-                        student.getStudentId(), term.getTermId(), request.fundsType()))
-                .map(student -> {
-                    Funds funds = new Funds();
-                    funds.setStudents(student);
-                    funds.setTerm(term);
-                    funds.setFundsType(request.fundsType());
-                    funds.setAmount(request.amount());
-                    funds.setCreatedAt(LocalDateTime.now());
-                    return funds;
-                })
-                .toList();
-
-        fundsRepository.saveAll(newFunds);
-        return newFunds.size();
+        funds.setFundsType(type);
+        funds.setAmount(amount);
+        funds.setCreatedAt(LocalDateTime.now());
+        return fundsRepository.save(funds);
     }
 
     /**
-     * Update FundsServe and FundsController to pass the Authentication through.
-     * Without this check any logged-in parent can read any student's fees.
+     * Paid and balance are DERIVED from SUCCESS transactions made for THIS child.
+     * studentId null (just after creating a class fee) means nothing is paid yet.
      */
-    @Transactional(readOnly = true)
-    public List<FundsResponse> getStudentFunds(Long studentId, Authentication authentication) {
-        accessPolicy.assertCanView(studentId, authentication, false);
-        return fundsRepository.findByStudents_StudentId(studentId).stream()
-                .map(this::toDto)
-                .toList();
-    }
-
-    /**
-     * Paid and balance are DERIVED staffing SUCCESS transactions. There is no separate "credit" step,
-     * so a transaction becoming SUCCESS is what marks the fee paid.
-     */
-    private FundsResponse toDto(Funds funds) {
+    private FundsResponse toDto(Funds funds, Long studentId) {
         BigDecimal due = funds.getAmount() == null ? BigDecimal.ZERO : funds.getAmount();
 
-        BigDecimal amountPaid = funds.getMpesaTransactions() == null
+        BigDecimal amountPaid = (studentId == null || funds.getMpesaTransactions() == null)
                 ? BigDecimal.ZERO
                 : funds.getMpesaTransactions().stream()
                 .filter(t -> t.getStatus() == Status.SUCCESS)
+                .filter(t -> t.getStudent() != null && studentId.equals(t.getStudent().getStudentId()))
                 .map(MpesaTransactions::getAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 

@@ -189,11 +189,8 @@ public class MpesaTransactionsController {
     }
 
     private boolean ownedBy(MpesaTransactions tx, String email) {
-        // A parent can only pay for their own children, so the child's parent is the payer.
-        // Assumes Parent has `userReg` with an `email` (as ParentRepo.findByUserReg_Email suggests).
-        // Fails closed (false) if any link is missing.
-        if (tx.getFunds() == null || tx.getFunds().getStudents() == null) return false;
-        var parent = tx.getFunds().getStudents().getParent();
+        if (tx.getStudent() == null) return false;
+        var parent = tx.getStudent().getParent();
         return parent != null
                 && parent.getUserReg() != null
                 && email.equalsIgnoreCase(parent.getUserReg().getEmail());

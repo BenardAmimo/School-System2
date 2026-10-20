@@ -28,6 +28,10 @@ public class SchoolClasses {
     private String name;
     private String year;
 
+    @OneToMany(
+            mappedBy = "classes"
+    )
+    private List<Funds> funds = new ArrayList<>();
     // The homeroom / class teacher responsible for this class overall.
    // @ManyToOne(fetch = FetchType.LAZY)
    // @JoinColumn(name = "class_teacher_id")

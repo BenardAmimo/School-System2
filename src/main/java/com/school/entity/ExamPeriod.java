@@ -13,7 +13,8 @@ import java.util.List;
 @Setter
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"term_id", "exam_type"}))
 public class ExamPeriod {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long examPeriodId;
 
     @Version private Long version;
