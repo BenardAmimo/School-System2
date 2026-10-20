@@ -8,7 +8,6 @@ import com.school.service.ExamPeriodService;
 import com.school.service.ExamTimetableService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,19 +22,20 @@ public class ExamPeriodController {
     @GetMapping
     public List<ExamPeriodResponse> list() { return service.list(); }
 
-    @PostMapping @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping
+   // @PreAuthorize("hasRole('ADMIN',SUPER_ADMIN')")
     public ExamPeriodResponse create(@Valid @RequestBody ExamPeriodRequest r) { return service.create(r); }
 
-    @PutMapping("/{id}") @PreAuthorize("hasRole('ADMIN')")
-    public ExamPeriodResponse update(@PathVariable Long id, @Valid @RequestBody ExamPeriodRequest r) {
-        return service.update(id, r);
+    @PutMapping("/{examPeriodId}") //@PreAuthorize("hasRole('ADMIN','SUPER_ADMIN')")
+    public ExamPeriodResponse update(@PathVariable Long examPeriodId, @Valid @RequestBody ExamPeriodRequest r) {
+        return service.update(examPeriodId, r);
     }
 
-    @DeleteMapping("/{id}") @PreAuthorize("hasRole('ADMIN')")
-    public void delete(@PathVariable Long id) { service.delete(id); }
+    @DeleteMapping("/{examPeriodId}") //@PreAuthorize("hasRole('ADMIN','SUPER_ADMIN')")
+    public void delete(@PathVariable Long examPeriodId) { service.delete(examPeriodId); }
 
-    @PostMapping("/{id}/generate") @PreAuthorize("hasRole('ADMIN')")
-    public GenerateResult generate(@PathVariable Long id, @RequestBody(required = false) GenerateRequest r) {
-        return generator.generate(id, r == null ? new GenerateRequest(null, null, null, null) : r);
+    @PostMapping("/{examPeriodId}/generate") //@PreAuthorize("hasRole('ADMIN','SUPER_ADMIN')")
+    public GenerateResult generate(@PathVariable Long examPeriodId, @RequestBody(required = false) GenerateRequest r) {
+        return generator.generate(examPeriodId, r == null ? new GenerateRequest(null, null, null, null) : r);
     }
 }

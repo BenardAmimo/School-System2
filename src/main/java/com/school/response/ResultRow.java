@@ -3,9 +3,6 @@ package com.school.response;
 import com.school.entity.ExamResult;
 import com.school.entity.ResultStatus;
 import com.school.entity.Student;
-import com.school.service.Grading;
-
-import java.util.List;
 
 public record ResultRow(
         Long resultId, Long version, Long studentId, String studentName,

@@ -1,4 +1,4 @@
-package com.school.service;
+package com.school.response;
 
 public final class Grading {
     private Grading() {}

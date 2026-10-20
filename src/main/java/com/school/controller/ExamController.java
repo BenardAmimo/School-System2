@@ -5,7 +5,6 @@ import com.school.request.ReviewRequest;
 import com.school.response.ExamResponse;
 import com.school.service.ExamService;
 import jakarta.validation.Valid;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,22 +23,22 @@ public class ExamController {
     @GetMapping
     public List<ExamResponse> list(@RequestParam(required = false) Long periodId) { return service.list(periodId); }
 
-    @PostMapping @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping //@PreAuthorize("hasRole('ADMIN','SUPER_ADMIN')")
     public ExamResponse create(@Valid @RequestBody ExamRequest r) { return service.create(r); }
 
-    @PutMapping("/{id}") @PreAuthorize("hasRole('ADMIN')")
-    public ExamResponse update(@PathVariable Long id, @Valid @RequestBody ExamRequest r) { return service.update(id, r); }
+    @PutMapping("/{examId}") //@PreAuthorize("hasRole('ADMIN','SUPER_ADMIN')")
+    public ExamResponse update(@PathVariable Long examId, @Valid @RequestBody ExamRequest r) { return service.update(examId, r); }
 
-    @DeleteMapping("/{id}") @PreAuthorize("hasRole('ADMIN')")
-    public void delete(@PathVariable Long id) { service.delete(id); }
+    @DeleteMapping("/{examId}")// @PreAuthorize("hasRole('ADMIN','SUPER_ADMIN')")
+    public void delete(@PathVariable Long examId) { service.delete(examId); }
 
-    @PostMapping("/{id}/submit") @PreAuthorize("hasAnyRole('ADMIN','TEACHER')")
-    public ExamResponse submit(@PathVariable Long id, @RequestParam Long version, Authentication auth) throws AccessDeniedException {
-        return service.submit(id, version, auth);
+    @PostMapping("/{examId}/submit") //@PreAuthorize("hasAnyRole('ADMIN','TEACHER','SUPER_ADMIN')")
+    public ExamResponse submit(@PathVariable Long examId, @RequestParam Long version, Authentication auth) throws AccessDeniedException {
+        return service.submit(examId, version, auth);
     }
 
-    @PostMapping("/{id}/review") @PreAuthorize("hasRole('ADMIN')")
-    public ExamResponse review(@PathVariable Long id, @Valid @RequestBody ReviewRequest r) {
-        return service.review(id, r);
+    @PostMapping("/{examId}/review") //@PreAuthorize("hasRole('ADMIN','SUPER_ADMIN')")
+    public ExamResponse review(@PathVariable Long examId, @Valid @RequestBody ReviewRequest r) {
+        return service.review(examId, r);
     }
 }
