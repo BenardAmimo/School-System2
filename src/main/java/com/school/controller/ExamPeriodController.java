@@ -23,18 +23,17 @@ public class ExamPeriodController {
     public List<ExamPeriodResponse> list() { return service.list(); }
 
     @PostMapping
-   // @PreAuthorize("hasRole('ADMIN',SUPER_ADMIN')")
     public ExamPeriodResponse create(@Valid @RequestBody ExamPeriodRequest r) { return service.create(r); }
 
-    @PutMapping("/{examPeriodId}") //@PreAuthorize("hasRole('ADMIN','SUPER_ADMIN')")
+    @PutMapping("/{examPeriodId}")
     public ExamPeriodResponse update(@PathVariable Long examPeriodId, @Valid @RequestBody ExamPeriodRequest r) {
         return service.update(examPeriodId, r);
     }
 
-    @DeleteMapping("/{examPeriodId}") //@PreAuthorize("hasRole('ADMIN','SUPER_ADMIN')")
+    @DeleteMapping("/{examPeriodId}")
     public void delete(@PathVariable Long examPeriodId) { service.delete(examPeriodId); }
 
-    @PostMapping("/{examPeriodId}/generate") //@PreAuthorize("hasRole('ADMIN','SUPER_ADMIN')")
+    @PostMapping("/{examPeriodId}/generate")
     public GenerateResult generate(@PathVariable Long examPeriodId, @RequestBody(required = false) GenerateRequest r) {
         return generator.generate(examPeriodId, r == null ? new GenerateRequest(null, null, null, null) : r);
     }

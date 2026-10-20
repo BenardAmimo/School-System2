@@ -23,21 +23,21 @@ public class ExamController {
     @GetMapping
     public List<ExamResponse> list(@RequestParam(required = false) Long periodId) { return service.list(periodId); }
 
-    @PostMapping //@PreAuthorize("hasRole('ADMIN','SUPER_ADMIN')")
+    @PostMapping
     public ExamResponse create(@Valid @RequestBody ExamRequest r) { return service.create(r); }
 
-    @PutMapping("/{examId}") //@PreAuthorize("hasRole('ADMIN','SUPER_ADMIN')")
+    @PutMapping("/{examId}")
     public ExamResponse update(@PathVariable Long examId, @Valid @RequestBody ExamRequest r) { return service.update(examId, r); }
 
-    @DeleteMapping("/{examId}")// @PreAuthorize("hasRole('ADMIN','SUPER_ADMIN')")
+    @DeleteMapping("/{examId}")
     public void delete(@PathVariable Long examId) { service.delete(examId); }
 
-    @PostMapping("/{examId}/submit") //@PreAuthorize("hasAnyRole('ADMIN','TEACHER','SUPER_ADMIN')")
+    @PostMapping("/{examId}/submit")
     public ExamResponse submit(@PathVariable Long examId, @RequestParam Long version, Authentication auth) throws AccessDeniedException {
         return service.submit(examId, version, auth);
     }
 
-    @PostMapping("/{examId}/review") //@PreAuthorize("hasRole('ADMIN','SUPER_ADMIN')")
+    @PostMapping("/{examId}/review")
     public ExamResponse review(@PathVariable Long examId, @Valid @RequestBody ReviewRequest r) {
         return service.review(examId, r);
     }

@@ -196,6 +196,7 @@ public class MpesaTransactionService implements MpesaTransServe {
         t.setAccountReference(truncate(req.accountRef(), 12, "SCHOOLFEES"));
         t.setStatus(Status.PENDING);
         t.setCreatedAt(LocalDateTime.now());
+        t.setStudent(student);
         t.setPhoneNumber(phone);
         return transactionsRepository.save(t);
     }

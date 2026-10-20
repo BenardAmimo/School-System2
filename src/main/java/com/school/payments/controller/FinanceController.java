@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin(origins = "*")
-@RequestMapping("/api/finance")
 public class FinanceController {
     private final FinanceService financeService;
 
@@ -18,7 +16,7 @@ public class FinanceController {
         this.financeService = financeService;
     }
 
-    @GetMapping("/summary")
+    @GetMapping("/api/finance/summary")
     public ResponseEntity<FinanceSummaryResponse> getSummary() {
         return ResponseEntity.ok(financeService.getSummary());
     }

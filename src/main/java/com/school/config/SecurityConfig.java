@@ -67,6 +67,12 @@ public class SecurityConfig {
                                 "/reports/**"
                         ).hasAnyRole("SUPER_ADMIN", "ADMIN", "STAFF", "TEACHER", "PARENT")
 
+                        //finance
+                        .requestMatchers(
+                                "/api/finance/summary"
+
+                        ).hasAnyRole("SUPER_ADMIN","ADMIN")
+
                         // academic and timetable access
                         .requestMatchers(
                                 "/attendance/**",
