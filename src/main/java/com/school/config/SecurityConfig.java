@@ -2,6 +2,7 @@ package com.school.config;
 
 import com.school.security.service.JwtAuthFilter;
 import com.school.security.service.UserService;
+import io.netty.handler.codec.http.HttpMethod;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -45,7 +46,8 @@ public class SecurityConfig {
                                 "/login",
                                 "/invite-valid",
                                 "/complete-registration",
-                                "/stk/callback/**"
+                                "/stk/callback/**",
+                                "/b2c/result/**", "/b2c/timeout/**"
                         ).permitAll()
 
                         // admin-only

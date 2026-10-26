@@ -126,6 +126,7 @@ public class UserService implements UserServiceInterface, UserDetailsService {
             parent.setGender(request.gender());
             parent.setUserReg(saved);
             parentRepo.save(parent);
+
         } else if (request.role() == Role.STAFF) {
             SupportStaff staff = new SupportStaff();
 
@@ -201,6 +202,7 @@ public class UserService implements UserServiceInterface, UserDetailsService {
         if (inviteTokenRepo.claim(hash, LocalDateTime.now()) != 1) {
             throw new IllegalArgumentException(INVALID_INVITE);
         }
+
         InviteCode invite = inviteTokenRepo.findByCode(hash)
                 .orElseThrow(() -> new IllegalArgumentException(INVALID_INVITE));
 
@@ -214,6 +216,8 @@ public class UserService implements UserServiceInterface, UserDetailsService {
         user.setPassword(passwordEncoder.encode(password));
         user.setEnabled(true);
         userRepo.save(user);
+
+       // inviteTokenRepo.delete(invite);
 
         RegistrationResponse response = new RegistrationResponse();
         response.setSuccessMessage("Account activated! You can now log in.");

@@ -27,7 +27,7 @@ public class SubjectController {
 
         SubjectResponse fun = subjectService.createSubject(subjectRequest);
 
-        log.info("Subject saved with id{}",fun.getSubjectId());
+        log.info("Subject saved with id{}",fun.subjectId());
 
         return ResponseEntity.status(201).body(fun);
     }
@@ -52,7 +52,7 @@ public class SubjectController {
 
         SubjectResponse gett = subjectService.getByIdSubjectId(SubjectId);
 
-        log.info("subject found with id {} ",gett.getSubjectId());
+        log.info("subject found with id {} ",gett.subjectId());
         return ResponseEntity.ok(gett);
     }
 
@@ -66,7 +66,7 @@ public class SubjectController {
 
         SubjectResponse updating = subjectService.updateSubject(subjectId,subjectRequest);
 
-        log.info("Subject updated with id {} ",updating.getSubjectId());
+        log.info("Subject updated with id {} ",updating.subjectId());
         return ResponseEntity.status(202).body(updating);
 
     }
@@ -78,7 +78,7 @@ public class SubjectController {
 
         SubjectResponse fun = subjectService.getBySubjectName(name);
 
-        log.info("Subject Found with id {} ",fun.getSubjectId());
+        log.info("Subject Found with id {} ",fun.subjectId());
         return ResponseEntity.ok(fun);
     }
 

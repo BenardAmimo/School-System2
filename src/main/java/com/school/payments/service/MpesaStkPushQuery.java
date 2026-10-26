@@ -1,6 +1,6 @@
 package com.school.payments.service;
 
-import com.school.error.MpesaException;
+import com.school.error.MpesaQueryException;
 import com.school.payments.MpesaConfig;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatusCode;
@@ -17,11 +17,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class MpesaStkPushQuery {
     private static final ZoneId NAIROBI = ZoneId.of("Africa/Nairobi");
     private static final DateTimeFormatter DARAJA_TS = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+    private static final Pattern ERROR_CODE = Pattern.compile("\"errorCode\"\\s*:\\s*\"([^\"]+)\"");
 
     private final MpesaConfig config;
     private final MpesaAuthService authService;
@@ -34,9 +37,9 @@ public class MpesaStkPushQuery {
     }
 
     /**
-     * Asks Safaricom what happened to a push. Throws MpesaException when Daraja answers with an HTTP error;
-     * Daraja does this while a payment is still being processed, so callers must treat an exception as
-     * "no answer yet", never as "failed".
+     * Asks Safaricom what happened to a push. Throws MpesaQueryException when Daraja answers with an
+     * HTTP error; Daraja does this while a payment is still being processed (and when it has no record),
+     * so callers must treat the exception as "no answer yet", never as "failed".
      */
     public Map<String, Object> queryStatus(String checkoutRequestId) {
         String token = authService.generateAccessToken();
@@ -59,8 +62,15 @@ public class MpesaStkPushQuery {
                 .retrieve()
                 .onStatus(HttpStatusCode::isError, res ->
                         res.bodyToMono(String.class)
-                                .flatMap(err -> Mono.error(new MpesaException("Query failed: " + err))))
+                                .defaultIfEmpty("")
+                                .flatMap(err -> Mono.error(
+                                        new MpesaQueryException(extractErrorCode(err), "Query failed: " + err))))
                 .bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {})
                 .block(Duration.ofSeconds(10));
+    }
+
+    private static String extractErrorCode(String body) {
+        Matcher m = ERROR_CODE.matcher(body == null ? "" : body);
+        return m.find() ? m.group(1) : null;
     }
 }

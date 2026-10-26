@@ -1,8 +1,6 @@
 package com.school.service;
 
-import com.school.entity.SchoolClasses;
 import com.school.entity.Subject;
-import com.school.repo.SchoolClassesRepository;
 import com.school.repo.SubjectRepository;
 import com.school.request.SubjectRequest;
 import com.school.response.SubjectResponse;
@@ -27,30 +25,21 @@ public class SubjectService implements SubjectServe {
         subject.setDescription(subjectRequest.description());
 
         Subject saved = subjectRepository.save(subject);
-        return mapToDto(saved);
+        return SubjectResponse.from(saved);
     }
 
     @Override
     public List<SubjectResponse> fetchAllSubjects() {
         return subjectRepository.findAll()
                 .stream()
-                .map(this::mapToDto)
+                .map(SubjectResponse::from)
                 .toList();
-    }
-
-    private SubjectResponse mapToDto(Subject subject) {
-        SubjectResponse res = new SubjectResponse();
-        res.setSubjectId(subject.getSubjectId());
-        res.setName(subject.getName());
-        res.setDescription(subject.getDescription());
-        res.setAssignmentCount(subject.getAssignment() != null ? subject.getAssignment().size() : 0);
-        return res;
     }
 
     @Override
     public SubjectResponse getBySubjectName(String name) {
         Subject subject = subjectRepository.findByNameIgnoreCase(name);
-        return mapToDto(subject);
+        return SubjectResponse.from(subject);
     }
 
     @Override
@@ -69,7 +58,7 @@ public class SubjectService implements SubjectServe {
     public SubjectResponse getByIdSubjectId(Long subjectId) {
         Subject subject = subjectRepository.findById(subjectId)
                 .orElseThrow(() -> new RuntimeException("Subject Not found"));
-        return mapToDto(subject);
+        return SubjectResponse.from(subject);
     }
 
     @Override
@@ -87,6 +76,6 @@ public class SubjectService implements SubjectServe {
 
 
         Subject saved = subjectRepository.save(subjectDB);
-        return mapToDto(saved);
+        return SubjectResponse.from(saved);
     }
 }

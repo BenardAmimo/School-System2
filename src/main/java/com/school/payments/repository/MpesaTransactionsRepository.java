@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import org.springframework.data.domain.Pageable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,4 +21,7 @@ public interface MpesaTransactionsRepository extends JpaRepository<MpesaTransact
     @Query("SELECT COALESCE(SUM(t.amount), 0) FROM MpesaTransactions t WHERE t.status = :status")
     BigDecimal sumAmountByStatus(Status status);
     List<MpesaTransactions> findTop10ByOrderByCreatedAtDesc();
+
+    @Query("select t from MpesaTransactions t left join fetch t.student order by t.createdAt desc")
+    List<MpesaTransactions> findRecentWithStudent(Pageable pageable);
 }

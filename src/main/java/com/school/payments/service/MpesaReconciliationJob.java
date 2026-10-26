@@ -1,5 +1,6 @@
 package com.school.payments.service;
 
+import com.school.error.MpesaQueryException;
 import com.school.payments.entity.MpesaTransactions;
 import com.school.payments.entity.Status;
 import com.school.payments.repository.IdempotencyKeyRepo;
@@ -21,11 +22,13 @@ import java.util.Set;
  * Resolves PENDING payments whose callback never arrived.
  *
  * Rules that matter for money:
- *  - Only a definite answer staffing Safaricom changes a payment's status.
+ *  - Only a definite answer from Safaricom changes a payment's status.
  *  - A missing/unknown answer (error body, rate limit, network failure) leaves it PENDING.
- *  - After a long time with no answer it becomes NEEDS_REVIEW (add that value to the Status enum),
- *    never FAILED, because the customer may have paid.
+ *  - After a long time with no answer it becomes NEEDS_REVIEW, never FAILED,
+ *    because the customer may have paid.
  *  - No database transaction is held while talking to Safaricom or sleeping.
+ *  - A payment that gets no answer goes to the back of the queue, so a few
+ *    unanswerable rows can never starve newer payments.
  */
 @Slf4j
 @Component
@@ -68,7 +71,8 @@ public class MpesaReconciliationJob {
         List<MpesaTransactions> pending = transactionRepository
                 .findByStatusAndCreatedAtBefore(Status.PENDING, now.minus(QUERY_AFTER))
                 .stream()
-                .sorted(Comparator.comparing(MpesaTransactions::getCreatedAt)) // oldest first: no starvation
+                // Longest-since-last-check first: fair rotation, no starvation.
+                .sorted(Comparator.comparing(this::lastChecked))
                 .toList();
 
         int queried = 0;
@@ -113,6 +117,10 @@ public class MpesaReconciliationJob {
             } else {
                 log.warn("Unhandled ResultCode {} for {}; leaving PENDING", code, checkoutId);
             }
+        } catch (MpesaQueryException ex) {
+            // Daraja answers HTTP errors while a payment is still processing, or when it has no record.
+            // Expected, so no stack trace.
+            log.info("No answer yet for {} (Daraja code {}); leaving PENDING", checkoutId, ex.getErrorCode());
         } catch (Exception ex) {
             log.error("Reconciliation query failed for {}; leaving PENDING", checkoutId, ex);
         }
@@ -120,7 +128,9 @@ public class MpesaReconciliationJob {
         if (decided != null) {
             resolve(t.getId(), decided, description);
         } else if (isOlderThan(t, now, GIVE_UP_AFTER)) {
-            resolve(t.getId(), Status.NEEDS_REVIEW, "No definite answer staffing Safaricom after 24h");
+            resolve(t.getId(), Status.NEEDS_REVIEW, "No definite answer from Safaricom after 24h");
+        } else {
+            touch(t.getId()); // back of the queue
         }
     }
 
@@ -143,6 +153,21 @@ public class MpesaReconciliationJob {
             }
             log.info("Reconciled {} -> {}", t.getCheckoutRequestId(), newStatus);
         });
+    }
+
+    /** Records "checked just now" without changing the status, so this row waits its turn. */
+    private void touch(Long id) {
+        txTemplate.executeWithoutResult(status ->
+                transactionRepository.findById(id)
+                        .filter(t -> t.getStatus() == Status.PENDING)
+                        .ifPresent(t -> {
+                            t.setUpdatedAt(LocalDateTime.now());
+                            transactionRepository.save(t);
+                        }));
+    }
+
+    private LocalDateTime lastChecked(MpesaTransactions t) {
+        return t.getUpdatedAt() != null ? t.getUpdatedAt() : t.getCreatedAt();
     }
 
     private boolean hasCheckoutId(MpesaTransactions t) {

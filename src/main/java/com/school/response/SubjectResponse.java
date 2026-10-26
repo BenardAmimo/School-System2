@@ -1,17 +1,21 @@
 package com.school.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.school.entity.Subject;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class SubjectResponse {
-    private Long subjectId;
-    private String name;
-    private String description;
-    //private String classesName;
-    private int assignmentCount;
+public record SubjectResponse (
+        Long subjectId,
+        String name,
+        String description,
+        //private String classesName;
+        int assignmentCount
+){
+   public static SubjectResponse from(Subject subject){
+       return new SubjectResponse(
+               subject.getSubjectId(),
+               subject.getName(),
+               subject.getDescription(),
+               subject.getAssignment() != null ? subject.getAssignment().size() : 0
+       );
+   }
 
 }

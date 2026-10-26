@@ -1,6 +1,5 @@
 package com.school.controller;
 
-import com.school.entity.Lesson;
 import com.school.request.CreateAdHocLessonRequest;
 import com.school.response.LessonResponse;
 import com.school.service.LessonService;

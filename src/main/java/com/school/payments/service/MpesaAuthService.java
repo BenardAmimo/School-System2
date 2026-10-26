@@ -31,7 +31,7 @@ public class MpesaAuthService {
     private volatile Instant expiryTime = Instant.EPOCH;
 
     /** synchronized: concurrent callers wait for one token request instead of each making their own. */
-    synchronized String generateAccessToken() {
+    public synchronized String generateAccessToken() {
         if (cachedToken != null && Instant.now().isBefore(expiryTime)) {
             return cachedToken;
         }
