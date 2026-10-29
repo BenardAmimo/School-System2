@@ -51,7 +51,7 @@ public class ParentController {
 
     @GetMapping("/parent/name/{name}")
     public ResponseEntity<ParentResponse>getParentByName(@PathVariable("name")String name){
-        log.info("Get Request for parent: {} ",name);
+        log.info("Get AdvanceRequest for parent: {} ",name);
         ParentResponse parentResponse = parentService.getParentByName(name);
         log.info("Parent with id {} found",parentResponse.parentId());
         return ResponseEntity.ok(parentResponse);
@@ -60,7 +60,7 @@ public class ParentController {
 
     @DeleteMapping("/parent/id/{parentId}")
     public ResponseEntity<String> deleteParent(@PathVariable("parentId") Long parentId){
-        log.info("Delete Request for parent id {} ",parentId);
+        log.info("Delete AdvanceRequest for parent id {} ",parentId);
             parentService.deleteParent(parentId);
 
         return ResponseEntity.ok("Deleted");

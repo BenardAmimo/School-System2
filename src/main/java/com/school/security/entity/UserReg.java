@@ -1,7 +1,6 @@
 package com.school.security.entity;
 
 import com.school.entity.*;
-import io.netty.util.NetUtil;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -59,12 +58,14 @@ public class UserReg implements UserDetails {
             mappedBy = "userReg"
     )
     private Parent parent;
+
     @OneToOne(
             mappedBy = "userReg"
     )
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Teacher teacher;
+
     @OneToOne(
             mappedBy = "userReg"
     )

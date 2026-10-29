@@ -296,7 +296,7 @@ public class MpesaTransactionService implements MpesaTransServe {
         return response;
     }
 
-    /* ---------------- idempotent replay ---------------- */
+    /* --------------- idempotent replay ---------------- */
 
     private Optional<MpesaTransactionsResponse> replay(String key) {
         return idempotencyKeyRepo.findById(key).map(rec -> {
@@ -306,7 +306,7 @@ public class MpesaTransactionService implements MpesaTransServe {
             }
             MpesaTransactions t = transactionsRepository.findByCheckoutRequestId(rec.getCheckoutRequestId())
                     .orElseThrow(() -> new MpesaException("Mpesa transaction not found for idempotency key"));
-            return toDto(t, "Duplicate Request");
+            return toDto(t, "Duplicate AdvanceRequest");
         });
     }
 

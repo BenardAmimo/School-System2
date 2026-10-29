@@ -12,7 +12,7 @@ public class CorsCofig{
 @Bean
 public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration config = new CorsConfiguration();
-    config.setAllowedOrigins(List.of("http://localhost:3000","http://192.168.100.29:3000")); // frontend origin
+    config.setAllowedOrigins(List.of("http://localhost:3000","http://192.168.100.192:3000")); // frontend origin
     config.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
     config.setAllowedHeaders(List.of("*"));
     config.setAllowCredentials(true);
